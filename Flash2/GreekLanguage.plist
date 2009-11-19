@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Ελληνικά</string>
+	<key>identifier</key>
+	<string>com.smallcultfollowing.Ελληνικά</string>
+	<key>grammarRules</key>
+	<array>
+		<dict>
+			<key>0 Construct</key>
+			<string>Ρήμα</string>
+			<key>1 Kind</key>
+			<array>
+				<string>ω</string>
+				<string>άω</string>
+				<string>ώ</string>
+			</array>
+			<key>2 Voice</key>
+			<array>
+				<string>Ενεργερτική Φωνή</string>
+				<string>Παθηκτική Φωνή</string>
+			</array>
+			<key>3 Tense</key>
+			<array>
+				<string>Ενεστώτας</string>
+				<string>Συνεχώς Μέλλοντας</string>
+				<string>Συνεχώς Υποτακτική</string>
+				<string>Παρατατικός</string>
+				<string>Δυνητική</string>
+				<string>Συνεχώς Προστακτική</string>
+				<string>Μετοχή</string>
+				<string>Αόριστος</string>
+				<string>Μέλλοντας</string>
+				<string>Υποτακτική</string>
+				<string>Προστακτκή</string>
+				<string>Παρακείμενος</string>
+				<string>Υπερσεντέλικος</string>
+				<string>Συντ. Μέλλοντας</string>
+			</array>
+		</dict>
+		<dict>
+			<key>0 Construct</key>
+			<string>Ουσιαστικό</string>
+			<key>1 Gender, ending</key>
+			<array>
+				<string>ο-ος-</string>
+				<string>η-η-</string>
+				<string>το-ο-</string>
+			</array>
+			<key>2 Amount</key>
+			<array>
+				<string>Ενικό</string>
+				<string>Πλυνθυτικό</string>
+			</array>
+			<key>3 Case</key>
+			<array>
+				<string>Ονομαστική</string>
+				<string>Αιτιατική</string>
+				<string>Γενική</string>
+			</array>
+		</dict>
+	</array>
+	<key>quizConfigurationKeys</key>
+	<array/>
+	<key>relations</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>Equivalent</string>
+			<key>crossLanguage</key>
+			<true/>
+		</dict>
+	</array>
+	<key>keyboardIdentifier</key>
+	<string>com.apple.keylayout.Greek</string>
+</dict>
+</plist>

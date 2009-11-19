@@ -1,0 +1,3 @@
+[submodule "Oaxaca3"]
+	path = Oaxaca3
+	url = git://github.com/nikomatsakiseth/Oaxaca3.git

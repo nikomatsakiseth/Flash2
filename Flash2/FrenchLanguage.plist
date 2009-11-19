@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Français</string>
+	<key>identifier</key>
+	<string>com.smallcultfollowing.Français</string>
+	<key>grammarRules</key>
+	<array>
+		<dict>
+			<key>0 Construct</key>
+			<string>Verbs</string>
+			<key>1 Kind</key>
+			<array>
+				<string>er</string>
+				<string>ir</string>
+				<string>re</string>
+			</array>
+			<key>2 Tense</key>
+			<array>
+				<string>Present</string>
+				<string>Passé composée</string>
+				<string>Imparfait</string>
+			</array>
+		</dict>
+	</array>
+	<key>quizConfigurationKeys</key>
+	<array/>
+	<key>relations</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>Equivalent</string>
+			<key>crossLanguage</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Past Participle</string>
+			<key>crossLanguage</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Helper Verb</string>
+			<key>crossLanguage</key>
+			<false/>
+		</dict>
+	</array>
+</dict>
+</plist>
