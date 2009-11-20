@@ -11,26 +11,9 @@
 @class FlashTextField, Language;
 
 @interface CardSetController : NSWindowController {
-	Language *language;
-	NSBox *wordPropBox;
-	NSArrayController *cards;
-	NSPredicate *cardsPredicate;
-	NSString *wordSearchString;
-	FlashTextField *searchStringTextField;
+	NSTabView *tabView;
+	NSMutableArray *languageTabControllers;
 }
-
-@property(retain) IBOutlet NSBox *wordPropBox;
-@property(retain) IBOutlet NSArrayController *cards;
-@property(retain) IBOutlet FlashTextField *searchStringTextField;
-
-@property(retain) NSPredicate *cardsPredicate;       // bound in GUI
-@property(copy) NSString *wordSearchString;
-@property(retain) Language *language;
-@property(readonly) NSArray *languages;
-
-- (IBAction)addWord:(id)sender;
-- (IBAction)deleteWord:(id)sender;
-- (IBAction)seeHistory:(id)sender;
-- (IBAction)startQuiz:(id)sender;
+@property(retain) IBOutlet NSTabView *tabView;
 
 @end

@@ -38,6 +38,8 @@
 		23A2D2A010B69C850024C95A /* GrammarRuleHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D29910B69C850024C95A /* GrammarRuleHistory.m */; };
 		23A2D2A110B69C850024C95A /* Property.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D29B10B69C850024C95A /* Property.m */; };
 		23A2D2B610B6A55A0024C95A /* CardSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D2B510B6A55A0024C95A /* CardSetController.m */; };
+		23A2D41910B6C10B0024C95A /* LanguageTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D41810B6C10B0024C95A /* LanguageTabController.m */; };
+		23A2D41E10B6C1600024C95A /* LanguageTab.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23A2D41D10B6C1600024C95A /* LanguageTab.xib */; };
 		23A536ED0EA9E1B10008153E /* GreekLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A536E90EA9E1B10008153E /* GreekLanguage.m */; };
 		23A536EE0EA9E1B10008153E /* GreekLanguage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23A536EA0EA9E1B10008153E /* GreekLanguage.plist */; };
 		23A536EF0EA9E1B10008153E /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A536EC0EA9E1B10008153E /* Language.m */; };
@@ -125,6 +127,9 @@
 		23A2D29B10B69C850024C95A /* Property.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Property.m; sourceTree = "<group>"; };
 		23A2D2B410B6A55A0024C95A /* CardSetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardSetController.h; sourceTree = "<group>"; };
 		23A2D2B510B6A55A0024C95A /* CardSetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardSetController.m; sourceTree = "<group>"; };
+		23A2D41710B6C10B0024C95A /* LanguageTabController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageTabController.h; sourceTree = "<group>"; };
+		23A2D41810B6C10B0024C95A /* LanguageTabController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageTabController.m; sourceTree = "<group>"; };
+		23A2D41D10B6C1600024C95A /* LanguageTab.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LanguageTab.xib; sourceTree = "<group>"; };
 		23A536E80EA9E1B10008153E /* GreekLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreekLanguage.h; sourceTree = "<group>"; };
 		23A536E90EA9E1B10008153E /* GreekLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GreekLanguage.m; sourceTree = "<group>"; };
 		23A536EA0EA9E1B10008153E /* GreekLanguage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GreekLanguage.plist; sourceTree = "<group>"; };
@@ -327,6 +332,8 @@
 			children = (
 				23A2D2B410B6A55A0024C95A /* CardSetController.h */,
 				23A2D2B510B6A55A0024C95A /* CardSetController.m */,
+				23A2D41710B6C10B0024C95A /* LanguageTabController.h */,
+				23A2D41810B6C10B0024C95A /* LanguageTabController.m */,
 				2A37F4AEFDCFA73011CA2CEA /* CardSet.h */,
 				2A37F4ACFDCFA73011CA2CEA /* CardSet.m */,
 				2393D7F00EF5746E00DDCF75 /* CardUIBuilder.h */,
@@ -364,6 +371,7 @@
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				23A538F60EAB7F240008153E /* GreekLanguage.xib */,
 				23E77ED00EBE01F000C2546E /* Quiz.xib */,
+				23A2D41D10B6C1600024C95A /* LanguageTab.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -452,6 +460,7 @@
 				23E77ED10EBE01F000C2546E /* Quiz.xib in Resources */,
 				2393D6F50EF55EC000DDCF75 /* FrenchLanguage.plist in Resources */,
 				2338E1E00F17595A00BEB645 /* Camera.icns in Resources */,
+				23A2D41E10B6C1600024C95A /* LanguageTab.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,6 +510,7 @@
 				23A2D2A010B69C850024C95A /* GrammarRuleHistory.m in Sources */,
 				23A2D2A110B69C850024C95A /* Property.m in Sources */,
 				23A2D2B610B6A55A0024C95A /* CardSetController.m in Sources */,
+				23A2D41910B6C10B0024C95A /* LanguageTabController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
