@@ -7,18 +7,20 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "Word.h"
+#import "Card.h"
 #import "Language.h"
+
+@class QuizCard;
 
 // Most languages generally provide some kind of Equivalent relation.
 #define REL_EQUIVALENT @"Equivalent"
 
 @interface WordCategory : NSObject {
-	Word *m_word;
+	Card *m_word;
 	id m_lang;
 } 
 
-- initWithWord:(Word*)word language:(id)lang;
+- initWithCard:(Card*)word language:(id)lang;
 
 @end
 
@@ -28,7 +30,7 @@
 // Abstract method: Attempts to conjugate Word into the given person/plural
 // combination.  Returns nil if it cannnot be done (perhaps the word is not
 // a recognized kind of verb, for example).
-- (NSArray*) conjugate:(Word*)word person:(int)person plural:(BOOL)plural;
+- (NSArray*) conjugate:(Card*)card person:(int)person plural:(BOOL)plural;
 
 // Array of all verb tenses supported by this language.
 - (NSArray*) tenseNames;
@@ -43,9 +45,10 @@
 
 @end
 
+#if 0
 @interface EquivalentQuizQuestionFactory : QuizQuestionFactory {
 }
-- (QuizQuestion*) makeQuestionForWord:(Word*)word deck:(Deck*)deck promptingLeft:(BOOL)promptingLeft;
+- (QuizQuestion*) makeQuestionForWord:(Card*)word deck:(Deck*)deck promptingLeft:(BOOL)promptingLeft;
 @end
 
 // Base code for a QQF that attempts to conjugate verbs.
@@ -79,6 +82,7 @@
 // If relation is one of the tenses to test (see constructor), then
 // generates a quiz question requesting the conjugations in each tense
 // that we test.  Assumes that the language supports conjugate:person:plural:
-- (QuizQuestion*) makeQuestionForRelationNamed:(NSString*)relationName ofWord:(Word*)word deck:(Deck*)deck;
+- (QuizQuestion*) makeQuestionForRelationNamed:(NSString*)relationName ofWord:(Card*)word deck:(Deck*)deck;
 
 @end
+#endif

@@ -13,9 +13,9 @@
 
 @implementation Property 
 
-@dynamic value;
-@dynamic key;
 @dynamic card;
+@dynamic relationName;
+@dynamic text;
 @dynamic propertyHistories;
 
 @end

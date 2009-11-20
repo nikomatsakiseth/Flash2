@@ -8,15 +8,13 @@
 
 #import "Ox.h"
 #import "BaseLanguage.h"
-#import "Deck.h"
-#import "QuizCard.h"
-#import "QuizQuestion.h"
 #import "OxNSArray.h"
 #import "OxDebug.h"
+#import "Model.h"
 
 @implementation WordCategory 
 
-- initWithWord:(Word*)word language:(id)lang {
+- initWithCard:(Card*)word language:(id)lang {
 	if ((self = [super init])) {
 		m_word = word;
 		m_lang = lang;
@@ -28,7 +26,7 @@
 
 @implementation BaseLanguage
 
-- (NSArray*) conjugate:(Word*)word person:(int)person plural:(BOOL)plural
+- (NSArray*) conjugate:(Card*)word person:(int)person plural:(BOOL)plural
 {
 	return nil; // should be overridden most likely!
 }
@@ -45,23 +43,24 @@
 
 @end
 
+#if 0
 @implementation EquivalentQuizQuestionFactory
 
 - (QuizQuestion*) makeQuestionForRule:(NSString*)rule deck:(Deck*)deck {
 	return nil; // EQUIVALENT factory only works off of cards.
 }
 
-- (QuizQuestion*) makeQuestionForRelationNamed:(NSString*)relationName ofWord:(Word*)word deck:(Deck*)deck {
+- (QuizQuestion*) makeQuestionForRelationNamed:(NSString*)relationName ofWord:(Card*)word deck:(Deck*)deck {
 	if (![relationName isEqual:REL_EQUIVALENT])
 		return nil;
 	
 	return [self makeQuestionForWord:word deck:deck promptingLeft:((random() & 1) != 0)];
 }
 
-- (QuizQuestion*) makeQuestionForWord:(Word*)word deck:(Deck*)deck promptingLeft:(BOOL)promptingLeft 
+- (QuizQuestion*) makeQuestionForWord:(Card*)word deck:(Deck*)deck promptingLeft:(BOOL)promptingLeft 
 {
 	NSMutableArray *quizCards = [NSMutableArray array];
-	for (Card *equivCard in [word cardsForRelationName:REL_EQUIVALENT]) {
+	for (Property *equivCard in [word relatedProperties:REL_EQUIVALENT]) {
 		[quizCards addObject:[[QuizCard alloc] initWithCard:equivCard 
 											  promptingLeft:promptingLeft
 												   language:deck.language]];
@@ -70,6 +69,7 @@
 	return [[QuizQuestion alloc] initWithTitle:@"Equivalent"
 									  subTitle:@""
 									 quizCards:quizCards];
+	return nil;
 }
 
 @end
@@ -89,7 +89,7 @@
 	return OxAbstract();
 }
 
-- (NSString*) conjugatedWord:(Word*)word 
+- (NSString*) conjugatedWord:(Card*)word 
 		   tensePersonPlural:(NSArray*)tense 
 					language:(id)language 
 					   cache:(NSMutableDictionary*)cache
@@ -105,7 +105,7 @@
 	return [conj objectAtIndex:[[tense _0] intValue]];
 }
 	
-- (QuizCard*) cardForWord:(Word*)word
+- (QuizCard*) cardForWord:(Card*)word
 		tensePersonPlural:(NSArray*)tense 
 				 editable:(BOOL)editable
 					cache:(NSMutableDictionary*)cache
@@ -161,7 +161,7 @@
 	return @"";
 }
 
-- (QuizQuestion*) makeQuestionForRelationNamed:(NSString*)relationName ofWord:(Word*)word deck:(Deck*)deck {
+- (QuizQuestion*) makeQuestionForRelationNamed:(NSString*)relationName ofWord:(Card*)word deck:(Deck*)deck {
 	NSAssert2(m_language == deck.language, @"QQF used with language %@ but expected %@", 
 			  [deck.language name], [m_language name]);
 	
@@ -229,3 +229,4 @@
 }
 
 @end
+#endif

@@ -14,12 +14,9 @@
 #import "OxNSString.h"
 #import "Ox.h"
 #import "Card.h"
-#import "Deck.h"
-#import "Word.h"
-#import "QuizQuestion.h"
-#import "QuizCard.h"
 #import "OxNSArray.h"
 #import "Ox.h"
+#import "Model.h"
 
 #pragma mark -
 #pragma mark Greek Alphabet Literals
@@ -337,7 +334,7 @@ struct Conjugation {
 @interface GreekVerb : WordCategory {
 }
 
-+ (GreekVerb*) categorize:(Word*)word language:(GreekLanguage*)lang;
++ (GreekVerb*) categorize:(Card*)word language:(GreekLanguage*)lang;
 
 + (NSString*) suffix;
 
@@ -368,7 +365,7 @@ NSString *firstPersonSingular(NSArray *endings) {
  
 @implementation GreekVerb
 
-+ (GreekVerb*) categorize:(Word*)word language:(GreekLanguage*)lang
++ (GreekVerb*) categorize:(Card*)word language:(GreekLanguage*)lang
 {
 	NSString *text = [word text];
 	Class kinds[] = { 
@@ -376,7 +373,7 @@ NSString *firstPersonSingular(NSArray *endings) {
 		//[GreekVerbPassiveA class], [GreekVerbPassiveB1 class], [GreekVerbPassiveB2 class],
 		nil
 	};
-#   define select(i) [[kinds[i] alloc] initWithWord:word language:lang]
+#   define select(i) [[kinds[i] alloc] initWithCard:word language:lang]
 
 	// Check for an explicit tag:
 	for (int i = 0; kinds[i]; i++)
@@ -755,6 +752,7 @@ NSString *firstPersonSingular(NSArray *endings) {
 #pragma mark Quiz Question Factories
 #pragma mark -
 
+#if 0
 @interface GreekConjugationQuizQuestionFactory : BaseConjugationQuizQuestionFactory {
 }
 @end
@@ -795,6 +793,7 @@ NSString *firstPersonSingular(NSArray *endings) {
 }
 
 @end
+#endif
 
 #pragma mark -
 #pragma mark Language Object
@@ -819,8 +818,11 @@ NSString *firstPersonSingular(NSArray *endings) {
 
 - quizQuestionFactories
 {
+	return nil;
+#if 0
 	return OxArr([EquivalentQuizQuestionFactory new],
 				 [[GreekConjugationQuizQuestionFactory alloc] initWithLanguage:self]);
+#endif
 }
 
 - (NSArray*) tenseNames 
@@ -835,7 +837,7 @@ NSString *firstPersonSingular(NSArray *endings) {
 	return OxArr([[self tenseNames] objectAtIndex:tense]);
 }
 
-- (NSArray*) conjugate:(Word*)word person:(int)person plural:(BOOL)plural
+- (NSArray*) conjugate:(Card*)word person:(int)person plural:(BOOL)plural
 {
 	GreekVerb *verb = [GreekVerb categorize:word language:self];
 	NSMutableArray *result = [NSMutableArray array];

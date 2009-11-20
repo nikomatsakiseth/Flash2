@@ -9,8 +9,8 @@
 #import "CardSet.h"
 #import "Language.h"
 #import "Config.h"
-#import "LanguageVersion.h"
-#import "Card.h"
+#import "Model.h"
+#import "CardSetController.h"
 
 @implementation CardSet
 
@@ -49,6 +49,13 @@
 
 - (IBAction) openDebugWindow:(id)sender
 {
+}
+
+- (void)makeWindowControllers
+{
+	CardSetController *cont = [[CardSetController alloc] initWithWindowNibName:[self windowNibName]];
+	[self addWindowController:cont];
+	[cont release];
 }
 
 @end

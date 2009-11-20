@@ -12,7 +12,6 @@
 // interface:
 @class Deck;
 @class QuizQuestion;
-@class Word;
 @class Card;
 @class Relation;
 
@@ -149,7 +148,7 @@ quizConfigurationKeys:(NSArray*)keys
 
 // Tries to make a question that tests the relation named 'relationName', using the word 'word'.
 // Returns nil if this factory is not the correct kind for that combination.
-- (QuizQuestion*) makeQuestionForRelationNamed:(NSString*)relationName ofWord:(Word*)word deck:(Deck*)deck;
+- (QuizQuestion*) makeQuestionForRelationNamed:(NSString*)relationName ofWord:(Card*)word deck:(Deck*)deck;
 
 @end
 

@@ -17,10 +17,7 @@
 #define E_LANGUAGE_VERSION @"LanguageVersion"
 #define E_GRAMMAR_RULE_HISTORY @"GrammarRuleHistory"
 #define E_CARD @"Card"
-#define E_CARD_HISTORY @"CardHistory"
-
-#define K_GRAMMAR_RULE_NAME @"grammarRuleName" // E_GRAMMAR_RULE_HISTORY
-#define K_TO_STRING @"toString" // E_CARD
+#define E_PROPERTY @"Property"
 
 @class Language;
 
@@ -38,5 +35,11 @@
 @end
 
 @interface Card (Additions)
+
+- (BOOL)hasRelatedText:(NSString*)aRelationName;
+- (NSString*)relatedText:(NSString*)aRelationName;
+- (NSArray*)relatedTexts:(NSString*)aRelationName;
+- (NSString*)relatedText:(NSString*)aRelationName ifNone:(NSString*)dflt;
+- (NSArray*)relatedProperties:(NSString*)aRelationName;
 
 @end

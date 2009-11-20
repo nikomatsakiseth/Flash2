@@ -30,4 +30,10 @@
 	return [super bind:binding toObject:observableController withKeyPath:keyPath options:options];
 }
 
+- (void)dealloc
+{
+	[m_binder release];
+	[super dealloc];
+}
+
 @end

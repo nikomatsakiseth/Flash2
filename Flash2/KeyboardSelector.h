@@ -14,20 +14,12 @@
  * An object that attempts to switch to the appropriate keyboard,
  * depending on what is being edited.  
  *
- * Can be used as the delegate of an NSWindow or as the delegate
+ * Should be used as the delegate of an NSWindow or as the delegate
  * of an NSTableView.
  */
 @interface KeyboardSelector : NSObject {
-	IBOutlet CardSet *m_cardSet;
-	FlashTextView *m_textView;
+	FlashTextView *textView;
 }
-
-- (void) setCardSet:(CardSet*)cardSet;
-
-// Assumes the table is bound to the fromString, relationName, toString fields 
-// of a Card.  Walks the bindings to automagically determine the correct
-// keyboard ID.
-- (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex;
 
 // Creates and returns a field editor for anObject.  Assumes that
 // [anObject tag] is set to the index of the language the field

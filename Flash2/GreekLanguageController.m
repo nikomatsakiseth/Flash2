@@ -12,7 +12,6 @@
 #import "CardSet.h"
 #import "Model.h"
 #import "Ox.h"
-#import "Word.h"
 #import "OxNSArrayController.h"
 #import "OxKeyValue.h"
 
@@ -104,15 +103,14 @@
 	Card *selectedVerb = [m_verbCardsController selectedObject];
 	if (selectedVerb == nil)
 		return OxArr(nil);
-	Word *word = [[Word alloc] initWithCard:selectedVerb];
 	NSArray *tenseNames = [m_lang tenseNames];
-	NSArray *conj = [m_lang conjugate:word person:self.person plural:self.plural];
+	NSArray *conj = [m_lang conjugate:selectedVerb person:self.person plural:self.plural];
 	NSMutableArray *result = [NSMutableArray array];
 	for (int i = 0; i < [conj count]; i++) {
 		[result addObject:OxDict([conj objectAtIndex:i] FOR @"conjugation",
 								 [tenseNames objectAtIndex:i] FOR @"tenseName")];
 	}
-	NSLog(@"GLC: Conjugations of %@ are %@", [word text], result);
+	NSLog(@"GLC: Conjugations of %@ are %@", [selectedVerb text], result);
 	return result;
 }
 

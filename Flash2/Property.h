@@ -15,8 +15,8 @@
 {
 }
 
-@property (nonatomic, retain) NSString * value;
-@property (nonatomic, retain) NSString * key;
+@property (nonatomic, retain) NSString * text;
+@property (nonatomic, retain) NSString * relationName;
 @property (nonatomic, retain) Card * card;
 @property (nonatomic, retain) NSSet* propertyHistories;
 

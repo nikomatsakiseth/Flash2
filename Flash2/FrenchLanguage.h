@@ -19,7 +19,7 @@
 
 // Conjugates 'word' as a verb.  Returns an array
 // of strings, one for each of the tenses above!
-- (NSArray*) conjugate:(Word*)word person:(int)person plural:(BOOL)plural;
+- (NSArray*) conjugate:(Card*)word person:(int)person plural:(BOOL)plural;
 
 - (NSArray*) articles;     // 1st person, 2nd person, 3rd person, 1st person plural, etc
 - (NSArray*) relationNamesForTense:(int)tense;

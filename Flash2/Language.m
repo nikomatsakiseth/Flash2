@@ -14,10 +14,16 @@
 #import "OxNSString.h"
 #import "OxNSObject.h"
 
+static NSArray *allLanguages;
+static dispatch_once_t allLanguagesPred;
+
 @implementation Language
 
 + (NSArray*) languages {
-	return OxArr([GreekLanguage new], [FrenchLanguage new]);
+	dispatch_once(&allLanguagesPred, ^{
+		allLanguages = [OxArr([GreekLanguage new], [FrenchLanguage new]) retain];
+	});
+	return allLanguages;
 }
 
 - initWithName:(NSString*)name
@@ -166,7 +172,7 @@ quizConfigurationKeys:(NSArray*)keys
 	return nil;
 }
 
-- (QuizQuestion*) makeQuestionForRelationNamed:(NSString*)relationName ofWord:(Word*)word deck:(Deck*)deck {
+- (QuizQuestion*) makeQuestionForRelationNamed:(NSString*)relationName ofWord:(Card*)word deck:(Deck*)deck {
 	return nil;
 }
 

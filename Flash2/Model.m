@@ -8,8 +8,10 @@
 
 #import "Model.h"
 #import "Language.h"
+#import "Ox.h"
 #import "OxCoreData.h"
 #import "OxDebug.h"
+#import "OxNSArray.h"
 
 @implementation NSManagedObjectContext (CardSetQueries)
 
@@ -48,8 +50,40 @@
 //	[ucc execute];
 //}
 
-- (NSString*) description {
+- (NSString*) description 
+{
 	return OxFmt(@"<Card %@>", self.text);
+}
+
+- (NSArray*)relatedProperties:(NSString*)aRelationName
+{
+	return [[self managedObjectContext] objectsOfEntityType:E_PROPERTY matchingPredicateFormat:@"relationName == %@", aRelationName];
+}
+
+- (BOOL)hasRelatedText:(NSString*)aRelationName
+{
+	return ![[self relatedProperties:aRelationName] isEmpty];
+}
+
+- (NSArray*)relatedTexts:(NSString*)aRelationName
+{
+	return [[self relatedProperties:aRelationName] valueForKey:@"text"];
+}
+
+- (NSString*)relatedText:(NSString*)aRelationName
+{
+	NSArray *texts = [self relatedTexts:aRelationName];
+	if([texts isEmpty])
+		return nil;
+	return [texts _0];
+}
+
+- (NSString*)relatedText:(NSString*)aRelationName ifNone:(NSString*)dflt
+{
+	NSString *relatedText = [self relatedText:aRelationName];
+	if(relatedText == nil)
+		return dflt;
+	return relatedText;	   
 }
 
 @end

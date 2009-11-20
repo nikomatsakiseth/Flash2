@@ -11,10 +11,8 @@
 #import "OxNSArray.h"
 #import "OxNSString.h"
 #import "OxHom.h"
-#import "Word.h"
 #import "Ox.h"
-#import "QuizCard.h"
-#import "QuizQuestion.h"
+#import "Model.h"
 
 #define REL_PAST_PART @"Past Participle" // must match .plist
 #define REL_HELPER_VERB @"Helper Verb" // must match .plist
@@ -50,9 +48,9 @@ typedef enum {
 	NSString *m_stem;
 }
 
-+ (FrenchVerb*) categorize:(Word*)word language:(FrenchLanguage*)lang;
++ (FrenchVerb*) categorize:(Card*)word language:(FrenchLanguage*)lang;
 
-- initWithWord:(Word*)word language:(FrenchLanguage*)lang;
+- initWithCard:(Card*)word language:(FrenchLanguage*)lang;
 
 - (NSArray*) conjugateInTense:(Tense)tense;
 
@@ -95,7 +93,7 @@ typedef enum {
 
 @implementation FrenchVerb
 
-+ (FrenchVerb*) categorize:(Word*)word language:(FrenchLanguage*)lang
++ (FrenchVerb*) categorize:(Card*)word language:(FrenchLanguage*)lang
 {
 	NSString *text = [word text];
 	Class kinds[] = { 
@@ -105,7 +103,7 @@ typedef enum {
 	text = [[[word text] stringByPurgingParentheticalText] strip];
 	for (int i = 0; kinds[i]; i++) {
 		if ([text hasSuffix:[kinds[i] suffix]])
-			return [[kinds[i] alloc] initWithWord:word language:lang];
+			return [[kinds[i] alloc] initWithCard:word language:lang];
 	}
 
 	return nil;
@@ -116,9 +114,9 @@ typedef enum {
 	return OxAbstract();
 }
 
-- initWithWord:(Word*)word language:(FrenchLanguage*)lang
+- initWithCard:(Card*)word language:(FrenchLanguage*)lang
 {
-	if ((self = [super initWithWord:word language:lang])) {
+	if ((self = [super initWithCard:word language:lang])) {
 		NSString *text = [m_word text];
 		NSString *suffix = [[self class] suffix];
 		
@@ -294,9 +292,9 @@ typedef enum {
 	NSString *m_article;
 }
 
-+ (FrenchNoun*) categorize:(Word*)word language:(FrenchLanguage*)lang;
++ (FrenchNoun*) categorize:(Card*)word language:(FrenchLanguage*)lang;
 
-- initWithWord:(Word*)word article:(NSString*)article;
+- initWithCard:(Card*)word article:(NSString*)article;
 
 - (NSString*) withoutArticle;
 - (NSString*) article;
@@ -305,18 +303,18 @@ typedef enum {
 
 @implementation FrenchNoun
 
-+ (FrenchNoun*) categorize:(Word*)word language:(FrenchLanguage*)lang
++ (FrenchNoun*) categorize:(Card*)word language:(FrenchLanguage*)lang
 {
 	NSString *text = [word text];
 	NSArray *articles = OxArr(@"le", @"la");
 	
 	for (NSString *article in articles)
 		if ([text hasPrefix:OxFmt(@"%@ ", article)])
-			return [[FrenchNoun alloc] initWithWord:word article:article];			
+			return [[FrenchNoun alloc] initWithCard:word article:article];			
 	return nil;
 }
 
-- initWithWord:(Word*)word article:(NSString*)article
+- initWithCard:(Card*)word article:(NSString*)article
 {
 	if ((self = [super init])) {
 		m_word = word;
@@ -343,6 +341,7 @@ typedef enum {
 #pragma mark Quiz Question Factories
 #pragma mark -
 
+#if 0
 @interface FrenchConjugationQuizQuestionFactory : BaseConjugationQuizQuestionFactory {
 }
 @end
@@ -399,7 +398,7 @@ typedef enum {
 	return self;
 }
 
-- (QuizQuestion*) makeQuestionForRelationNamed:(NSString*)relationName ofWord:(Word*)word deck:(Deck*)deck {
+- (QuizQuestion*) makeQuestionForRelationNamed:(NSString*)relationName ofWord:(Card*)word deck:(Deck*)deck {
 	if (![relationName isEqual:REL_EQUIVALENT])
 		return nil;
 	
@@ -449,6 +448,7 @@ typedef enum {
 }
 
 @end
+#endif
 
 #pragma mark -
 #pragma mark Language Class
@@ -477,8 +477,11 @@ typedef enum {
 
 - quizQuestionFactories
 {
+	return nil;
+#if 0
 	return OxArr([[FrenchEquivalentQuizQuestionFactory alloc] initWithLanguage:self],
 				 [[FrenchConjugationQuizQuestionFactory alloc] initWithLanguage:self]);
+#endif
 }
 
 - (NSArray*) articles 
@@ -515,7 +518,7 @@ typedef enum {
 	return [verbs objectForKey:@"2 Tense"];
 }
 
-- (NSArray*) conjugate:(Word*)word person:(int)person plural:(BOOL)plural
+- (NSArray*) conjugate:(Card*)word person:(int)person plural:(BOOL)plural
 {
 	int index = person;
 	if (plural) index += 3;
