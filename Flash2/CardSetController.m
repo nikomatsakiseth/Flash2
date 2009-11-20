@@ -14,11 +14,25 @@
 
 @synthesize tabView;
 
+- initWithManagedObjectContext:(NSManagedObjectContext*)aManagedObjectContext
+{
+	if((self = [super initWithWindowNibName:@"CardSet"])) {
+		managedObjectContext = [aManagedObjectContext retain];
+	}
+	return self;
+}
+
+- (void)dealloc
+{
+	[managedObjectContext release];
+	[super dealloc];
+}
+
 - (void)awakeFromNib
 {	
 	languageTabControllers = [[NSMutableArray alloc] init];
 	for(Language *language in [Language languages]) {
-		LanguageTabController *cont = [[LanguageTabController alloc] initWithLanguage:language];
+		LanguageTabController *cont = [[LanguageTabController alloc] initWithLanguage:language managedObjectContext:managedObjectContext];
 		if(cont) {
 			[languageTabControllers addObject:cont];
 			

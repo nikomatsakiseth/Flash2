@@ -13,6 +13,7 @@
 
 @interface LanguageTabController : NSObject {
 	Language *language;
+	NSManagedObjectContext *managedObjectContext;
 	
 	NSView *rootView;
 	NSBox *wordPropBox;
@@ -22,7 +23,7 @@
 	FlashTextField *searchStringTextField;	
 }
 
-- initWithLanguage:(Language*)language;
+- initWithLanguage:(Language*)aLanguage managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext;
 
 @property(retain) IBOutlet NSView *rootView;
 @property(retain) IBOutlet NSBox *wordPropBox;
@@ -32,6 +33,7 @@
 @property(retain) NSPredicate *cardsPredicate;       // bound in GUI
 @property(copy) NSString *wordSearchString;
 @property(retain) Language *language;
+@property(retain) NSManagedObjectContext *managedObjectContext;
 @property(readonly) NSArray *languages;
 
 - (IBAction)addWord:(id)sender;

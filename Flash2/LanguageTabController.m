@@ -12,15 +12,18 @@
 #import "Carbon/Carbon.h"
 #import "Language.h"
 #import "FlashTextField.h"
+#import "OxKeyValue.h"
+#import "OxNSArrayController.h"
 
 @implementation LanguageTabController
 
-@synthesize rootView, wordPropBox, cards, searchStringTextField, cardsPredicate, wordSearchString, language;
+@synthesize rootView, wordPropBox, cards, searchStringTextField, cardsPredicate, wordSearchString, language, managedObjectContext;
 
-- initWithLanguage:(Language*)aLanguage
+- initWithLanguage:(Language*)aLanguage managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext
 {
 	if((self = [super init])) {
 		self.language = aLanguage;
+		self.managedObjectContext = aManagedObjectContext;
 		
 		NSNib *nib = [[NSNib alloc] initWithNibNamed:@"LanguageTab" bundle:[NSBundle mainBundle]];
 		if(![nib instantiateNibWithOwner:self topLevelObjects:nil]) {
@@ -39,6 +42,7 @@
 	self.cards = nil;
 	self.searchStringTextField = nil;
 	self.language = nil;
+	self.managedObjectContext = nil;
 	self.cardsPredicate = nil;
 	self.wordSearchString = nil;
 	[super dealloc];
@@ -46,7 +50,13 @@
 
 - (void)awakeFromNib
 {	
-	searchStringTextField.keyboardIdentifier = [language keyboardIdentifier];
+	searchStringTextField.keyboardIdentifier = [language keyboardIdentifier];	
+	[self.cards addObserver:self forKeyPath:@"selectedObjects" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	invokeObservationSelector(self, keyPath, object, change, context);
 }
 
 - (void)setWordSearchString:(NSString *)searchString
@@ -61,6 +71,16 @@
 	self.cardsPredicate = predicate;
 }
 
+- (void)observeValueForSelectedObjectsOfObject:(id)anObject change:(NSDictionary *)aChange context:(void*)aContext
+{
+	// When the user changes the selected card, we have to build up the properties GUI.
+	// We don't use an NSTableView because, well, they are lame and this is so much nicer!
+	Card *card = [cards selectedObject];
+	if(card) {
+	} else {
+	}
+}
+
 - (NSArray*)languages
 {
 	return [Language languages];
@@ -68,10 +88,12 @@
 
 - (IBAction)addWord:(id)sender
 {
+	Card *card = [managedObjectContext newCardWithText:wordSearchString language:language];
+	[cards setSelectedObjects:OxArr(card)];
 }
 
 - (IBAction)deleteWord:(id)sender
-{
+{	
 }
 
 - (IBAction)seeHistory:(id)sender

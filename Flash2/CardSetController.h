@@ -11,9 +11,12 @@
 @class FlashTextField, Language;
 
 @interface CardSetController : NSWindowController {
+	NSManagedObjectContext *managedObjectContext;
 	NSTabView *tabView;
 	NSMutableArray *languageTabControllers;
 }
 @property(retain) IBOutlet NSTabView *tabView;
+
+- initWithManagedObjectContext:(NSManagedObjectContext*)aManagedObjectContext;
 
 @end

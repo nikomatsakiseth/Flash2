@@ -32,11 +32,6 @@
 @synthesize languages = a_languages;
 @synthesize relations = a_relations;
 
-- (NSString *)windowNibName 
-{
-    return @"CardSet";
-}
-
 - (Language*) languageForCard:(Card*)card
 {
 	LanguageVersion *lv = card.languageVersion;
@@ -53,7 +48,7 @@
 
 - (void)makeWindowControllers
 {
-	CardSetController *cont = [[CardSetController alloc] initWithWindowNibName:[self windowNibName]];
+	CardSetController *cont = [[CardSetController alloc] initWithManagedObjectContext:[self managedObjectContext]];
 	[self addWindowController:cont];
 	[cont release];
 }

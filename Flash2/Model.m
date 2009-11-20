@@ -33,6 +33,16 @@
 	return lv;
 }
 
+- (Card*)newCardWithText:(NSString*)text language:(Language*)language
+{
+	LanguageVersion *lv = [self languageVersionForLanguage:language];
+	Card *card = [NSEntityDescription insertNewObjectForEntityForName:E_CARD
+											   inManagedObjectContext:self];
+	card.text = text;
+	card.languageVersion = lv;
+	return card;
+}
+
 @end
 
 @implementation Card (Additions)

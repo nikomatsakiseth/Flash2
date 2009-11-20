@@ -32,6 +32,8 @@
 
 #pragma mark New Objects
 
+- (Card*)newCardWithText:(NSString*)text language:(Language*)language;
+
 @end
 
 @interface Card (Additions)
