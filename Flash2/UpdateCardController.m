@@ -10,7 +10,7 @@
 #import "OxCoreData.h"
 #import "OxNSArray.h"
 #import "Card.h"
-#import "Queries.h"
+#import "Model.h"
 
 @implementation UpdateCardController
 

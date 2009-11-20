@@ -32,17 +32,18 @@
 		2393D6F50EF55EC000DDCF75 /* FrenchLanguage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2393D6F40EF55EC000DDCF75 /* FrenchLanguage.plist */; };
 		2393D7F20EF5746E00DDCF75 /* CardUIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393D7F10EF5746E00DDCF75 /* CardUIBuilder.m */; };
 		2393D9300EF599FB00DDCF75 /* FlashTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393D92F0EF599FB00DDCF75 /* FlashTextField.m */; };
-		23A536DF0EA9E1010008153E /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A536D60EA9E1010008153E /* Card.m */; };
-		23A536E00EA9E1010008153E /* LanguageVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A536D80EA9E1010008153E /* LanguageVersion.m */; };
-		23A536E10EA9E1010008153E /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A536DA0EA9E1010008153E /* History.m */; };
-		23A536E20EA9E1010008153E /* GrammarRuleHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A536DC0EA9E1010008153E /* GrammarRuleHistory.m */; };
-		23A536E30EA9E1010008153E /* CardHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A536DE0EA9E1010008153E /* CardHistory.m */; };
+		23A2D28D10B69C110024C95A /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D28C10B69C110024C95A /* Model.m */; };
+		23A2D29C10B69C850024C95A /* PropertyHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D29110B69C850024C95A /* PropertyHistory.m */; };
+		23A2D29D10B69C850024C95A /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D29310B69C850024C95A /* History.m */; };
+		23A2D29E10B69C850024C95A /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D29510B69C850024C95A /* Card.m */; };
+		23A2D29F10B69C850024C95A /* LanguageVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D29710B69C850024C95A /* LanguageVersion.m */; };
+		23A2D2A010B69C850024C95A /* GrammarRuleHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D29910B69C850024C95A /* GrammarRuleHistory.m */; };
+		23A2D2A110B69C850024C95A /* Property.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D29B10B69C850024C95A /* Property.m */; };
 		23A536ED0EA9E1B10008153E /* GreekLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A536E90EA9E1B10008153E /* GreekLanguage.m */; };
 		23A536EE0EA9E1B10008153E /* GreekLanguage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23A536EA0EA9E1B10008153E /* GreekLanguage.plist */; };
 		23A536EF0EA9E1B10008153E /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A536EC0EA9E1B10008153E /* Language.m */; };
 		23A536F50EA9E7640008153E /* AddCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A536F40EA9E7640008153E /* AddCardController.m */; };
 		23A537A90EA9F2EE0008153E /* UpdateCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A537A80EA9F2EE0008153E /* UpdateCardController.m */; };
-		23A5381E0EAA014A0008153E /* Queries.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A5381D0EAA014A0008153E /* Queries.m */; };
 		23A538960EAA27FB0008153E /* UpdateCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23A538950EAA27FB0008153E /* UpdateCard.xib */; };
 		23A538C80EAB533E0008153E /* BaseLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A538C70EAB533E0008153E /* BaseLanguage.m */; };
 		23A538F70EAB7F240008153E /* GreekLanguage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23A538F60EAB7F240008153E /* GreekLanguage.xib */; };
@@ -120,16 +121,20 @@
 		2393D7F10EF5746E00DDCF75 /* CardUIBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardUIBuilder.m; sourceTree = "<group>"; };
 		2393D92E0EF599FB00DDCF75 /* FlashTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashTextField.h; sourceTree = "<group>"; };
 		2393D92F0EF599FB00DDCF75 /* FlashTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlashTextField.m; sourceTree = "<group>"; };
-		23A536D50EA9E1010008153E /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
-		23A536D60EA9E1010008153E /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Card.m; sourceTree = "<group>"; };
-		23A536D70EA9E1010008153E /* LanguageVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageVersion.h; sourceTree = "<group>"; };
-		23A536D80EA9E1010008153E /* LanguageVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageVersion.m; sourceTree = "<group>"; };
-		23A536D90EA9E1010008153E /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
-		23A536DA0EA9E1010008153E /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
-		23A536DB0EA9E1010008153E /* GrammarRuleHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrammarRuleHistory.h; sourceTree = "<group>"; };
-		23A536DC0EA9E1010008153E /* GrammarRuleHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrammarRuleHistory.m; sourceTree = "<group>"; };
-		23A536DD0EA9E1010008153E /* CardHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardHistory.h; sourceTree = "<group>"; };
-		23A536DE0EA9E1010008153E /* CardHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardHistory.m; sourceTree = "<group>"; };
+		23A2D28B10B69C110024C95A /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		23A2D28C10B69C110024C95A /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
+		23A2D29010B69C850024C95A /* PropertyHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyHistory.h; sourceTree = "<group>"; };
+		23A2D29110B69C850024C95A /* PropertyHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyHistory.m; sourceTree = "<group>"; };
+		23A2D29210B69C850024C95A /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
+		23A2D29310B69C850024C95A /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
+		23A2D29410B69C850024C95A /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
+		23A2D29510B69C850024C95A /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Card.m; sourceTree = "<group>"; };
+		23A2D29610B69C850024C95A /* LanguageVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageVersion.h; sourceTree = "<group>"; };
+		23A2D29710B69C850024C95A /* LanguageVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageVersion.m; sourceTree = "<group>"; };
+		23A2D29810B69C850024C95A /* GrammarRuleHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrammarRuleHistory.h; sourceTree = "<group>"; };
+		23A2D29910B69C850024C95A /* GrammarRuleHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrammarRuleHistory.m; sourceTree = "<group>"; };
+		23A2D29A10B69C850024C95A /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
+		23A2D29B10B69C850024C95A /* Property.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Property.m; sourceTree = "<group>"; };
 		23A536E80EA9E1B10008153E /* GreekLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreekLanguage.h; sourceTree = "<group>"; };
 		23A536E90EA9E1B10008153E /* GreekLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GreekLanguage.m; sourceTree = "<group>"; };
 		23A536EA0EA9E1B10008153E /* GreekLanguage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GreekLanguage.plist; sourceTree = "<group>"; };
@@ -139,8 +144,6 @@
 		23A536F40EA9E7640008153E /* AddCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCardController.m; sourceTree = "<group>"; };
 		23A537A70EA9F2EE0008153E /* UpdateCardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateCardController.h; sourceTree = "<group>"; };
 		23A537A80EA9F2EE0008153E /* UpdateCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateCardController.m; sourceTree = "<group>"; };
-		23A5381C0EAA014A0008153E /* Queries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queries.h; sourceTree = "<group>"; };
-		23A5381D0EAA014A0008153E /* Queries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queries.m; sourceTree = "<group>"; };
 		23A538950EAA27FB0008153E /* UpdateCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateCard.xib; sourceTree = "<group>"; };
 		23A538C60EAB533E0008153E /* BaseLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseLanguage.h; sourceTree = "<group>"; };
 		23A538C70EAB533E0008153E /* BaseLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseLanguage.m; sourceTree = "<group>"; };
@@ -425,19 +428,21 @@
 		E1B74B1A0667B4A90069E3BA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				23A536D50EA9E1010008153E /* Card.h */,
-				23A536D60EA9E1010008153E /* Card.m */,
-				23A536D70EA9E1010008153E /* LanguageVersion.h */,
-				23A536D80EA9E1010008153E /* LanguageVersion.m */,
-				23A536D90EA9E1010008153E /* History.h */,
-				23A536DA0EA9E1010008153E /* History.m */,
-				23A536DB0EA9E1010008153E /* GrammarRuleHistory.h */,
-				23A536DC0EA9E1010008153E /* GrammarRuleHistory.m */,
-				23A536DD0EA9E1010008153E /* CardHistory.h */,
-				23A536DE0EA9E1010008153E /* CardHistory.m */,
+				23A2D29010B69C850024C95A /* PropertyHistory.h */,
+				23A2D29110B69C850024C95A /* PropertyHistory.m */,
+				23A2D29210B69C850024C95A /* History.h */,
+				23A2D29310B69C850024C95A /* History.m */,
+				23A2D29410B69C850024C95A /* Card.h */,
+				23A2D29510B69C850024C95A /* Card.m */,
+				23A2D29610B69C850024C95A /* LanguageVersion.h */,
+				23A2D29710B69C850024C95A /* LanguageVersion.m */,
+				23A2D29810B69C850024C95A /* GrammarRuleHistory.h */,
+				23A2D29910B69C850024C95A /* GrammarRuleHistory.m */,
+				23A2D29A10B69C850024C95A /* Property.h */,
+				23A2D29B10B69C850024C95A /* Property.m */,
 				775BDEF0067A8BF0009058FE /* CardSet.xcdatamodel */,
-				23A5381C0EAA014A0008153E /* Queries.h */,
-				23A5381D0EAA014A0008153E /* Queries.m */,
+				23A2D28B10B69C110024C95A /* Model.h */,
+				23A2D28C10B69C110024C95A /* Model.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -508,16 +513,10 @@
 				8D15AC310486D014006FF6A4 /* CardSet.m in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				775BDEF1067A8BF0009058FE /* CardSet.xcdatamodel in Sources */,
-				23A536DF0EA9E1010008153E /* Card.m in Sources */,
-				23A536E00EA9E1010008153E /* LanguageVersion.m in Sources */,
-				23A536E10EA9E1010008153E /* History.m in Sources */,
-				23A536E20EA9E1010008153E /* GrammarRuleHistory.m in Sources */,
-				23A536E30EA9E1010008153E /* CardHistory.m in Sources */,
 				23A536ED0EA9E1B10008153E /* GreekLanguage.m in Sources */,
 				23A536EF0EA9E1B10008153E /* Language.m in Sources */,
 				23A536F50EA9E7640008153E /* AddCardController.m in Sources */,
 				23A537A90EA9F2EE0008153E /* UpdateCardController.m in Sources */,
-				23A5381E0EAA014A0008153E /* Queries.m in Sources */,
 				23A538C80EAB533E0008153E /* BaseLanguage.m in Sources */,
 				23A538FD0EAB7FF50008153E /* GreekLanguageController.m in Sources */,
 				23E77DB60EBDEF2D00C2546E /* Config.m in Sources */,
@@ -551,6 +550,13 @@
 				237CF21B10B46DBA00C8334C /* OxNSTreeController.m in Sources */,
 				237CF23810B4AF0500C8334C /* OxHom.m in Sources */,
 				237CF23E10B4B09600C8334C /* OxNSMutableAttributedString.m in Sources */,
+				23A2D28D10B69C110024C95A /* Model.m in Sources */,
+				23A2D29C10B69C850024C95A /* PropertyHistory.m in Sources */,
+				23A2D29D10B69C850024C95A /* History.m in Sources */,
+				23A2D29E10B69C850024C95A /* Card.m in Sources */,
+				23A2D29F10B69C850024C95A /* LanguageVersion.m in Sources */,
+				23A2D2A010B69C850024C95A /* GrammarRuleHistory.m in Sources */,
+				23A2D2A110B69C850024C95A /* Property.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

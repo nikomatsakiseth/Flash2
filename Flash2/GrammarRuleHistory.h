@@ -2,8 +2,8 @@
 //  GrammarRuleHistory.h
 //  Flash2
 //
-//  Created by Nicholas Matsakis on 10/18/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
+//  Created by Niko Matsakis on 11/20/09.
+//  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
 #import <CoreData/CoreData.h>
@@ -15,11 +15,10 @@
 {
 }
 
-@property (retain) NSString * grammarRuleName;
-@property (retain) LanguageVersion * languageVersion;
-
-@property (readonly) NSString *historyOfWhat;
+@property (nonatomic, retain) NSString * grammarRuleName;
+@property (nonatomic, retain) LanguageVersion * languageVersion;
 
 @end
+
 
 

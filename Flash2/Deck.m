@@ -8,7 +8,7 @@
 
 #import "Deck.h"
 #import "OxNSArray.h"
-#import "Queries.h"
+#import "Model.h"
 #import "CardHistory.h"
 #import "GrammarRuleHistory.h"
 #import "OxCoreData.h"

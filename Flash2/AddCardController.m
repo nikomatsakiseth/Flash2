@@ -13,7 +13,7 @@
 #import "OxObservableArray.h"
 #import "OxNSString.h"
 #import "OxNSArray.h"
-#import "Queries.h"
+#import "Model.h"
 #import "Ox.h"
 #import "CardUIBuilder.h"
 #import "OxNSTextField.h"

@@ -1,0 +1,55 @@
+//
+//  Model.m
+//  Flash2
+//
+//  Created by Niko Matsakis on 11/20/09.
+//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//
+
+#import "Model.h"
+#import "Language.h"
+#import "OxCoreData.h"
+#import "OxDebug.h"
+
+@implementation NSManagedObjectContext (CardSetQueries)
+
+- (LanguageVersion*) languageVersionForLanguage:(Language*)language
+{
+	LanguageVersion *lv = [self objectOfEntityType:E_LANGUAGE_VERSION
+						   matchingPredicateFormat:@"identifier = %@", [language identifier]];
+	if (lv == nil) {
+		OxLog(@"Creating new language version for %p %@ %@", language, [language name], [language identifier]);
+		lv = [NSEntityDescription insertNewObjectForEntityForName:E_LANGUAGE_VERSION
+										   inManagedObjectContext:self];
+		lv.identifier = [language identifier];
+		lv.version = OxInt([language languageVersion]);
+	}
+	
+	// These should be updated when the file is loaded:
+	NSAssert([lv.version intValue] == [language languageVersion], @"Language Version is out of date");	
+	
+	return lv;
+}
+
+@end
+
+@implementation Card (Additions)
+
+//void userSetString(id self, SEL getSel, SEL setSel, NSString *string) {
+//	NSString *oldString = [self performSelector:getSel];
+//	if ([oldString isEqual:string])
+//		return; // no change required
+//	
+//	[self performSelector:setSel withObject:string];
+//	
+//	UpdateCardController *ucc = [[UpdateCardController alloc] initWithOldSpelling:oldString 
+//																	  newSpelling:string 
+//															 managedObjectContext:[self managedObjectContext]];
+//	[ucc execute];
+//}
+
+- (NSString*) description {
+	return OxFmt(@"<Card %@>", self.text);
+}
+
+@end

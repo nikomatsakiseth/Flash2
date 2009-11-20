@@ -13,7 +13,7 @@
 #import "CardHistory.h"
 #import "GrammarRuleHistory.h"
 #import "History.h"
-#import "Queries.h"
+#import "Model.h"
 
 @implementation QuizCardSide
 @synthesize expected;

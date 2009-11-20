@@ -10,7 +10,7 @@
 #import "GreekLanguage.h"
 #import "OxNSString.h"
 #import "CardSet.h"
-#import "Queries.h"
+#import "Model.h"
 #import "Ox.h"
 #import "Word.h"
 #import "OxNSArrayController.h"

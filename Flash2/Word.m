@@ -7,7 +7,7 @@
 //
 
 #import "Word.h"
-#import "Queries.h"
+#import "Model.h"
 #import "OxNSMutableDictionary.h"
 #import "Ox.h"
 

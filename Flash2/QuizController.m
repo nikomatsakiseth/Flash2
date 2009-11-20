@@ -17,7 +17,7 @@
 #import "OxHom.h"
 #import "CardUIBuilder.h"
 #import "FlashTextField.h"
-#import "Queries.h"
+#import "Model.h"
 #import "OxDebug.h"
 
 @implementation QuizController

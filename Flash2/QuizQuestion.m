@@ -8,7 +8,7 @@
 
 #import "QuizQuestion.h"
 #import "QuizCard.h"
-#import "Queries.h"
+#import "Model.h"
 
 @implementation QuizQuestion
 
