@@ -86,7 +86,7 @@
 
 - (NSArray*)languages
 {
-	return [Language languages];
+	return allLanguages();
 }
 
 - (IBAction)addWord:(id)sender

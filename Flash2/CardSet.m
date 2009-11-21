@@ -19,23 +19,15 @@
 	initializeDefaults();
 }
 
-- (id)init 
+- (NSArray*)languages
 {
-    self = [super init];
-    if (self != nil) {
-		a_languages = [Language languages];
-		a_relations = [a_languages valueForKeyPath:@"@distinctUnionOfArrays.relations"];
-    }
-    return self;
+	return allLanguages();
 }
 
-@synthesize languages = a_languages;
-@synthesize relations = a_relations;
-
-- (Language*) languageForCard:(Card*)card
+- (id<Language>) languageForCard:(Card*)card
 {
 	LanguageVersion *lv = card.languageVersion;
-	for (Language *language in self.languages) {
+	for (id<Language> language in self.languages) {
 		if ([[language identifier] isEqual:lv.identifier])
 			return language;
 	}

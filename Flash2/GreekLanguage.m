@@ -10,7 +10,6 @@
 
 #import "GreekLanguage.h"
 #import "BaseLanguage.h"
-#import "GreekLanguageController.h"
 #import "OxNSString.h"
 #import "Ox.h"
 #import "Card.h"
@@ -331,6 +330,7 @@ struct Conjugation {
 
 #pragma mark Verbs
 
+#if 0
 @interface GreekVerb : WordCategory {
 }
 
@@ -719,8 +719,6 @@ NSString *firstPersonSingular(NSArray *endings) {
 
 @end
 
-#if 0
-
 @interface Noun : WordCategory {} @end
 
 @interface NounMale : Noun {} @end
@@ -806,12 +804,10 @@ NSString *firstPersonSingular(NSArray *endings) {
 	if ((self = [super initFromPlistNamed:@"GreekLanguage"
 								 inBundle:[NSBundle mainBundle]]))
 	{
-		NSMutableArray *relations = [NSMutableArray arrayWithArray:m_relations];
 		for (NSString *tenseName in [self tenseNames]) {
-			Relation *r = [[Relation alloc] initWithLanguage:self name:tenseName crossLanguage:NO];
-			[relations addObject:r];
+			Relation *r = [[Relation alloc] initWithName:tenseName crossLanguage:NO cardKind:Gr("Ρήμα")];
+			[relations setObject:r forKey:r.name];
 		}
-		m_relations = relations;
 	}
 	return self;
 }
@@ -827,9 +823,7 @@ NSString *firstPersonSingular(NSArray *endings) {
 
 - (NSArray*) tenseNames 
 {
-	NSArray *grammarRules = [m_plist objectForKey:@"grammarRules"];	
-	NSDictionary *verbs = [grammarRules _0];
-	return [verbs objectForKey:@"3 Tense"];
+	return [[[plist objectForKey:@"grammarRules"] _0] objectForKey:@"3 Tense"];
 }
 
 - (NSArray*) relationNamesForTense:(int)tense person:(int)person plural:(int)plural
@@ -837,6 +831,7 @@ NSString *firstPersonSingular(NSArray *endings) {
 	return OxArr([[self tenseNames] objectAtIndex:tense]);
 }
 
+#if 0
 - (NSArray*) conjugate:(Card*)word person:(int)person plural:(BOOL)plural
 {
 	GreekVerb *verb = [GreekVerb categorize:word language:self];
@@ -863,17 +858,7 @@ NSString *firstPersonSingular(NSArray *endings) {
 	}
 	return result;
 }
-
-- (BOOL) supportsGui
-{
-	return YES;
-}
-
-- (NSWindowController*) createGuiController:(NSManagedObjectContext*)ctx
-{
-	return [[GreekLanguageController alloc] initWithLanguage:self
-										managedObjectContext:ctx];
-}
+#endif
 
 @end
 

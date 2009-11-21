@@ -43,6 +43,8 @@ typedef enum {
 	MAX_TENSE
 } Tense;
 
+#if 0
+
 @interface FrenchVerb : WordCategory {
 	BOOL m_reflexive;
 	NSString *m_stem;
@@ -335,7 +337,7 @@ typedef enum {
 }
 
 @end
-
+#endif
 
 #pragma mark -
 #pragma mark Quiz Question Factories
@@ -456,10 +458,15 @@ typedef enum {
 
 @implementation FrenchLanguage
 
-- (Relation*) relationNamed:(NSString*)name
+- (Relation*) relationNamed:(NSString*)relName
 {
-	NSLog(@"relation named %@", name);
-	return [[Relation alloc] initWithLanguage:self name:name crossLanguage:NO];
+	return [[Relation alloc] initWithName:relName crossLanguage:NO cardKind:@"Verb"];
+}
+
+- (void)addRelationsFromArray:(NSArray*)rels
+{
+	for(Relation *rel in rels)
+		[relations setObject:rel forKey:rel.name];
 }
 
 - init
@@ -467,10 +474,8 @@ typedef enum {
 	if ((self = [super initFromPlistNamed:@"FrenchLanguage"
 								 inBundle:[NSBundle mainBundle]]))
 	{
-		NSMutableArray *relations = [NSMutableArray arrayWithArray:m_relations];
-		[relations addObjectsFromArray:OxIMap(self, relationNamed:OxForEach([self relationNamesForTense:PRESENT]))];
-		[relations addObjectsFromArray:OxIMap(self, relationNamed:OxForEach([self relationNamesForTense:IMPARFAIT]))];
-		m_relations = relations;
+		[self addRelationsFromArray:OxIMap(self, relationNamed:OxForEach([self relationNamesForTense:PRESENT]))];
+		[self addRelationsFromArray:OxIMap(self, relationNamed:OxForEach([self relationNamesForTense:IMPARFAIT]))];
 	}
 	return self;
 }
@@ -513,11 +518,10 @@ typedef enum {
 			
 - (NSArray*) tenseNames 
 {
-	NSArray *grammarRules = [m_plist objectForKey:@"grammarRules"];	
-	NSDictionary *verbs = [grammarRules _0];
-	return [verbs objectForKey:@"2 Tense"];
+	return [[[plist objectForKey:@"grammarRules"] _0] objectForKey:@"2 Tense"];
 }
 
+#if 0
 - (NSArray*) conjugate:(Card*)word person:(int)person plural:(BOOL)plural
 {
 	int index = person;
@@ -543,5 +547,6 @@ typedef enum {
 						 	
 	return result;
 }
+#endif
 
 @end

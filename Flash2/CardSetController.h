@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class FlashTextField, Language;
+@class FlashTextField;
 
 @interface CardSetController : NSWindowController {
 	NSManagedObjectContext *managedObjectContext;

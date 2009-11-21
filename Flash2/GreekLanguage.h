@@ -16,10 +16,6 @@
 // Returns a list of all tenses we can conjuate.
 - (NSArray*) tenseNames;
 
-// Conjugates 'word' as a verb.  Returns an array
-// of strings, one for each of the tenses above!
-- (NSArray*) conjugate:(Card*)word person:(int)person plural:(BOOL)plural;
-
 @end
 
 @interface NSString (GreekLanguage)

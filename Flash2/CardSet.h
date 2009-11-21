@@ -10,14 +10,11 @@
 #import "Language.h"
 
 @interface CardSet : NSPersistentDocument {
-	NSArray *a_languages;
-	NSArray *a_relations;
 }
 
 @property (readonly) NSArray *languages; // NSArray[Language]
-@property (readonly) NSArray *relations; // NSArray[Relation]
 
-- (Language*) languageForCard:(Card*)card;
+- (id<Language>) languageForCard:(Card*)card;
 
 - (IBAction) openDebugWindow:(id)sender;
 

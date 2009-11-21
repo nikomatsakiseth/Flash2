@@ -6,11 +6,20 @@
 	<string>Français</string>
 	<key>identifier</key>
 	<string>com.smallcultfollowing.Français</string>
+	<key>languageVersion</key>
+	<integer>0</integer>
+	<key>cardKinds</key>
+	<array>
+		<string>Verb-er</string>
+		<string>Verb-ir</string>
+		<string>Verb-re</string>
+		<string>Other</string>
+	</array>
 	<key>grammarRules</key>
 	<array>
 		<dict>
 			<key>0 Construct</key>
-			<string>Verbs</string>
+			<string>Verb</string>
 			<key>1 Kind</key>
 			<array>
 				<string>er</string>
@@ -34,18 +43,24 @@
 			<string>Equivalent</string>
 			<key>crossLanguage</key>
 			<true/>
+			<key>cardKind</key>
+			<string></string>
 		</dict>
 		<dict>
 			<key>name</key>
 			<string>Past Participle</string>
 			<key>crossLanguage</key>
 			<false/>
+			<key>cardKind</key>
+			<string>Verb</string>
 		</dict>
 		<dict>
 			<key>name</key>
 			<string>Helper Verb</string>
 			<key>crossLanguage</key>
 			<false/>
+			<key>cardKind</key>
+			<string>Verb</string>
 		</dict>
 	</array>
 </dict>
