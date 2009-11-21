@@ -53,7 +53,7 @@
 		name = [[plist objectForKey:@"name"] copy];
 		identifier = [[plist objectForKey:@"identifier"] copy];
 		keyboardIdentifier = [[plist objectForKey:@"keyboardIdentifier"] copy];
-		relations = [[NSMutableArray alloc] init];
+		relations = [[NSMutableDictionary alloc] init];
 		cardKinds = [[NSMutableArray alloc] init];
 		grammarRules = [[NSMutableArray alloc] init];
 		languageVersion = [[plist objectForKey:@"languageVersion"] intValue];
