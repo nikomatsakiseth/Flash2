@@ -6,6 +6,37 @@
 	<string>Ελληνικά</string>
 	<key>identifier</key>
 	<string>com.smallcultfollowing.Ελληνικά</string>
+	<key>languageVersion</key>
+	<integer>0</integer>
+	<key>cardKinds</key>
+	<array>
+		<dict>
+			<key>0 Construct</key>
+			<string>Ρήμα</string>
+			<key>1 Kind</key>
+			<array>
+				<string>ω</string>
+				<string>άω</string>
+				<string>ώ</string>
+			</array>
+		</dict>
+		<dict>
+			<key>0 Construct</key>
+			<string>Ουσιαστικό</string>
+			<key>1 Gender-Ending</key>
+			<array>
+				<string>ο-ος</string>
+				<string>ο-ας</string>
+				<string>ο-ης</string>
+				<string>ο-υς</string>
+				<string>η-η</string>
+				<string>η-ος</string>
+				<string>το-ο</string>
+				<string>το-ιο</string>
+			</array>
+		</dict>
+		<string>Άλλο</string>
+	</array>
 	<key>grammarRules</key>
 	<array>
 		<dict>
@@ -71,6 +102,8 @@
 			<string>Equivalent</string>
 			<key>crossLanguage</key>
 			<true/>
+			<key>cardKind</key>
+			<string></string>
 		</dict>
 	</array>
 	<key>keyboardIdentifier</key>

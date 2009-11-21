@@ -11,7 +11,7 @@
 @class Card;
 @class PropertyHistory;
 
-@interface Property :  NSManagedObject  
+@interface UserProperty :  NSManagedObject
 {
 }
 
@@ -23,7 +23,7 @@
 @end
 
 
-@interface Property (CoreDataGeneratedAccessors)
+@interface UserProperty (CoreDataGeneratedAccessors)
 - (void)addPropertyHistoriesObject:(PropertyHistory *)value;
 - (void)removePropertyHistoriesObject:(PropertyHistory *)value;
 - (void)addPropertyHistories:(NSSet *)value;

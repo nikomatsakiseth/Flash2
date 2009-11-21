@@ -15,33 +15,44 @@
 // Most languages generally provide some kind of Equivalent relation.
 #define REL_EQUIVALENT @"Equivalent"
 
-@interface WordCategory : NSObject {
-	Card *m_word;
-	id m_lang;
-} 
+@interface Relation : NSObject {
+    NSString *name;
+    BOOL crossLanguage;
+	NSString *cardKind;
+}
 
-- initWithCard:(Card*)word language:(id)lang;
+// Not part of the required interface.
+- initWithName:(NSString*)aName 
+ crossLanguage:(BOOL)aCrossLanguage
+	  cardKind:(NSString*)aCardKind;
+
+// Like @"Equivalent"
+@property (readonly) NSString *name;
+
+// A cross-language property connects between a word in one language 
+// and a word in the native language.
+@property (readonly) BOOL crossLanguage;
+
+// A card kind to which this relation applies.
+// Generally it's actually a prefix, like @"Verb-" which would
+// then apply to all verbs.
+@property (readonly) NSString *cardKind;
 
 @end
 
-@interface BaseLanguage : Language {
+@interface BaseLanguage : NSObject <Language> {
+	NSString *name;
+	NSString *identifier;
+	NSString *keyboardIdentifier;
+	NSDictionary *plist;
+	NSMutableArray *cardKinds;
+	NSMutableDictionary *relations; // keyed by name
+	NSMutableArray *grammarRules;
+	int languageVersion;
 }
 
-// Abstract method: Attempts to conjugate Word into the given person/plural
-// combination.  Returns nil if it cannnot be done (perhaps the word is not
-// a recognized kind of verb, for example).
-- (NSArray*) conjugate:(Card*)card person:(int)person plural:(BOOL)plural;
-
-// Array of all verb tenses supported by this language.
-- (NSArray*) tenseNames;
-
-// Returns a list of relation names that describe how to 
-// conjugate a verb into the given combination of tense/person/plural.
-// Some languages, such as Greek, only have one relation per tense,
-// but others, like French, may have separate relations for each person/plural,
-// or even multiple relations for a single tense (passe composee has a helper
-// verb and a past participle, for example).
-- (NSArray*) relationNamesForTense:(int)tense person:(int)person plural:(int)plural;
+- initFromPlistNamed:(NSString*)plistName
+			inBundle:(NSBundle*)bundle;
 
 @end
 
@@ -86,3 +97,33 @@
 
 @end
 #endif
+
+#pragma mark -
+#pragma mark Plist Expansion Rules
+
+// Language Rules can be defined in a plist file using strings, dictionaries, and arrays.  
+// These can be used to structure the rules hierarchically.  The definition is
+// eventually expanded into a flat list using @selector(expandGrammarRules).  
+//
+// The expansions proceeds as follows:
+//
+//    strings expand into OxArr(self)
+//
+//    arrays expand by flattening their contents.  Generally used for independent
+//    categories like verbs, nouns, and adjectives.
+//
+//    dictionaries expand by expanding the value of each key and forming
+//    all combinations using one value from each key.  This allows to combine
+//    orthogonal facets, like tense (past, present) and person (1, 2, 3) for verbs.
+
+@interface NSString (LanguagePlistExpansion)
+- (NSArray*)expandLanguageDefn;
+@end
+
+@interface NSDictionary (LanguagePlistExpansion)
+- (NSArray*)expandLanguageDefn;
+@end
+
+@interface NSArray (LanguagePlistExpansion)
+- (NSArray*)expandLanguageDefn;
+@end

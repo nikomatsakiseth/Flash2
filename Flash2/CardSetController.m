@@ -31,7 +31,7 @@
 - (void)awakeFromNib
 {	
 	languageTabControllers = [[NSMutableArray alloc] init];
-	for(Language *language in [Language languages]) {
+	for(id<Language> language in allLanguages()) {
 		LanguageTabController *cont = [[LanguageTabController alloc] initWithLanguage:language managedObjectContext:managedObjectContext];
 		if(cont) {
 			[languageTabControllers addObject:cont];

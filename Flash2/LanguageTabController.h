@@ -8,11 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Model.h"
+#import "Language.h"
 
 @class FlashTextField;
 
 @interface LanguageTabController : NSObject {
-	Language *language;
+	id<Language> language;
 	NSManagedObjectContext *managedObjectContext;
 	
 	NSView *rootView;
@@ -23,7 +24,7 @@
 	FlashTextField *searchStringTextField;	
 }
 
-- initWithLanguage:(Language*)aLanguage managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext;
+- initWithLanguage:(id<Language>)aLanguage managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext;
 
 @property(retain) IBOutlet NSView *rootView;
 @property(retain) IBOutlet NSBox *wordPropBox;
@@ -32,7 +33,7 @@
 
 @property(retain) NSPredicate *cardsPredicate;       // bound in GUI
 @property(copy) NSString *wordSearchString;
-@property(retain) Language *language;
+@property(retain) id<Language> language;
 @property(retain) NSManagedObjectContext *managedObjectContext;
 @property(readonly) NSArray *languages;
 

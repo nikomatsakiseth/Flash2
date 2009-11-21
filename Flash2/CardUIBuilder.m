@@ -13,11 +13,11 @@
 
 @implementation CardUIBuilder
 
-- initWithWindow:(NSWindow*)window delegate:(id)delegate
+- initWithWindow:(NSWindow*)aWindow delegate:(id)aDelegate
 {
 	if ((self = [super init])) {
-		m_window = window;
-		m_delegate = delegate;
+		window = aWindow;
+		delegate = aDelegate;
 	}
 	return self;
 }
@@ -62,7 +62,7 @@
 		rowViews[2] = [[FlashTextField alloc] initWithFrame:frames[2]];
 		
 		// Link the text fields:
-		if (prevTextField == nil) [m_window setInitialFirstResponder:rowViews[0]];
+		if (prevTextField == nil) [window setInitialFirstResponder:rowViews[0]];
 		else [prevTextField setNextKeyView:rowViews[0]];
 		[rowViews[0] setNextKeyView:rowViews[2]];
 		prevTextField = rowViews[2];
@@ -73,12 +73,12 @@
 		[rowViews[2] setAutoresizingMask:NSViewWidthSizable|NSViewMinXMargin];
 		
 		// Allow delegate to make bindings etc:
-		[m_delegate configureRow:row views:[NSArray arrayWithObjects:rowViews count:3]];
+		[delegate configureRow:row views:[NSArray arrayWithObjects:rowViews count:3]];
 		
 		for (int i = 0; i < 3; i++)
 			[questionView addSubview:rowViews[i]];
 	}
-	[prevTextField setNextKeyView:[m_window initialFirstResponder]];
+	[prevTextField setNextKeyView:[window initialFirstResponder]];
 	
 	// Consider wrapping it in an NSScrollView
 	NSScreen *mainScreen = [NSScreen mainScreen];
@@ -89,7 +89,7 @@
 		maxFrame.size.height = maxHeight;
 		NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:maxFrame];
 		[scrollView setDocumentView:questionView];
-		[scrollView setBackgroundColor:[m_window backgroundColor]];
+		[scrollView setBackgroundColor:[window backgroundColor]];
 		[scrollView setHasHorizontalScroller:YES];
 		[scrollView setHasVerticalScroller:YES];
 		return scrollView;
@@ -111,17 +111,17 @@
 	OxLog(@"oldFrame=(%@)", NSStringFromRect(oldFrame));
 	
 	// (compute new window frame)
-	NSRect windowFrame = [m_window frame];
+	NSRect windowFrame = [window frame];
 	windowFrame.origin.y -= deltaY;
 	windowFrame.size.height += deltaY;
 	
 	// (adjust minimum size)
-	NSSize minSize = [m_window minSize];
+	NSSize minSize = [window minSize];
 	minSize.height = windowFrame.size.height;
-	[m_window setMinSize:minSize];
+	[window setMinSize:minSize];
 	
 	// (adjust current size)
-	[m_window setFrame:windowFrame display:YES animate:NO];		
+	[window setFrame:windowFrame display:YES animate:NO];		
 }
 
 - (void) resizeScrollView:(NSScrollView*)scrollView toCards:(int)cards relationClass:(Class)relCls
@@ -135,17 +135,17 @@
 	CGFloat deltaY = frame.size.height - oldFrame.size.height;
 	
 	// (compute new window frame)
-	NSRect windowFrame = [m_window frame];
+	NSRect windowFrame = [window frame];
 	windowFrame.origin.y -= deltaY;
 	windowFrame.size.height += deltaY;
 	
 	// (adjust minimum size)
-	NSSize minSize = [m_window minSize];
+	NSSize minSize = [window minSize];
 	minSize.height = windowFrame.size.height;
-	[m_window setMinSize:minSize];
+	[window setMinSize:minSize];
 	
 	// (adjust current size)
-	[m_window setFrame:windowFrame display:YES animate:NO];		
+	[window setFrame:windowFrame display:YES animate:NO];		
 }
 
 @end

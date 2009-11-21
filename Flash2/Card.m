@@ -13,6 +13,7 @@
 @implementation Card 
 
 @dynamic text;
+@dynamic kindName;
 @dynamic languageVersion;
 @dynamic properties;
 

@@ -14,12 +14,13 @@
 #import "FlashTextField.h"
 #import "OxKeyValue.h"
 #import "OxNSArrayController.h"
+#import "OxNSTextField.h"
 
 @implementation LanguageTabController
 
 @synthesize rootView, wordPropBox, cards, searchStringTextField, cardsPredicate, wordSearchString, language, managedObjectContext;
 
-- initWithLanguage:(Language*)aLanguage managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext
+- initWithLanguage:(id<Language>)aLanguage managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext
 {
 	if((self = [super init])) {
 		self.language = aLanguage;
@@ -76,9 +77,11 @@
 	// When the user changes the selected card, we have to build up the properties GUI.
 	// We don't use an NSTableView because, well, they are lame and this is so much nicer!
 	Card *card = [cards selectedObject];
+	NSView *contentView = [[NSView alloc] initWithFrame:[wordPropBox frame]];
 	if(card) {
-	} else {
-	}
+		// TODO
+	} 
+	[wordPropBox setContentView:contentView];
 }
 
 - (NSArray*)languages
@@ -88,7 +91,8 @@
 
 - (IBAction)addWord:(id)sender
 {
-	Card *card = [managedObjectContext newCardWithText:wordSearchString language:language];
+	NSString *cardKind = [language guessKindOfText:wordSearchString];						  
+	Card *card = [managedObjectContext newCardWithText:wordSearchString kind:cardKind language:language];
 	[cards setSelectedObjects:OxArr(card)];
 }
 

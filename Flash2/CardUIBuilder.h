@@ -13,11 +13,11 @@
 // which both build similar custom GUIs to manage the entry of 
 // new cards and quiz cards.
 @interface CardUIBuilder : NSObject {
-	NSWindow *m_window;
-	id m_delegate;
+	NSWindow *window;
+	id delegate;
 }
 
-- initWithWindow:(NSWindow*)window delegate:(id)delegate;
+- initWithWindow:(NSWindow*)aWindow delegate:(id)aDelegate;
 
 // Removes the previous content of the box and recreates the GUI,
 // this time with room for 'cards' cards.  Uses the class relCls

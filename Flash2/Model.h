@@ -12,14 +12,14 @@
 #import "History.h"
 #import "GrammarRuleHistory.h"
 #import "PropertyHistory.h"
-#import "Property.h"
+#import "UserProperty.h"
 
 #define E_LANGUAGE_VERSION @"LanguageVersion"
 #define E_GRAMMAR_RULE_HISTORY @"GrammarRuleHistory"
 #define E_CARD @"Card"
-#define E_PROPERTY @"Property"
+#define E_USER_PROPERTY @"UserProperty"
 
-@class Language;
+@protocol Language;
 
 // Try to keep complicated queries in here so as to make it easier to find
 // all strings containing key names.  Using the constants above is
@@ -28,11 +28,12 @@
 
 #pragma mark Queries
 
-- (LanguageVersion*) languageVersionForLanguage:(Language*)language;
+- (LanguageVersion*) languageVersionForLanguage:(id<Language>)language;
 
 #pragma mark New Objects
 
-- (Card*)newCardWithText:(NSString*)text language:(Language*)language;
+- (Card*)newCardWithText:(NSString*)text kind:(NSString*)aKind language:(id<Language>)language;
+- (UserProperty*)newUserPropertyForCard:(Card*)aCard text:(NSString*)aText relationName:(NSString*)aRelationName;
 
 @end
 
@@ -42,6 +43,6 @@
 - (NSString*)relatedText:(NSString*)aRelationName;
 - (NSArray*)relatedTexts:(NSString*)aRelationName;
 - (NSString*)relatedText:(NSString*)aRelationName ifNone:(NSString*)dflt;
-- (NSArray*)relatedProperties:(NSString*)aRelationName;
+- (NSArray*)relatedUserProperties:(NSString*)aRelationName;
 
 @end

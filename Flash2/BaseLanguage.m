@@ -12,33 +12,147 @@
 #import "OxDebug.h"
 #import "Model.h"
 
-@implementation WordCategory 
+@implementation Relation
 
-- initWithCard:(Card*)word language:(id)lang {
+@synthesize name, crossLanguage, cardKind;
+
+- initWithName:(NSString*)aName 
+ crossLanguage:(BOOL)aCrossLanguage
+	  cardKind:(NSString*)aCardKind
+{
 	if ((self = [super init])) {
-		m_word = word;
-		m_lang = lang;
+		name = [aName copy];
+		crossLanguage = aCrossLanguage;
+		cardKind = [aCardKind copy];
 	}
 	return self;
+}
+
+- (void)dealloc
+{
+	[name release];
+	[cardKind release];
+	[super dealloc];
 }
 
 @end
 
 @implementation BaseLanguage
 
+- initFromPlistNamed:(NSString*)plistName
+			inBundle:(NSBundle*)bundle
+{
+	if((self = [super init])) {
+		plist = [[NSDictionary dictionaryWithContentsOfFile:[bundle pathForResource:plistName
+																			 ofType:@"plist"]] retain];
+		if(plist == nil) {
+			[self release];
+			return nil;
+		}
+		
+		name = [[plist objectForKey:@"name"] copy];
+		identifier = [[plist objectForKey:@"identifier"] copy];
+		keyboardIdentifier = [[plist objectForKey:@"keyboardIdentifier"] copy];
+		relations = [[NSMutableArray alloc] init];
+		cardKinds = [[NSMutableArray alloc] init];
+		grammarRules = [[NSMutableArray alloc] init];
+		languageVersion = [[plist objectForKey:@"languageVersion"] intValue];
+		
+		// Expand relations and create Relation objects:
+		for (NSDictionary *relationData in [plist objectForKey:@"relations"]) {
+			Relation *r = [[[Relation alloc] initWithName:[relationData objectForKey:@"name"]
+											crossLanguage:[[relationData objectForKey:@"crossLanguage"] boolValue]
+												 cardKind:[relationData objectForKey:@"cardKind"]] autorelease];
+			[relations setObject:r forKey:r.name];
+		}
+		
+		// Create card kinds and grammar rules from plist:
+		[cardKinds addObjectsFromArray:[[plist objectForKey:@"cardKinds"] expandLanguageDefn]];
+		[grammarRules addObjectsFromArray:[[plist objectForKey:@"grammarRules"] expandLanguageDefn]];
+	}
+	return self;
+}
+
 - (NSArray*) conjugate:(Card*)word person:(int)person plural:(BOOL)plural
 {
 	return nil; // should be overridden most likely!
 }
 
-- (NSArray*) tenseNames
+- (NSArray*)grammarRules
 {
-	return [NSArray array];
+	return grammarRules;
 }
 
-- (NSArray*) relationNamesForTense:(int)tense person:(int)person plural:(int)plural
+- (BOOL)isCrossLanguageRelation:(NSString *)relationName
 {
-	return OxAbstract();
+	Relation *relation = [relations objectForKey:relationName];
+	return relation.crossLanguage;
+}
+
+- (NSArray*)allRelationNames
+{
+	return [relations allKeys];
+}
+
+// By default:
+//    Relations apply if their card kind is a prefix of 'cardKind'.
+//    Subtypes could override this method to adjust that rule.
+- (NSArray*)relationNamesForCardKind:(NSString *)cardKind
+{
+	NSMutableArray *result = [NSMutableArray arrayWithCapacity:[relations count]];
+	for(Relation *relation in [relations allValues]) {
+		if([cardKind hasPrefix:relation.cardKind])
+			[result addObject:relation.name];
+	}
+	return result;
+}
+
+- (NSString*)guessKindOfText:(NSString *)aText
+{
+	OxAbstract(); // totally language dependent!
+	return @"Other";
+}
+
+- (NSArray*)cardKinds
+{
+	return cardKinds;
+}
+
+- (NSString*)keyboardIdentifier
+{
+	return keyboardIdentifier;
+}
+
+- (NSString*)identifier
+{
+	return identifier;
+}
+
+- (NSString*)name
+{
+	return name;
+}
+
+- (int)languageVersion
+{
+	return languageVersion;
+}
+
+- (NSDictionary*)upgradeData:(NSDictionary*)data
+		 fromLanguageVersion:(int)version
+{
+	OxAbstract();
+	return nil;
+}
+
+- (NSString*)protocolVersion
+{
+	return FLASH2_PROTOCOL_V1;
+}
+
+- (NSString*)autoPropertyForCard:(Card *)aCard relationName:(NSString *)aRelationName
+{
+	return nil;
 }
 
 @end
@@ -230,3 +344,51 @@
 
 @end
 #endif
+
+
+#pragma mark -
+#pragma mark Plist Expansion Rules
+
+// See header file
+
+@implementation NSString (LanguagePlistExpansion)
+- (NSArray*) expandLanguageDefn {
+	return OxArr(self);
+}
+@end
+
+@implementation NSDictionary (LanguagePlistExpansion)
+void expand(NSMutableArray *base, NSMutableArray *into, NSArray *remainingEntries) {
+	if ([remainingEntries isEmpty]) 
+		[into addObject:[base componentsJoinedByString:@"-"]];
+	else {
+		NSArray *entry = [remainingEntries objectAtIndex:0];
+		remainingEntries = [remainingEntries sliceFrom:1];
+		for (NSString *str in entry) {
+			int index = [base count];
+			[base insertObject:str atIndex:index];
+			expand(base, into, remainingEntries);
+			[base removeObjectAtIndex:index];
+		}
+	}
+}
+
+- (NSArray*) expandLanguageDefn {
+	NSMutableArray *expandedValues = [NSMutableArray array];
+	for (NSString *prefix in [[self allKeys] sortedArrayUsingSelector:@selector(compare:)])
+		[expandedValues addObject:[[self objectForKey:prefix] expandLanguageDefn]];
+	
+	NSMutableArray *result = [NSMutableArray array];	
+	expand([NSMutableArray array], result, expandedValues);	
+	return result;
+}
+@end
+
+@implementation NSArray (LanguagePlistExpansion)
+- (NSArray*) expandLanguageDefn {
+	NSMutableArray *result = [NSMutableArray array];
+	for(id entry in self)
+		[result addObjectsFromArray:[entry expandLanguageDefn]];
+	return result;
+}
+@end

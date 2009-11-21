@@ -15,7 +15,7 @@
 
 @implementation NSManagedObjectContext (CardSetQueries)
 
-- (LanguageVersion*) languageVersionForLanguage:(Language*)language
+- (LanguageVersion*) languageVersionForLanguage:(id<Language>)language
 {
 	LanguageVersion *lv = [self objectOfEntityType:E_LANGUAGE_VERSION
 						   matchingPredicateFormat:@"identifier = %@", [language identifier]];
@@ -33,14 +33,27 @@
 	return lv;
 }
 
-- (Card*)newCardWithText:(NSString*)text language:(Language*)language
+- (Card*)newCardWithText:(NSString*)aText 
+					kind:(NSString*)aKind
+				language:(id<Language>)aLanguage
 {
-	LanguageVersion *lv = [self languageVersionForLanguage:language];
+	LanguageVersion *lv = [self languageVersionForLanguage:aLanguage];
 	Card *card = [NSEntityDescription insertNewObjectForEntityForName:E_CARD
 											   inManagedObjectContext:self];
-	card.text = text;
+	card.text = aText;
+	card.kindName = aKind;
 	card.languageVersion = lv;
 	return card;
+}
+
+- (UserProperty*)newUserPropertyForCard:(Card*)aCard text:(NSString*)aText relationName:(NSString*)aRelationName
+{
+	UserProperty *userProperty = [NSEntityDescription insertNewObjectForEntityForName:E_USER_PROPERTY
+															   inManagedObjectContext:self];
+	userProperty.card = aCard;
+	userProperty.text = aText;
+	userProperty.relationName = aRelationName;
+	return userProperty;
 }
 
 @end
@@ -65,19 +78,19 @@
 	return OxFmt(@"<Card %@>", self.text);
 }
 
-- (NSArray*)relatedProperties:(NSString*)aRelationName
+- (NSArray*)relatedUserProperties:(NSString*)aRelationName
 {
-	return [[self managedObjectContext] objectsOfEntityType:E_PROPERTY matchingPredicateFormat:@"relationName == %@", aRelationName];
+	return [[self managedObjectContext] objectsOfEntityType:E_USER_PROPERTY matchingPredicateFormat:@"relationName == %@", aRelationName];
 }
 
 - (BOOL)hasRelatedText:(NSString*)aRelationName
 {
-	return ![[self relatedProperties:aRelationName] isEmpty];
+	return ![[self relatedUserProperties:aRelationName] isEmpty];
 }
 
 - (NSArray*)relatedTexts:(NSString*)aRelationName
 {
-	return [[self relatedProperties:aRelationName] valueForKey:@"text"];
+	return [[self relatedUserProperties:aRelationName] valueForKey:@"text"];
 }
 
 - (NSString*)relatedText:(NSString*)aRelationName

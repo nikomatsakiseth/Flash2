@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2338E1E00F17595A00BEB645 /* Camera.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2338E1DF0F17595A00BEB645 /* Camera.icns */; };
+		2361386710B7F1E900EED743 /* PropertyBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2361386610B7F1E900EED743 /* PropertyBuilder.m */; };
+		2361386F10B7F52C00EED743 /* Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 2361386E10B7F52C00EED743 /* Attribute.m */; };
 		237CF1BC10B4696500C8334C /* Ox.m in Sources */ = {isa = PBXBuildFile; fileRef = 237CF1AA10B4696500C8334C /* Ox.m */; };
 		237CF1BD10B4696500C8334C /* OxDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 237CF1AC10B4696500C8334C /* OxDebug.m */; };
 		237CF1BE10B4696500C8334C /* OxNSArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 237CF1AF10B4696500C8334C /* OxNSArray.m */; };
@@ -36,7 +38,7 @@
 		23A2D29E10B69C850024C95A /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D29510B69C850024C95A /* Card.m */; };
 		23A2D29F10B69C850024C95A /* LanguageVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D29710B69C850024C95A /* LanguageVersion.m */; };
 		23A2D2A010B69C850024C95A /* GrammarRuleHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D29910B69C850024C95A /* GrammarRuleHistory.m */; };
-		23A2D2A110B69C850024C95A /* Property.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D29B10B69C850024C95A /* Property.m */; };
+		23A2D2A110B69C850024C95A /* UserProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D29B10B69C850024C95A /* UserProperty.m */; };
 		23A2D2B610B6A55A0024C95A /* CardSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D2B510B6A55A0024C95A /* CardSetController.m */; };
 		23A2D41910B6C10B0024C95A /* LanguageTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D41810B6C10B0024C95A /* LanguageTabController.m */; };
 		23A2D41E10B6C1600024C95A /* LanguageTab.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23A2D41D10B6C1600024C95A /* LanguageTab.xib */; };
@@ -66,6 +68,10 @@
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		2338E1DF0F17595A00BEB645 /* Camera.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Camera.icns; sourceTree = "<group>"; };
+		2361386510B7F1E900EED743 /* PropertyBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyBuilder.h; sourceTree = "<group>"; };
+		2361386610B7F1E900EED743 /* PropertyBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyBuilder.m; sourceTree = "<group>"; };
+		2361386D10B7F52C00EED743 /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
+		2361386E10B7F52C00EED743 /* Attribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attribute.m; sourceTree = "<group>"; };
 		237CF1A910B4696500C8334C /* Ox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ox.h; sourceTree = "<group>"; };
 		237CF1AA10B4696500C8334C /* Ox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ox.m; sourceTree = "<group>"; };
 		237CF1AB10B4696500C8334C /* OxDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OxDebug.h; sourceTree = "<group>"; };
@@ -123,8 +129,8 @@
 		23A2D29710B69C850024C95A /* LanguageVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageVersion.m; sourceTree = "<group>"; };
 		23A2D29810B69C850024C95A /* GrammarRuleHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrammarRuleHistory.h; sourceTree = "<group>"; };
 		23A2D29910B69C850024C95A /* GrammarRuleHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrammarRuleHistory.m; sourceTree = "<group>"; };
-		23A2D29A10B69C850024C95A /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
-		23A2D29B10B69C850024C95A /* Property.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Property.m; sourceTree = "<group>"; };
+		23A2D29A10B69C850024C95A /* UserProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProperty.h; sourceTree = "<group>"; };
+		23A2D29B10B69C850024C95A /* UserProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProperty.m; sourceTree = "<group>"; };
 		23A2D2B410B6A55A0024C95A /* CardSetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardSetController.h; sourceTree = "<group>"; };
 		23A2D2B510B6A55A0024C95A /* CardSetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardSetController.m; sourceTree = "<group>"; };
 		23A2D41710B6C10B0024C95A /* LanguageTabController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageTabController.h; sourceTree = "<group>"; };
@@ -291,6 +297,8 @@
 				23A536EC0EA9E1B10008153E /* Language.m */,
 				23A538C60EAB533E0008153E /* BaseLanguage.h */,
 				23A538C70EAB533E0008153E /* BaseLanguage.m */,
+				2361386D10B7F52C00EED743 /* Attribute.h */,
+				2361386E10B7F52C00EED743 /* Attribute.m */,
 			);
 			name = Language;
 			sourceTree = "<group>";
@@ -346,6 +354,8 @@
 				23D1C9100EF80FB500CF903F /* FlashTextView.m */,
 				23E77DBD0EBDF0F900C2546E /* KeyboardSelector.h */,
 				23E77DBE0EBDF0F900C2546E /* KeyboardSelector.m */,
+				2361386510B7F1E900EED743 /* PropertyBuilder.h */,
+				2361386610B7F1E900EED743 /* PropertyBuilder.m */,
 			);
 			name = "UI Classes";
 			sourceTree = "<group>";
@@ -399,8 +409,8 @@
 				23A2D29710B69C850024C95A /* LanguageVersion.m */,
 				23A2D29810B69C850024C95A /* GrammarRuleHistory.h */,
 				23A2D29910B69C850024C95A /* GrammarRuleHistory.m */,
-				23A2D29A10B69C850024C95A /* Property.h */,
-				23A2D29B10B69C850024C95A /* Property.m */,
+				23A2D29A10B69C850024C95A /* UserProperty.h */,
+				23A2D29B10B69C850024C95A /* UserProperty.m */,
 				23A2D28B10B69C110024C95A /* Model.h */,
 				23A2D28C10B69C110024C95A /* Model.m */,
 			);
@@ -508,9 +518,11 @@
 				23A2D29E10B69C850024C95A /* Card.m in Sources */,
 				23A2D29F10B69C850024C95A /* LanguageVersion.m in Sources */,
 				23A2D2A010B69C850024C95A /* GrammarRuleHistory.m in Sources */,
-				23A2D2A110B69C850024C95A /* Property.m in Sources */,
+				23A2D2A110B69C850024C95A /* UserProperty.m in Sources */,
 				23A2D2B610B6A55A0024C95A /* CardSetController.m in Sources */,
 				23A2D41910B6C10B0024C95A /* LanguageTabController.m in Sources */,
+				2361386710B7F1E900EED743 /* PropertyBuilder.m in Sources */,
+				2361386F10B7F52C00EED743 /* Attribute.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

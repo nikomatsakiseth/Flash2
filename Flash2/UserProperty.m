@@ -6,12 +6,12 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import "Property.h"
+#import "UserProperty.h"
 
 #import "Card.h"
 #import "PropertyHistory.h"
 
-@implementation Property 
+@implementation UserProperty 
 
 @dynamic card;
 @dynamic relationName;
