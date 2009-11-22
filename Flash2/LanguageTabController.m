@@ -15,12 +15,14 @@
 #import "OxKeyValue.h"
 #import "OxNSArrayController.h"
 #import "OxNSTextField.h"
+#import "WordPropertyController.h"
 
 @implementation LanguageTabController
 
-@synthesize rootView, wordPropBox, cards, searchStringTextField, cardsPredicate, wordSearchString, language, managedObjectContext;
+@synthesize rootView, wordPropBox, cards, searchStringTextField, cardsPredicate, wordSearchString, language, managedObjectContext, wordPropertyController;
 
-- initWithLanguage:(id<Language>)aLanguage managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext
+- initWithLanguage:(id<Language>)aLanguage 
+managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext
 {
 	if((self = [super init])) {
 		self.language = aLanguage;
@@ -51,7 +53,13 @@
 
 - (void)awakeFromNib
 {	
+	wordPropertyController.language = self.language;
+	wordPropertyController.managedObjectContext = self.managedObjectContext;
+	wordPropertyController.initialFirstResponder = searchStringTextField;
+//	[wordPropertyController bind:@"card" toObject:self.cards withKeyPath:@"selection" options:nil];
+	
 	searchStringTextField.keyboardIdentifier = [language keyboardIdentifier];	
+	
 	[self.cards addObserver:self forKeyPath:@"selectedObjects" options:NSKeyValueObservingOptionNew context:nil];
 }
 
@@ -74,16 +82,8 @@
 
 - (void)observeValueForSelectedObjectsOfObject:(id)anObject change:(NSDictionary *)aChange context:(void*)aContext
 {
-	/*
-	// When the user changes the selected card, we have to build up the properties GUI.
-	// We don't use an NSTableView because, well, they are lame and this is so much nicer!
 	Card *card = [cards selectedObject];
-	NSView *contentView = [[NSView alloc] initWithFrame:[wordPropBox frame]];
-	if(card) {
-		// TODO
-	} 
-	[wordPropBox setContentView:contentView];
-	*/
+	wordPropertyController.card = card;
 }
 
 - (NSArray*)languages

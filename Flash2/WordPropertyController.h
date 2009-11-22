@@ -9,15 +9,20 @@
 #import <Cocoa/Cocoa.h>
 #import "Model.h"
 #import "OxBinder.h"
+#import "Language.h"
 
 @interface WordPropertyController : NSObject {
-	OxBinder *binder;
+	id initialFirstResponder;
+	id<Language> language;
 	NSManagedObjectContext *managedObjectContext;
 	Card *card;
-	NSScrollView *scrollView;
+	NSScrollView *container;
 }
 @property(retain) Card *card;
+@property(retain) id<Language> language;
 @property(retain) NSManagedObjectContext *managedObjectContext;
-@property(retain) IBOutlet NSScrollView *scrollView;
+@property(retain) IBOutlet NSScrollView *container;
+@property(retain) id initialFirstResponder;
+
 
 @end

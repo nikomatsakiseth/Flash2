@@ -11,6 +11,7 @@
 #import "Language.h"
 
 @class FlashTextField;
+@class WordPropertyController;
 
 @interface LanguageTabController : NSObject {
 	id<Language> language;
@@ -21,15 +22,18 @@
 	NSArrayController *cards;
 	NSPredicate *cardsPredicate;
 	NSString *wordSearchString;
-	FlashTextField *searchStringTextField;	
+	FlashTextField *searchStringTextField;
+	WordPropertyController *wordPropertyController;
 }
 
-- initWithLanguage:(id<Language>)aLanguage managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext;
+- initWithLanguage:(id<Language>)aLanguage 
+managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext;
 
 @property(retain) IBOutlet NSView *rootView;
 @property(retain) IBOutlet NSBox *wordPropBox;
 @property(retain) IBOutlet NSArrayController *cards;
 @property(retain) IBOutlet FlashTextField *searchStringTextField;
+@property(retain) IBOutlet WordPropertyController *wordPropertyController;
 
 @property(retain) NSPredicate *cardsPredicate;       // bound in GUI
 @property(copy) NSString *wordSearchString;
