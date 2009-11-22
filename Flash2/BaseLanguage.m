@@ -353,7 +353,7 @@
 
 @implementation NSString (LanguagePlistExpansion)
 - (NSArray*) expandLanguageDefn {
-	return OxArr(self);
+	return OxArr([self decomposedStringWithCanonicalMapping]);
 }
 @end
 

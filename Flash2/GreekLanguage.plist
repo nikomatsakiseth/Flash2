@@ -12,16 +12,6 @@
 	<array>
 		<dict>
 			<key>0 Construct</key>
-			<string>Ρήμα</string>
-			<key>1 Kind</key>
-			<array>
-				<string>ω</string>
-				<string>άω</string>
-				<string>ώ</string>
-			</array>
-		</dict>
-		<dict>
-			<key>0 Construct</key>
 			<string>Ουσιαστικό</string>
 			<key>1 Gender-Ending</key>
 			<array>
@@ -33,6 +23,16 @@
 				<string>η-ος</string>
 				<string>το-ο</string>
 				<string>το-ιο</string>
+			</array>
+		</dict>
+		<dict>
+			<key>0 Construct</key>
+			<string>Ρήμα</string>
+			<key>1 Kind</key>
+			<array>
+				<string>άω</string>
+				<string>ώ</string>
+				<string>ω</string>
 			</array>
 		</dict>
 		<string>Άλλο</string>

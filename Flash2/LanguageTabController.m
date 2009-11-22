@@ -74,6 +74,7 @@
 
 - (void)observeValueForSelectedObjectsOfObject:(id)anObject change:(NSDictionary *)aChange context:(void*)aContext
 {
+	/*
 	// When the user changes the selected card, we have to build up the properties GUI.
 	// We don't use an NSTableView because, well, they are lame and this is so much nicer!
 	Card *card = [cards selectedObject];
@@ -82,6 +83,7 @@
 		// TODO
 	} 
 	[wordPropBox setContentView:contentView];
+	*/
 }
 
 - (NSArray*)languages

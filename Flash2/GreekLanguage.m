@@ -821,6 +821,39 @@ NSString *firstPersonSingular(NSArray *endings) {
 #endif
 }
 
+- (NSString*)guessKindOfText:(NSString *)aText
+{
+	NSArray *words = [[aText decomposedStringWithCanonicalMapping] componentsSeparatedByWhitespace];
+	if([words count] >= 1) {
+		NSString *word0 = [words _0];
+		
+		// Iterate through the kinds and find the first one
+		// to match.  This is not the most efficient technique,
+		// but the goal is to make the matching between the plist
+		// and the code as "DRY" as possible.
+		for(NSString *cardKind in cardKinds) {
+			NSArray *parts = [cardKind componentsSeparatedByString:@"-"];
+			if([[parts _0] isEqualToString:Gr("Ουσιαστικό")]) {
+				// Noun card kinds look like: Ουσιαστικό-το-ο
+				// Match a word like "το βιβλίο"
+				NSString *article = [parts _1];
+				if([word0 isEqualToString:article] && [words count] == 2) {
+					NSString *ending = [parts _2];
+					NSRange range = [[words _1] rangeOfString:ending options:NSDiacriticInsensitiveSearch];
+					if(range.location == [[words _1] length] - [article length])
+						return cardKind;
+				}					
+			} else if([[parts _0] isEqualToString:Gr("Ρήμα")]) {
+				// Verb card kinds look like: Ρήμα-άω
+				NSString *ending = [parts _1];
+				if([word0 hasSuffix:ending]) // in verbs, accents are significant!
+					return cardKind;
+			} 
+		}
+	}	
+	return [cardKinds lastObject]; // "Other"
+}
+
 - (NSArray*) tenseNames 
 {
 	return [[[plist objectForKey:@"grammarRules"] _0] objectForKey:@"3 Tense"];

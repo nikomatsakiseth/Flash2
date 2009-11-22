@@ -15,7 +15,7 @@
 }
 
 @property (nonatomic, retain) NSString * text;
-@property (nonatomic, retain) NSString * kindName;
+@property (nonatomic, retain) NSString * cardKind;
 @property (nonatomic, retain) LanguageVersion * languageVersion;
 @property (nonatomic, retain) NSSet* properties;
 

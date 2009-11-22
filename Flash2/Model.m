@@ -41,7 +41,7 @@
 	Card *card = [NSEntityDescription insertNewObjectForEntityForName:E_CARD
 											   inManagedObjectContext:self];
 	card.text = aText;
-	card.kindName = aKind;
+	card.cardKind = aKind;
 	card.languageVersion = lv;
 	return card;
 }
