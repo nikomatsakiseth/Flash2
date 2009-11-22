@@ -46,7 +46,7 @@
 	NSString *keyboardIdentifier;
 	NSDictionary *plist;
 	NSMutableArray *cardKinds;
-	NSMutableDictionary *relations; // keyed by name
+	NSMutableArray *relations;
 	NSMutableArray *grammarRules;
 	int languageVersion;
 }

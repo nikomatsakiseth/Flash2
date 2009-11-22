@@ -806,7 +806,7 @@ NSString *firstPersonSingular(NSArray *endings) {
 	{
 		for (NSString *tenseName in [self tenseNames]) {
 			Relation *r = [[Relation alloc] initWithName:tenseName crossLanguage:NO cardKind:Gr("Ρήμα")];
-			[relations setObject:r forKey:r.name];
+			[relations addObject:r];
 		}
 	}
 	return self;

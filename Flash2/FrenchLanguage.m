@@ -466,7 +466,7 @@ typedef enum {
 - (void)addRelationsFromArray:(NSArray*)rels
 {
 	for(Relation *rel in rels)
-		[relations setObject:rel forKey:rel.name];
+		[relations addObject:rel];
 }
 
 - init

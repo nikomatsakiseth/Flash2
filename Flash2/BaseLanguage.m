@@ -11,6 +11,7 @@
 #import "OxNSArray.h"
 #import "OxDebug.h"
 #import "Model.h"
+#import "OxHom.h"
 
 @implementation Relation
 
@@ -21,7 +22,7 @@
 	  cardKind:(NSString*)aCardKind
 {
 	if ((self = [super init])) {
-		name = [aName copy];
+		name = [[aName decomposedStringWithCanonicalMapping] retain];
 		crossLanguage = aCrossLanguage;
 		cardKind = [aCardKind copy];
 	}
@@ -53,7 +54,7 @@
 		name = [[plist objectForKey:@"name"] copy];
 		identifier = [[plist objectForKey:@"identifier"] copy];
 		keyboardIdentifier = [[plist objectForKey:@"keyboardIdentifier"] copy];
-		relations = [[NSMutableDictionary alloc] init];
+		relations = [[NSMutableArray alloc] init];
 		cardKinds = [[NSMutableArray alloc] init];
 		grammarRules = [[NSMutableArray alloc] init];
 		languageVersion = [[plist objectForKey:@"languageVersion"] intValue];
@@ -63,7 +64,7 @@
 			Relation *r = [[[Relation alloc] initWithName:[relationData objectForKey:@"name"]
 											crossLanguage:[[relationData objectForKey:@"crossLanguage"] boolValue]
 												 cardKind:[relationData objectForKey:@"cardKind"]] autorelease];
-			[relations setObject:r forKey:r.name];
+			[relations addObject:r];
 		}
 		
 		// Create card kinds and grammar rules from plist:
@@ -83,15 +84,23 @@
 	return grammarRules;
 }
 
+- (Relation*)relationNamed:(NSString *)relationName
+{
+	for(Relation *r in relations)
+		if([r.name isEqualToString:relationName])
+			return r;
+	return nil;
+}
+
 - (BOOL)isCrossLanguageRelation:(NSString *)relationName
 {
-	Relation *relation = [relations objectForKey:relationName];
+	Relation *relation = [self relationNamed:relationName];
 	return relation.crossLanguage;
 }
 
 - (NSArray*)allRelationNames
 {
-	return [relations allKeys];
+	return OxMap(relations, name);
 }
 
 // By default:
@@ -100,8 +109,11 @@
 - (NSArray*)relationNamesForCardKind:(NSString *)cardKind
 {
 	NSMutableArray *result = [NSMutableArray arrayWithCapacity:[relations count]];
-	for(Relation *relation in [relations allValues]) {
-		if([cardKind hasPrefix:relation.cardKind])
+	cardKind = [cardKind decomposedStringWithCanonicalMapping];
+	for(Relation *relation in relations) {
+		// Weird but true:
+		//   @"" hasPrefix:@"" returns NO!
+		if([relation.cardKind isEqualToString:@""] || [cardKind hasPrefix:relation.cardKind])
 			[result addObject:relation.name];
 	}
 	return result;
