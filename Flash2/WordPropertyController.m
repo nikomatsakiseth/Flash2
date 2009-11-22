@@ -115,8 +115,9 @@
 	// Compute new window frame
 	NSWindow *window = [container window];
 	NSRect windowFrame = [window frame];
-	windowFrame.origin.y -= diffHeight / 2;
-	windowFrame.size.height = windowFrame.size.height + diffHeight;
+	CGFloat oldWindowHeight = windowFrame.size.height;
+	windowFrame.size.height = fmax(oldWindowHeight + diffHeight, [window minSize].height);
+	windowFrame.origin.y -= (windowFrame.size.height - oldWindowHeight) / 2;
 
 	// Add view and resize the window as needed
 	[container setDocumentView:createdView];

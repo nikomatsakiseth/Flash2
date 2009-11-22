@@ -839,8 +839,8 @@ NSString *firstPersonSingular(NSArray *endings) {
 				NSString *article = [parts _1];
 				if([word0 isEqualToString:article] && [words count] == 2) {
 					NSString *ending = [parts _2];
-					NSRange range = [[words _1] rangeOfString:ending options:NSDiacriticInsensitiveSearch];
-					if(range.location == [[words _1] length] - [article length])
+					NSRange range = [[words _1] rangeOfString:ending options:NSDiacriticInsensitiveSearch|NSAnchoredSearch|NSBackwardsSearch];
+					if(range.location != NSNotFound)
 						return cardKind;
 				}					
 			} else if([[parts _0] isEqualToString:Gr("Ρήμα")]) {
