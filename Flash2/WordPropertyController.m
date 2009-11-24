@@ -49,20 +49,6 @@
 		return;
 	}
 	
-	/*
-	 Compute the minimum height of our box so that the window,
-	 when resized to fit the box, respects its minimum height.
-	 */
-	
-	NSWindow *window = [container window];
-	NSSize windowSize = [window frame].size;
-	CGFloat otherStuff = windowSize.height - containerSize.height;
-	
-	NSSize minWindowSize = [window minSize];
-	NSAssert(windowSize.height >= minWindowSize.height, @"Window does not respect its size boundaries");
-	NSAssert(otherStuff <= minWindowSize.height, @"Other stuff won't fit in minimum size");
-	CGFloat minimumHeight = minWindowSize.height - otherStuff;
-	
 	// Find relations we will need
 	NSArray *relationNames = [language relationNamesForCardKind:card.cardKind];
 
@@ -79,7 +65,7 @@
 	// - - but no smaller than minimumHeight!
 	const int rows = [relationNames count];
 	NSRect frame = NSMakeRect(0, 0, containerSize.width, 0);
-	frame.size.height = fmax(minimumHeight, rows*tfHeight + (rows-1)*vertSpacing + 2.0*tbBorder);
+	frame.size.height = rows*tfHeight + (rows-1)*vertSpacing + 2.0*tbBorder;
 	
 	// determine width of one component, based on current horizontal size:
 	const CGFloat componentWidth = (frame.size.width - 2.0*horizSpacing - 2.0*lrBorder)/2.0;
@@ -132,12 +118,10 @@
 	CGFloat diffHeight = newBoxHeight - oldBoxHeight;
 	
 	// Compute new window frame
+	NSWindow *window = [container window];
 	NSRect windowFrame = [window frame];
-	NSLog(@"Window frame: %@", NSStringFromRect(windowFrame));
 	CGFloat oldWindowHeight = windowFrame.size.height;
-	NSAssert4(oldWindowHeight + diffHeight >= minWindowSize.height, @"New height of (%f+%f)=%f would violate window minimum size of %f!",
-			  oldWindowHeight, diffHeight, oldWindowHeight + diffHeight, minWindowSize.height);
-	windowFrame.size.height = fmax(oldWindowHeight + diffHeight, minWindowSize.height);
+	windowFrame.size.height = fmax(oldWindowHeight + diffHeight, [window minSize].height);
 	windowFrame.origin.y -= (windowFrame.size.height - oldWindowHeight) / 2;
 
 	// Add view and resize the window as needed
