@@ -80,7 +80,8 @@
 
 - (NSArray*)relatedUserProperties:(NSString*)aRelationName
 {
-	return [[self managedObjectContext] objectsOfEntityType:E_USER_PROPERTY matchingPredicateFormat:@"relationName == %@", aRelationName];
+	return [[self managedObjectContext] objectsOfEntityType:E_USER_PROPERTY 
+									matchingPredicateFormat:@"relationName = %@", aRelationName];
 }
 
 - (BOOL)hasRelatedText:(NSString*)aRelationName

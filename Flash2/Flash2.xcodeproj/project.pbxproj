@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2338E1E00F17595A00BEB645 /* Camera.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2338E1DF0F17595A00BEB645 /* Camera.icns */; };
 		2361386710B7F1E900EED743 /* PropertyBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2361386610B7F1E900EED743 /* PropertyBuilder.m */; };
-		2361386F10B7F52C00EED743 /* Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 2361386E10B7F52C00EED743 /* Attribute.m */; };
 		236139DF10B852C400EED743 /* WordPropertyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 236139DE10B852C400EED743 /* WordPropertyController.m */; };
 		2374F2BB10BC18E700C51C7A /* FlippedNSView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2374F2BA10BC18E700C51C7A /* FlippedNSView.m */; };
 		237CF1BC10B4696500C8334C /* Ox.m in Sources */ = {isa = PBXBuildFile; fileRef = 237CF1AA10B4696500C8334C /* Ox.m */; };
@@ -70,8 +69,6 @@
 		2338E1DF0F17595A00BEB645 /* Camera.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Camera.icns; sourceTree = "<group>"; };
 		2361386510B7F1E900EED743 /* PropertyBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyBuilder.h; sourceTree = "<group>"; };
 		2361386610B7F1E900EED743 /* PropertyBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyBuilder.m; sourceTree = "<group>"; };
-		2361386D10B7F52C00EED743 /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
-		2361386E10B7F52C00EED743 /* Attribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attribute.m; sourceTree = "<group>"; };
 		236139DD10B852C400EED743 /* WordPropertyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordPropertyController.h; sourceTree = "<group>"; };
 		236139DE10B852C400EED743 /* WordPropertyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordPropertyController.m; sourceTree = "<group>"; };
 		2374F2B910BC18E700C51C7A /* FlippedNSView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlippedNSView.h; sourceTree = "<group>"; };
@@ -298,8 +295,6 @@
 				23A536EC0EA9E1B10008153E /* Language.m */,
 				23A538C60EAB533E0008153E /* BaseLanguage.h */,
 				23A538C70EAB533E0008153E /* BaseLanguage.m */,
-				2361386D10B7F52C00EED743 /* Attribute.h */,
-				2361386E10B7F52C00EED743 /* Attribute.m */,
 			);
 			name = Language;
 			sourceTree = "<group>";
@@ -522,7 +517,6 @@
 				23A2D2B610B6A55A0024C95A /* CardSetController.m in Sources */,
 				23A2D41910B6C10B0024C95A /* LanguageTabController.m in Sources */,
 				2361386710B7F1E900EED743 /* PropertyBuilder.m in Sources */,
-				2361386F10B7F52C00EED743 /* Attribute.m in Sources */,
 				236139DF10B852C400EED743 /* WordPropertyController.m in Sources */,
 				2374F2BB10BC18E700C51C7A /* FlippedNSView.m in Sources */,
 			);

@@ -85,8 +85,8 @@ NSArray *allLanguages();
 - (NSArray*)grammarRules;
 
 // Attempts to automatically derive a property for the given relation name
-// and the given card.  May return nil if it was not able to for any reason, 
-// such as the relation name is not recognized.
+// and the given card.  Returns nil if it was not able to for any reason, 
+// such as the relation name is not recognized.  
 - (NSString*)autoPropertyForCard:(Card*)aCard relationName:(NSString*)aRelationName;
 
 @end
