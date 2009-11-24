@@ -19,7 +19,8 @@
 
 @implementation LanguageTabController
 
-@synthesize rootView, wordPropBox, cards, searchStringTextField, cardsPredicate, wordSearchString, language, managedObjectContext, wordPropertyController;
+@synthesize rootView, wordPropBox, cards, searchStringTextField, cardsPredicate, wordSearchString;
+@synthesize language, languageVersion, managedObjectContext, wordPropertyController;
 
 - initWithLanguage:(id<Language>)aLanguage 
 managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext
@@ -27,6 +28,10 @@ managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext
 	if((self = [super init])) {
 		self.language = aLanguage;
 		self.managedObjectContext = aManagedObjectContext;
+		self.languageVersion = [self.managedObjectContext languageVersionForLanguage:self.language];
+		
+		defaultPredicate = [[NSPredicate predicateWithFormat:@"languageVersion = %@", self.languageVersion] retain];
+		self.cardsPredicate = defaultPredicate;
 		
 		NSNib *nib = [[NSNib alloc] initWithNibNamed:@"LanguageTab" bundle:[NSBundle mainBundle]];
 		if(![nib instantiateNibWithOwner:self topLevelObjects:nil]) {
@@ -40,11 +45,13 @@ managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext
 
 - (void)dealloc
 {
+	[defaultPredicate release];
 	self.rootView = nil;
 	self.wordPropBox = nil;
 	self.cards = nil;
 	self.searchStringTextField = nil;
 	self.language = nil;
+	self.languageVersion = nil;
 	self.managedObjectContext = nil;
 	self.cardsPredicate = nil;
 	self.wordSearchString = nil;
@@ -71,13 +78,17 @@ managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext
 - (void)setWordSearchString:(NSString *)searchString
 {
 	wordSearchString = [searchString copy];
-	
-	NSPredicate *predicate = [NSPredicate predicateWithBlock:^ BOOL (id obj, NSDictionary *bindings) {		
-		Card *card = obj;
-		NSRange range = [card.text rangeOfString:wordSearchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch)];
-		return range.location != NSNotFound;
-	}];
-	self.cardsPredicate = predicate;
+
+	if(searchString == nil || [searchString isEqual:@""]) {
+		self.cardsPredicate = defaultPredicate;
+	} else {
+		NSPredicate *predicate = [NSPredicate predicateWithBlock:^ BOOL (id obj, NSDictionary *bindings) {		
+			Card *card = obj;
+			NSRange range = [card.text rangeOfString:wordSearchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch)];
+			return range.location != NSNotFound;
+		}];
+		self.cardsPredicate = predicate;
+	}
 }
 
 - (void)observeValueForSelectedObjectsOfObject:(id)anObject change:(NSDictionary *)aChange context:(void*)aContext

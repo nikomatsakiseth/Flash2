@@ -11,6 +11,7 @@
 		2361386710B7F1E900EED743 /* PropertyBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2361386610B7F1E900EED743 /* PropertyBuilder.m */; };
 		2361386F10B7F52C00EED743 /* Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 2361386E10B7F52C00EED743 /* Attribute.m */; };
 		236139DF10B852C400EED743 /* WordPropertyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 236139DE10B852C400EED743 /* WordPropertyController.m */; };
+		2374F2BB10BC18E700C51C7A /* FlippedNSView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2374F2BA10BC18E700C51C7A /* FlippedNSView.m */; };
 		237CF1BC10B4696500C8334C /* Ox.m in Sources */ = {isa = PBXBuildFile; fileRef = 237CF1AA10B4696500C8334C /* Ox.m */; };
 		237CF1BD10B4696500C8334C /* OxDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 237CF1AC10B4696500C8334C /* OxDebug.m */; };
 		237CF1BE10B4696500C8334C /* OxNSArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 237CF1AF10B4696500C8334C /* OxNSArray.m */; };
@@ -73,6 +74,8 @@
 		2361386E10B7F52C00EED743 /* Attribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attribute.m; sourceTree = "<group>"; };
 		236139DD10B852C400EED743 /* WordPropertyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordPropertyController.h; sourceTree = "<group>"; };
 		236139DE10B852C400EED743 /* WordPropertyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordPropertyController.m; sourceTree = "<group>"; };
+		2374F2B910BC18E700C51C7A /* FlippedNSView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlippedNSView.h; sourceTree = "<group>"; };
+		2374F2BA10BC18E700C51C7A /* FlippedNSView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlippedNSView.m; sourceTree = "<group>"; };
 		237CF1A910B4696500C8334C /* Ox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ox.h; sourceTree = "<group>"; };
 		237CF1AA10B4696500C8334C /* Ox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ox.m; sourceTree = "<group>"; };
 		237CF1AB10B4696500C8334C /* OxDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OxDebug.h; sourceTree = "<group>"; };
@@ -354,6 +357,8 @@
 				2361386610B7F1E900EED743 /* PropertyBuilder.m */,
 				236139DD10B852C400EED743 /* WordPropertyController.h */,
 				236139DE10B852C400EED743 /* WordPropertyController.m */,
+				2374F2B910BC18E700C51C7A /* FlippedNSView.h */,
+				2374F2BA10BC18E700C51C7A /* FlippedNSView.m */,
 			);
 			name = "UI Classes";
 			sourceTree = "<group>";
@@ -519,6 +524,7 @@
 				2361386710B7F1E900EED743 /* PropertyBuilder.m in Sources */,
 				2361386F10B7F52C00EED743 /* Attribute.m in Sources */,
 				236139DF10B852C400EED743 /* WordPropertyController.m in Sources */,
+				2374F2BB10BC18E700C51C7A /* FlippedNSView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

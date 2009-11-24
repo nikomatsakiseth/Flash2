@@ -15,7 +15,9 @@
 
 @interface LanguageTabController : NSObject {
 	id<Language> language;
+	LanguageVersion *languageVersion;
 	NSManagedObjectContext *managedObjectContext;
+	NSPredicate *defaultPredicate;
 	
 	NSView *rootView;
 	NSBox *wordPropBox;
@@ -38,6 +40,7 @@ managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext;
 @property(retain) NSPredicate *cardsPredicate;       // bound in GUI
 @property(copy) NSString *wordSearchString;
 @property(retain) id<Language> language;
+@property(retain) LanguageVersion *languageVersion;
 @property(retain) NSManagedObjectContext *managedObjectContext;
 @property(readonly) NSArray *languages;
 

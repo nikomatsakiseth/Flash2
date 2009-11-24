@@ -12,6 +12,7 @@
 #import "OxNSTextField.h"
 #import "FlashTextField.h"
 #import "OxKeyValue.h"
+#import "FlippedNSView.h"
 
 @implementation WordPropertyController
 
@@ -48,6 +49,20 @@
 		return;
 	}
 	
+	/*
+	 Compute the minimum height of our box so that the window,
+	 when resized to fit the box, respects its minimum height.
+	 */
+	
+	NSWindow *window = [container window];
+	NSSize windowSize = [window frame].size;
+	CGFloat otherStuff = windowSize.height - containerSize.height;
+	
+	NSSize minWindowSize = [window minSize];
+	NSAssert(windowSize.height >= minWindowSize.height, @"Window does not respect its size boundaries");
+	NSAssert(otherStuff <= minWindowSize.height, @"Other stuff won't fit in minimum size");
+	CGFloat minimumHeight = minWindowSize.height - otherStuff;
+	
 	// Find relations we will need
 	NSArray *relationNames = [language relationNamesForCardKind:card.cardKind];
 
@@ -57,32 +72,36 @@
 	const CGFloat lrBorder = 10;     // distance from left/right border
 	const CGFloat horizSpacing = 8;  // horiz spacing between items in a row
 	const CGFloat vertSpacing = 10;  // very spacing between rows
-
-
-	// determine new size allocated starting with width of scroll view
+	
+	// determine new size:
+	// - keep current width
+	// - derive height from number of rows to display
+	// - - but no smaller than minimumHeight!
 	const int rows = [relationNames count];
 	NSRect frame = NSMakeRect(0, 0, containerSize.width, 0);
-	frame.size.height = rows*tfHeight + (rows-1)*vertSpacing + 2.0*tbBorder;
+	frame.size.height = fmax(minimumHeight, rows*tfHeight + (rows-1)*vertSpacing + 2.0*tbBorder);
 	
 	// determine width of one component, based on current horizontal size:
 	const CGFloat componentWidth = (frame.size.width - 2.0*horizSpacing - 2.0*lrBorder)/2.0;
 	
 	// create view:
-	NSView *createdView = [[[NSView alloc] initWithFrame:frame] autorelease];
+	NSView *createdView = [[[FlippedNSView alloc] initWithFrame:frame] autorelease];
+	[createdView setAutoresizingMask:NSViewMinYMargin|NSViewWidthSizable];
 	id prevResponder = initialFirstResponder;
 	
 	// Build from top down: 'row' represents number of rows 
-	// located above current row.
+	// located above current row.  Remember that our NSView uses a flipped coordinate system!
+	CGFloat currentY = tbBorder;
 	for (int row = 0; row < rows; row++) {
 		id rowViews[2];
 		
 		// Position the text fields relative to origin at Lower-Left of box
 		NSRect frames[2];
 		int xw = componentWidth + horizSpacing;
-		CGFloat currentY = frame.size.height - tbBorder - (row + 1) * tfHeight - (row) * vertSpacing;
 		frames[0] = NSMakeRect(lrBorder, currentY, componentWidth, tfHeight);
 		frames[1] = NSMakeRect(lrBorder+xw, currentY, componentWidth, tfHeight);
-		
+		currentY += tfHeight + vertSpacing;
+
 		// Create the views:
 		rowViews[0] = [[NSTextField alloc] initWithFrame:frames[0]];
 		rowViews[1] = [[FlashTextField alloc] initWithFrame:frames[1]];
@@ -96,8 +115,8 @@
 		prevResponder = rowViews[1];
 		
 		// Configure resize parameters:
-		[rowViews[0] setAutoresizingMask:NSViewWidthSizable|NSViewMaxXMargin];
-		[rowViews[1] setAutoresizingMask:NSViewWidthSizable|NSViewMinXMargin];
+		[rowViews[0] setAutoresizingMask:NSViewWidthSizable];
+		[rowViews[1] setAutoresizingMask:NSViewWidthSizable];
 				
 		for (int i = 0; i < 2; i++)
 			[createdView addSubview:rowViews[i]];
@@ -113,10 +132,12 @@
 	CGFloat diffHeight = newBoxHeight - oldBoxHeight;
 	
 	// Compute new window frame
-	NSWindow *window = [container window];
 	NSRect windowFrame = [window frame];
+	NSLog(@"Window frame: %@", NSStringFromRect(windowFrame));
 	CGFloat oldWindowHeight = windowFrame.size.height;
-	windowFrame.size.height = fmax(oldWindowHeight + diffHeight, [window minSize].height);
+	NSAssert4(oldWindowHeight + diffHeight >= minWindowSize.height, @"New height of (%f+%f)=%f would violate window minimum size of %f!",
+			  oldWindowHeight, diffHeight, oldWindowHeight + diffHeight, minWindowSize.height);
+	windowFrame.size.height = fmax(oldWindowHeight + diffHeight, minWindowSize.height);
 	windowFrame.origin.y -= (windowFrame.size.height - oldWindowHeight) / 2;
 
 	// Add view and resize the window as needed

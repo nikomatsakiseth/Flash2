@@ -24,5 +24,4 @@
 @property(retain) IBOutlet NSScrollView *container;
 @property(retain) id initialFirstResponder;
 
-
 @end
