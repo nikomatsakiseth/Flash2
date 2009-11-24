@@ -78,7 +78,7 @@
 	// Build from top down: 'row' represents number of rows 
 	// located above current row.  Remember that our NSView uses a flipped coordinate system!
 	CGFloat currentY = tbBorder;
-	for (int row = 0; row < rows; row++) {
+	for(NSString *relationName in relationNames) {
 		id rowViews[2];
 		
 		// Position the text fields relative to origin at Lower-Left of box
@@ -92,9 +92,11 @@
 		rowViews[0] = [[NSTextField alloc] initWithFrame:frames[0]];
 		rowViews[1] = [[FlashTextField alloc] initWithFrame:frames[1]];
 		
-		// Set values:
+		// Configure and set values:
 		[rowViews[0] configureIntoLabel];
-		[rowViews[0] setStringValue:[relationNames objectAtIndex:row]];
+		[rowViews[0] setStringValue:relationName];
+		if(![language isCrossLanguageRelation:relationName])
+			[rowViews[1] setKeyboardIdentifier:[language keyboardIdentifier]];
 		
 		// Link the text fields:
 		[prevResponder setNextKeyView:rowViews[1]];

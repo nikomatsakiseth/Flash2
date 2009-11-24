@@ -356,7 +356,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>54</integer>
+									<integer>45</integer>
 									<integer>34</integer>
 									<integer>0</integer>
 								</array>
@@ -409,7 +409,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>2374F2D810BC19D400C51C7A</string>
+										<string>2374F2E010BC1A4C00C51C7A</string>
 										<key>history</key>
 										<array>
 											<string>237CF1DB10B46C1700C8334C</string>
@@ -430,7 +430,6 @@
 											<string>23A2D2BA10B6AAAE0024C95A</string>
 											<string>23A2D2BF10B6AAAE0024C95A</string>
 											<string>23A2D2E110B6AB120024C95A</string>
-											<string>23A2D38F10B6B10C0024C95A</string>
 											<string>23A2D3A510B6B1B70024C95A</string>
 											<string>23A2D3A610B6B1B70024C95A</string>
 											<string>23A2D3D310B6B3200024C95A</string>
@@ -470,7 +469,8 @@
 											<string>2374F2C410BC190E00C51C7A</string>
 											<string>2374F2C510BC190E00C51C7A</string>
 											<string>2374F2C610BC190E00C51C7A</string>
-											<string>2374F2D710BC19D400C51C7A</string>
+											<string>2374F2DE10BC1A4C00C51C7A</string>
+											<string>2374F2DF10BC1A4C00C51C7A</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -770,7 +770,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>280762836.03384501</real>
+	<real>280762956.88545698</real>
 	<key>ToolbarConfigUserDefaultsMinorVersion</key>
 	<string>2</string>
 	<key>ToolbarDisplayMode</key>
@@ -787,7 +787,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>2374F2D910BC19D400C51C7A</string>
+		<string>2374F2E110BC1A4C00C51C7A</string>
 		<string>2374F21A10BC0FD300C51C7A</string>
 		<string>2374F21B10BC0FD300C51C7A</string>
 		<string>/Users/niko/git/Flash2/Flash2/Flash2.xcodeproj</string>
