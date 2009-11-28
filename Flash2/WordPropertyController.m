@@ -133,7 +133,7 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 		[attribute.labelTextField configureIntoLabel];
 		[attribute.labelTextField bind:@"value" toObject:attribute withKeyPath:@"relationName" options:nil];
 		
-		[attribute.textTextField bind:@"value" toObject:attribute withKeyPath:@"text" options:nil];
+		[attribute.textTextField bind:@"value" toObject:attribute withKeyPath:@"text" options:OxDict(OxYES, NSContinuouslyUpdatesValueBindingOption)];
 		if(![language isCrossLanguageRelation:attribute.relationName])
 			[attribute.textTextField setKeyboardIdentifier:[language keyboardIdentifier]];
 		
@@ -231,15 +231,24 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 	// whether the attribute is auto-generated or not, etc.
 	//
 	// Rules are:
-	//
+	
 	// If auto-generated:
 	//    This attribute should be the only
-	//    attribute of its type.
+	//    attribute of its type.  To "remove" it,
+	//    we add an empty user property.
 	
 	if(!attribute.isUserProperty) {
 		attribute.text = @""; // convert to user property
 		return;
 	}
+	
+	// Otherwise, if user property:
+	//    If this is the only user property, 
+	//    then we switch back to automatic.
+	//
+	//    If not, we just remove it.  This causes
+	//    the GUI to be adjusted because a slot 
+	//    disappeared.
 	
 	// How many other attributes are there with this same relation name?
 	NSArray *otherAttributes = [attributes filterWithBlock:^ int (id obj) {
@@ -252,7 +261,7 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 		NSString *autoPropertyText = [language autoPropertyForCard:self.card relationName:attribute.relationName];
 		[attribute setAutoProperty:[AutoProperty propertyWithCard:self.card 
 													 relationName:attribute.relationName 
-															 text:autoPropertyText]];
+															 text:autoPropertyText]];		
 	} else {
 		// otherwise, just remove the one they asked
 		for(NSView *component in [attribute components])

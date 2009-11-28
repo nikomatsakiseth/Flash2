@@ -80,8 +80,9 @@
 
 - (NSArray*)relatedUserProperties:(NSString*)aRelationName
 {
-	return [[self managedObjectContext] objectsOfEntityType:E_USER_PROPERTY 
-									matchingPredicateFormat:@"relationName = %@", aRelationName];
+	return [[self.properties filteredSetUsingPredicate:[NSPredicate predicateWithBlock:^ BOOL(id object, NSDictionary *bindings) {
+		return [[object relationName] isEqualToString:aRelationName];
+	}]] allObjects];
 }
 
 - (BOOL)hasRelatedText:(NSString*)aRelationName
