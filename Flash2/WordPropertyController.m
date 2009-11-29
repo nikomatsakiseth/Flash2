@@ -64,49 +64,28 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 	}
 }
 
-- (void)createGuiForCard
+- (void)createGuiForAttributesAsSubviewOf:(NSView*)createdView
 {
+	// determine new size:
+	// - keep current width
+	// - derive height from number of rows to display
+	// - - but no smaller than minimumHeight!
 	NSSize containerSize = [container contentSize];
-
-	// Don't release this array immediately,
-	// because existing buttons etc may be 
-	// referencing objects in it.
-	[attributes autorelease];
-
-	if(card == nil) {
-		NSRect frame = NSMakeRect(0, 0, 0, 0);
-		frame.size = containerSize;
-		NSView *view = [[[NSView alloc] initWithFrame:frame] autorelease];
-		[container setDocumentView:view];
-		attributes = nil;
-		return;
-	}
+	const int rows = [attributes count];
+	NSRect frame = NSMakeRect(0, 0, containerSize.width, 0);
+	frame.size.height = rows*tfHeight + (rows-1)*vertSpacing + 2.0*tbBorder;
+	createdView.frame = frame;
 	
 	// Images for buttons
 	NSImage *addImage = [NSImage imageNamed:@"NSAddTemplate"];
 	NSImage *removeImage = [NSImage imageNamed:@"NSRemoveTemplate"];
 	const CGFloat buttonWidth = fmin([addImage size].width + 10, tfHeight);
 	const CGFloat buttonHeight = fmin([addImage size].height + 10, tfHeight);
-
-	// Find relations we will need
-	NSArray *relationNames = [language relationNamesForCardKind:card.cardKind];
-	attributes = [[NSMutableArray alloc] initWithCapacity:[relationNames count]];
-	for(NSString *relationName in relationNames)
-		[self addAttributesForRelationName:relationName to:attributes];
-	
-	// determine new size:
-	// - keep current width
-	// - derive height from number of rows to display
-	// - - but no smaller than minimumHeight!
-	const int rows = [relationNames count];
-	NSRect frame = NSMakeRect(0, 0, containerSize.width, 0);
-	frame.size.height = rows*tfHeight + (rows-1)*vertSpacing + 2.0*tbBorder;
 	
 	// determine width of one component, based on current horizontal size:
 	const CGFloat componentWidth = (frame.size.width - 2.0*buttonWidth - 3.0*horizSpacing - 2.0*lrBorder)/2.0;
 	
 	// create view:
-	NSView *createdView = [[[FlippedNSView alloc] initWithFrame:frame] autorelease];
 	[createdView setAutoresizingMask:NSViewMinYMargin|NSViewWidthSizable];
 	id prevResponder = initialFirstResponder;
 	
@@ -122,38 +101,47 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 		frames[2] = NSMakeRect(NSMaxX(frames[1]) + horizSpacing, currentY + buttonOffset, buttonWidth, buttonHeight);
 		frames[3] = NSMakeRect(NSMaxX(frames[2]), currentY + buttonOffset, buttonWidth, buttonHeight);
 		currentY += tfHeight + vertSpacing;
+		
+		// Create or reposition the views:
+		if(attribute.labelTextField != nil) {
+			attribute.labelTextField.frame = frames[0];
+			attribute.textTextField.frame = frames[1];
+			attribute.addButton.frame = frames[2];
+			attribute.removeButton.frame = frames[3];
+		} else {
+			attribute.labelTextField = [[[NSTextField alloc] initWithFrame:frames[0]] autorelease];
+			[attribute.labelTextField configureIntoLabel];
+			[attribute.labelTextField bind:@"value" toObject:attribute withKeyPath:@"relationName" options:nil];
+			[attribute.labelTextField setAutoresizingMask:NSViewWidthSizable];
 
-		// Create the views:
-		attribute.labelTextField = [[[NSTextField alloc] initWithFrame:frames[0]] autorelease];
-		attribute.textTextField = [[[FlashTextField alloc] initWithFrame:frames[1]] autorelease];
-		attribute.addButton = [[[NSButton alloc] initWithFrame:frames[2]] autorelease];
-		attribute.removeButton = [[[NSButton alloc] initWithFrame:frames[3]] autorelease];
-		
-		// Configure and set values:
-		[attribute.labelTextField configureIntoLabel];
-		[attribute.labelTextField bind:@"value" toObject:attribute withKeyPath:@"relationName" options:nil];
-		
-		[attribute.textTextField bind:@"value" toObject:attribute withKeyPath:@"text" options:OxDict(OxYES, NSContinuouslyUpdatesValueBindingOption)];
-		if(![language isCrossLanguageRelation:attribute.relationName])
-			[attribute.textTextField setKeyboardIdentifier:[language keyboardIdentifier]];
-		
-		[attribute.addButton bind:@"enabled" toObject:attribute withKeyPath:@"isUserProperty" options:nil];
-		[attribute.addButton setImage:addImage];
-		[attribute.addButton setBezelStyle:NSRoundRectBezelStyle];
-
-		[attribute.removeButton setImage:removeImage];
-		[attribute.removeButton setBezelStyle:NSRoundRectBezelStyle];
-
-		// Link the text fields:
-		[prevResponder setNextKeyView:attribute.textTextField];
-		prevResponder = attribute.textTextField;
-		
-		// Configure resize parameters:
-		[attribute.labelTextField setAutoresizingMask:NSViewWidthSizable];
-		[attribute.textTextField setAutoresizingMask:NSViewWidthSizable];
+			attribute.textTextField = [[[FlashTextField alloc] initWithFrame:frames[1]] autorelease];
+			[attribute.textTextField bind:@"value" toObject:attribute withKeyPath:@"text" options:OxDict(OxYES, NSContinuouslyUpdatesValueBindingOption)];
+			if(![language isCrossLanguageRelation:attribute.relationName])
+				[attribute.textTextField setKeyboardIdentifier:[language keyboardIdentifier]];
+			[attribute.textTextField setAutoresizingMask:NSViewWidthSizable];
+			
+			attribute.addButton = [[[NSButton alloc] initWithFrame:frames[2]] autorelease];
+			[attribute.addButton bind:@"enabled" toObject:attribute withKeyPath:@"isUserProperty" options:nil];
+			[attribute.addButton setBezelStyle:NSRoundRectBezelStyle];
+			[attribute.addButton setImage:addImage];
+			[attribute.addButton setTarget:attribute];
+			[attribute.addButton setAction:@selector(add:)];
+			[attribute.addButton setAutoresizingMask:NSViewMinXMargin];
+			
+			attribute.removeButton = [[[NSButton alloc] initWithFrame:frames[3]] autorelease];
+			[attribute.removeButton setBezelStyle:NSRoundRectBezelStyle];
+			[attribute.removeButton setImage:removeImage];
+			[attribute.removeButton setTarget:attribute];
+			[attribute.removeButton setAction:@selector(remove:)];
+			[attribute.removeButton setAutoresizingMask:NSViewMinXMargin];
+			
+			for(NSView *component in [attribute components])
+				[createdView addSubview:component];
+		} 
 				
-		for(NSView *component in [attribute components])
-			[createdView addSubview:component];
+		// Link the next key views:
+		[prevResponder setNextKeyView:attribute.textTextField];
+		prevResponder = attribute.textTextField;				
 	}
 	[prevResponder setNextKeyView:initialFirstResponder];
 	
@@ -171,10 +159,45 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 	CGFloat oldWindowHeight = windowFrame.size.height;
 	windowFrame.size.height = fmax(oldWindowHeight + diffHeight, [window minSize].height);
 	windowFrame.origin.y -= (windowFrame.size.height - oldWindowHeight) / 2;
-
-	// Add view and resize the window as needed
-	[container setDocumentView:createdView];
 	[window setFrame:windowFrame display:YES animate:YES];	
+}
+
+- (void)createGuiForCard
+{
+	NSSize containerSize = [container contentSize];
+	
+	// Don't release this array immediately,
+	// because existing buttons etc may be 
+	// referencing objects in it.
+	[attributes autorelease];
+
+	if(card == nil) {
+		NSRect frame = NSMakeRect(0, 0, 0, 0);
+		frame.size = containerSize;
+		NSView *view = [[[NSView alloc] initWithFrame:frame] autorelease];
+		[container setDocumentView:view];
+		attributes = nil;
+		return;
+	}
+	
+	// Find relations we will need
+	NSArray *relationNames = [language relationNamesForCardKind:card.cardKind];
+	attributes = [[NSMutableArray alloc] initWithCapacity:[relationNames count]];
+	for(NSString *relationName in relationNames)
+		[self addAttributesForRelationName:relationName to:attributes];
+	
+	// Create the new GUI
+	NSRect dummyFrame = NSMakeRect(0, 0, containerSize.width, containerSize.height);
+	NSView *createdView = [[[FlippedNSView alloc] initWithFrame:dummyFrame] autorelease];
+	[createdView setWantsLayer:YES];
+	[self createGuiForAttributesAsSubviewOf:createdView];
+	[container setDocumentView:createdView];
+	
+	if([attributes count] >= 1) {
+		Attribute *attribute = [attributes _0];
+		NSWindow *window = [container window];
+		[window performSelector:@selector(makeFirstResponder:) withObject:attribute.textTextField afterDelay:0];
+	}	
 }
 
 - (void)configureRow:(int)row views:(NSArray *)views
@@ -209,20 +232,25 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 	
 }
 
-- (void)addAttribute:(Attribute*)attribute
+- (void)addAttribute:(Attribute*)existingAttribute
 {
 	// "Adding" an attribute is only possible when the
 	// attribute is a user property.  In that case, it
 	// generates a second UserProperty with the same 
-	int index = [attributes indexOfObject:attribute];
-	[self shiftAttributesFromIndex:index+1 direction:1];
+	int index = [attributes indexOfObject:existingAttribute];
 	
 	UserProperty *userProperty = [managedObjectContext newUserPropertyForCard:card
 																		 text:@"New" 
-																 relationName:attribute.relationName];
-	Attribute *attr = [Attribute attributeWithUserProperty:userProperty
+																 relationName:existingAttribute.relationName];
+	Attribute *newAttribute = [Attribute attributeWithUserProperty:userProperty
 									wordPropertyController:self];
-	[attributes insertObject:attr atIndex:index+1];
+	[attributes insertObject:newAttribute atIndex:index+1];
+	
+	NSView *createdView = [container documentView];
+	[self createGuiForAttributesAsSubviewOf:createdView];
+	
+	NSWindow *window = [createdView window];
+	[window makeFirstResponder:newAttribute.textTextField];
 }
 
 - (void)removeAttribute:(Attribute*)attribute

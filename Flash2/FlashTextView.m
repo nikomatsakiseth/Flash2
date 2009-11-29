@@ -21,7 +21,7 @@ TISInputSourceRef CopyKbWithIdentifier(NSString *identifier) {
 
 @implementation FlashTextView
 
-- (void) setKeyboardIdentifierToUseWhenActive:(NSString*)activeKbId {
+- (void)setKeyboardIdentifierToUseWhenActive:(NSString*)activeKbId {
 	m_activeIdentifier = activeKbId;
 }
 
