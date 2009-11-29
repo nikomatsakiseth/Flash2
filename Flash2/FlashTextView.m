@@ -32,12 +32,14 @@ TISInputSourceRef CopyKbWithIdentifier(NSString *identifier) {
 		m_savedIdentifier = TISGetInputSourceProperty(current, kTISPropertyInputSourceID);
 		CFRelease(current);
 		
-		OxLog(@"%p: becomeFirstResponse, saving input source '%@' and selecting '%@'", 
+		OxLog(@"%p: becomeFirstResponder, saving input source '%@' and selecting '%@'", 
 			  self, m_savedIdentifier, m_activeIdentifier);
 		
 		TISInputSourceRef active = CopyKbWithIdentifier(m_activeIdentifier);
 		TISSelectInputSource(active);		
 		CFRelease(active);
+	} else {
+		OxLog(@"%p: becomeFirstResponder, active identifier is NULL", self);
 	}
 	return YES;
 }
@@ -51,7 +53,9 @@ TISInputSourceRef CopyKbWithIdentifier(NSString *identifier) {
 		TISInputSourceRef saved = CopyKbWithIdentifier(m_savedIdentifier);
 		TISSelectInputSource(saved);		
 		CFRelease(saved);
-	}
+	} else {
+		OxLog(@"%p: resignFirstResponder, saved identifier is NULL", self);
+	}		
 	return YES;
 }
 

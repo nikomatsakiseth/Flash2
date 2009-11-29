@@ -30,6 +30,7 @@
 
 - (void)addAttribute:(Attribute*)attribute;
 - (void)removeAttribute:(Attribute*)attribute;
+- (void)selectFirstAttribute;
 
 @end
 

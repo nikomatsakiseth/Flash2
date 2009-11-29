@@ -8,11 +8,13 @@
 
 #import "WordPropertyController.h"
 #import "Ox.h"
+#import "OxDebug.h"
 #import "OxNSArray.h"
 #import "OxNSTextField.h"
 #import "FlashTextField.h"
 #import "OxKeyValue.h"
 #import "FlippedNSView.h"
+#import "Config.h"
 
 // These were determined experimentally / by playing with IB:
 static const CGFloat tfHeight = 22;     // height of a standard Text Field
@@ -116,8 +118,11 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 
 			attribute.textTextField = [[[FlashTextField alloc] initWithFrame:frames[1]] autorelease];
 			[attribute.textTextField bind:@"value" toObject:attribute withKeyPath:@"text" options:OxDict(OxYES, NSContinuouslyUpdatesValueBindingOption)];
-			if(![language isCrossLanguageRelation:attribute.relationName])
+			if(![language isCrossLanguageRelation:attribute.relationName]) {
 				[attribute.textTextField setKeyboardIdentifier:[language keyboardIdentifier]];
+			} else {
+				[attribute.textTextField setKeyboardIdentifier:defaultKeyboardIdentifier()];
+			}
 			[attribute.textTextField setAutoresizingMask:NSViewWidthSizable];
 			
 			attribute.addButton = [[[NSButton alloc] initWithFrame:frames[2]] autorelease];
@@ -189,15 +194,9 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 	// Create the new GUI
 	NSRect dummyFrame = NSMakeRect(0, 0, containerSize.width, containerSize.height);
 	NSView *createdView = [[[FlippedNSView alloc] initWithFrame:dummyFrame] autorelease];
-	[createdView setWantsLayer:YES];
+//	[createdView setWantsLayer:YES];
 	[self createGuiForAttributesAsSubviewOf:createdView];
-	[container setDocumentView:createdView];
-	
-	if([attributes count] >= 1) {
-		Attribute *attribute = [attributes _0];
-		NSWindow *window = [container window];
-		[window performSelector:@selector(makeFirstResponder:) withObject:attribute.textTextField afterDelay:0];
-	}	
+	[container setDocumentView:createdView];	
 }
 
 - (void)configureRow:(int)row views:(NSArray *)views
@@ -250,7 +249,7 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 	[self createGuiForAttributesAsSubviewOf:createdView];
 	
 	NSWindow *window = [createdView window];
-	[window makeFirstResponder:newAttribute.textTextField];
+//	[window makeFirstResponder:newAttribute.textTextField];
 }
 
 - (void)removeAttribute:(Attribute*)attribute
@@ -301,6 +300,15 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 	}	
 	[managedObjectContext deleteObject:userProperty];
 }
+
+- (void)selectFirstAttribute
+{
+	if([attributes count] >= 1) {
+		Attribute *attribute = [attributes _0];
+		NSWindow *window = [container window];
+		[window performSelector:@selector(makeFirstResponder:) withObject:attribute.textTextField afterDelay:0];
+	}	
+}	
 
 @end
 										 
@@ -363,6 +371,11 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 	Attribute *attr = [[Attribute alloc] initWithWordPropertyController:controller];
 	[attr setAutoProperty:autoProperty];
 	return attr;
+}
+
+- (NSString*)description
+{
+	return OxFmt(@"[Attr %p %@.%@=%@ (%d)]", self, self.card.text, self.relationName, self.text, self.isUserProperty);
 }
 
 - (void)setAutoProperty:(AutoProperty*)autoProperty

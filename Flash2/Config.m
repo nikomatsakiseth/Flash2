@@ -46,6 +46,11 @@ void selectDefaultKeyboard() {
 	}
 }
 
+NSString *defaultKeyboardIdentifier() {
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	return [userDefaults stringForKey:DEFAULT_KEYBOARD];
+}
+
 NSTimeInterval tooEasyInterval() {
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	return [userDefaults floatForKey:TOO_EASY_INTERVAL];

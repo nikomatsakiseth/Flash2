@@ -36,4 +36,28 @@
 	[super dealloc];
 }
 
+- (void)textDidBeginEditing:(NSNotification *)notification
+{
+	NSLog(@"[%p textDidBeginEditing:%@] (kb=%@)", self, notification, self.keyboardIdentifier);
+	[super textDidBeginEditing:notification];
+}
+
+- (void)textDidEndEditing:(NSNotification *)notification
+{
+	NSLog(@"[%p textDidEndEditing:%@] (kb=%@)", self, notification, self.keyboardIdentifier);
+	[super textDidEndEditing:notification];
+}
+
+- (BOOL)textShouldBeginEditing:(NSText *)textObject
+{
+	NSLog(@"[%p textShouldBeginEditing:%p] (kb=%@)", self, textObject, self.keyboardIdentifier);
+	return [super textShouldBeginEditing:textObject];
+}
+
+- (BOOL)textShouldEndEditing:(NSText *)textObject
+{
+	NSLog(@"[%p textShouldEndEditing:%@] (kb=%@)", self, textObject, self.keyboardIdentifier);
+	return [super textShouldEndEditing:textObject];
+}
+
 @end

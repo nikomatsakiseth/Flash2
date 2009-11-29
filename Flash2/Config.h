@@ -8,7 +8,7 @@
 
 // Invoked from main.m.
 void initializeDefaults();
-
+NSString *defaultKeyboardIdentifier();
 void selectDefaultKeyboard();
 
 NSTimeInterval tooEasyInterval();

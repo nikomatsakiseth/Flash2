@@ -78,6 +78,7 @@ managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext
 - (void)setWordSearchString:(NSString *)searchString
 {
 	wordSearchString = [searchString copy];
+	NSLog(@"setWordSearchString: %@", wordSearchString);
 
 	if(searchString == nil || [searchString isEqual:@""]) {
 		self.cardsPredicate = defaultPredicate;
@@ -107,6 +108,7 @@ managedObjectContext:(NSManagedObjectContext*)aManagedObjectContext
 	NSString *cardKind = [language guessKindOfText:wordSearchString];						  
 	Card *card = [managedObjectContext newCardWithText:wordSearchString kind:cardKind language:language];
 	[cards setSelectedObjects:OxArr(card)];
+//	[wordPropertyController performSelector:@selector(selectFirstAttribute) withObject:nil afterDelay:0];
 }
 
 - (IBAction)deleteWord:(id)sender
