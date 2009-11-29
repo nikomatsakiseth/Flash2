@@ -406,7 +406,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>233465AE10C26F7200CEB14D</string>
+										<string>23003A3710C3230C00908E88</string>
 										<key>history</key>
 										<array>
 											<string>237CF1DB10B46C1700C8334C</string>
@@ -466,7 +466,7 @@
 											<string>2334659110C26DEA00CEB14D</string>
 											<string>233465AB10C26F7200CEB14D</string>
 											<string>233465AC10C26F7200CEB14D</string>
-											<string>233465AD10C26F7200CEB14D</string>
+											<string>23003A3410C3230200908E88</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -480,18 +480,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1178, 502}}</string>
+								<string>{{0, 0}, {1178, 496}}</string>
 								<key>RubberWindowFrame</key>
 								<string>0 115 1440 763 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>502pt</string>
+							<string>496pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
-							<string>215pt</string>
+							<string>221pt</string>
 							<key>Tabs</key>
 							<array>
 								<dict>
@@ -505,7 +505,7 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1178, -27}}</string>
+										<string>{{10, 27}, {1178, 194}}</string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -559,7 +559,7 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1178, 188}}</string>
+										<string>{{10, 27}, {1178, 194}}</string>
 										<key>RubberWindowFrame</key>
 										<string>0 115 1440 763 0 0 1440 878 </string>
 									</dict>
@@ -589,11 +589,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>2334648A10C1C46D00CEB14D</string>
+				<string>23003A3810C3230C00908E88</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>2334648B10C1C46D00CEB14D</string>
+				<string>23003A3910C3230C00908E88</string>
 				<string>23906C6010B40C10006D42D2</string>
-				<string>2334648C10C1C46D00CEB14D</string>
+				<string>23003A3A10C3230C00908E88</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -742,14 +742,14 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>2334648D10C1C46D00CEB14D</string>
+				<string>23003A3B10C3230C00908E88</string>
 				<string>1CCC7628064C1048000F2A68</string>
 				<string>1CCC7629064C1048000F2A68</string>
-				<string>2334648E10C1C46D00CEB14D</string>
-				<string>2334648F10C1C46D00CEB14D</string>
-				<string>2334649010C1C46D00CEB14D</string>
-				<string>2334649110C1C46D00CEB14D</string>
-				<string>2334649210C1C46D00CEB14D</string>
+				<string>23003A3C10C3230C00908E88</string>
+				<string>23003A3D10C3230C00908E88</string>
+				<string>23003A3E10C3230C00908E88</string>
+				<string>23003A3F10C3230C00908E88</string>
+				<string>23003A4010C3230C00908E88</string>
 			</array>
 			<key>ToolbarConfigUserDefaultsMinorVersion</key>
 			<string>2</string>
@@ -766,7 +766,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>281177970.17479002</real>
+	<real>281223948.57365698</real>
 	<key>ToolbarConfigUserDefaultsMinorVersion</key>
 	<string>2</string>
 	<key>ToolbarDisplayMode</key>
@@ -783,8 +783,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>2334649410C1C46D00CEB14D</string>
-		<string>2334649510C1C46D00CEB14D</string>
+		<string>23003A4110C3230C00908E88</string>
+		<string>23003A4210C3230C00908E88</string>
+		<string>23003A4310C3230C00908E88</string>
 		<string>/Users/niko/git/Flash2/Flash2/Flash2.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

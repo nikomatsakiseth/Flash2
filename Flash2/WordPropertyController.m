@@ -248,7 +248,7 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 	NSView *createdView = [container documentView];
 	[self createGuiForAttributesAsSubviewOf:createdView];
 	
-	NSWindow *window = [createdView window];
+//	NSWindow *window = [createdView window];
 //	[window makeFirstResponder:newAttribute.textTextField];
 }
 
