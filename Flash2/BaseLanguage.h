@@ -56,6 +56,24 @@
 
 @end
 
+@interface CardTransformer : NSObject {
+	id language;
+	Card *card;
+}
+@property(readonly) id language;
+@property(readonly) Card *card;
+
++ (NSSet*)applicableCardKinds;
+- initWithLanguage:(id)aLanguage Card:(Card*)aCard;
+
+// Transforms the card into a list of words appropriate for
+// aRelationName.  May return nil if it doesn't know how to 
+// transform to aRelationName.
+- (NSArray*) transformToRelationName:(NSString*)aRelationName;
+
+@end
+
+
 #if 0
 @interface EquivalentQuizQuestionFactory : QuizQuestionFactory {
 }

@@ -61,15 +61,16 @@
 		
 		// Expand relations and create Relation objects:
 		for (NSDictionary *relationData in [plist objectForKey:@"relations"]) {
-			Relation *r = [[[Relation alloc] initWithName:[relationData objectForKey:@"name"]
-											crossLanguage:[[relationData objectForKey:@"crossLanguage"] boolValue]
-												 cardKind:[relationData objectForKey:@"cardKind"]] autorelease];
+			Relation *r = [[Relation alloc] initWithName:[[relationData objectForKey:@"name"] decomposedStringWithCanonicalMapping]
+										   crossLanguage:[[relationData objectForKey:@"crossLanguage"] boolValue]
+												cardKind:[[relationData objectForKey:@"cardKind"] decomposedStringWithCanonicalMapping]];
 			[relations addObject:r];
+			[r release];
 		}
 		
 		// Create card kinds and grammar rules from plist:
-		[cardKinds addObjectsFromArray:[[plist objectForKey:@"cardKinds"] expandLanguageDefn]];
-		[grammarRules addObjectsFromArray:[[plist objectForKey:@"grammarRules"] expandLanguageDefn]];
+		[cardKinds addObjectsFromArray:[[[plist objectForKey:@"cardKinds"] expandLanguageDefn] mapByPerformingSelector:@selector(decomposedStringWithCanonicalMapping)]];
+		[grammarRules addObjectsFromArray:[[[plist objectForKey:@"grammarRules"] expandLanguageDefn] mapByPerformingSelector:@selector(decomposedStringWithCanonicalMapping)]];
 	}
 	return self;
 }
@@ -165,6 +166,37 @@
 - (NSString*)autoPropertyForCard:(Card *)aCard relationName:(NSString *)aRelationName
 {
 	return nil;
+}
+
+@end
+
+@implementation CardTransformer
+@synthesize language, card;
+
++ (NSSet*)applicableCardKinds
+{
+	return OxAbstract();
+}
+
+- initWithLanguage:(id)aLanguage Card:(Card*)aCard
+{
+	if((self = [super init])) {
+		language = [aLanguage retain];
+		card = [aCard retain];
+	}
+	return self;
+}
+
+- (void)dealloc
+{
+	[language release];
+	[card release];
+	[super dealloc];
+}
+
+- (NSArray*) transformToRelationName:(NSString*)aRelationName
+{
+	OxAbstract();
 }
 
 @end

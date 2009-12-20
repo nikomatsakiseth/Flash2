@@ -14,6 +14,7 @@
 #import "Ox.h"
 #import "Card.h"
 #import "OxNSArray.h"
+#import "OxNSSet.h"
 #import "Ox.h"
 #import "Model.h"
 
@@ -330,15 +331,16 @@ struct Conjugation {
 
 #pragma mark Verbs
 
-#if 0
-@interface GreekVerb : WordCategory {
+@interface GreekVerb : CardTransformer {
 }
 
+#if 0
 + (GreekVerb*) categorize:(Card*)word language:(GreekLanguage*)lang;
+#endif
 
 + (NSString*) suffix;
 
-+ (NSString*) explicitTag;
+- (NSArray*) transformToRelationName:(NSString*)aRelationName;
 
 - (NSArray*) conjugateInTense:(Tense)tense;
 - (NSArray*) programmaticallyConjugateInTense:(Tense)tense;
@@ -365,39 +367,7 @@ NSString *firstPersonSingular(NSArray *endings) {
  
 @implementation GreekVerb
 
-+ (GreekVerb*) categorize:(Card*)word language:(GreekLanguage*)lang
-{
-	NSString *text = [word text];
-	Class kinds[] = { 
-		[GreekVerbActiveA class], [GreekVerbActiveB1 class], [GreekVerbActiveB2 class],
-		//[GreekVerbPassiveA class], [GreekVerbPassiveB1 class], [GreekVerbPassiveB2 class],
-		nil
-	};
-#   define select(i) [[kinds[i] alloc] initWithCard:word language:lang]
-
-	// Check for an explicit tag:
-	for (int i = 0; kinds[i]; i++)
-		if ([text containsString:[kinds[i] explicitTag]])
-			return select(i);
-	
-	// Remove () and whitespace.  GreekVerbs are one word
-	// and have one of the suffixes above.
-	text = [[text stringByPurgingParentheticalText] strip];
-	if (![text containsCharactersInSet:[NSCharacterSet whitespaceCharacterSet]])
-		for (int i = 0; kinds[i]; i++)
-			if ([text hasSuffix:[kinds[i] suffix]])
-				return select(i);
-#   undef select
-	
-	return nil;
-}
-
 + (NSString*) suffix
-{
-	return OxAbstract();
-}
-
-+ (NSString*) explicitTag
 {
 	return OxAbstract();
 }
@@ -435,12 +405,12 @@ NSString *firstPersonSingular(NSArray *endings) {
 - (NSString*) aoristStem:(NSString*)presentTense
 {
 	// First check if the user specified one.
-	NSArray *tenseNames = [m_lang tenseNames];
+	NSArray *tenseNames = [language tenseNames];
 	NSString *aoristosRel = [tenseNames objectAtIndex:AORISTOS];
-	if ([m_word hasRelatedText:aoristosRel]) {
+	if ([card hasRelatedText:aoristosRel]) {
 		// it's a little bit tricky to get from aoristos to 
 		// the stem.  
-		NSString *aoristos = [m_word relatedText:aoristosRel];
+		NSString *aoristos = [card relatedText:aoristosRel];
 		
 		// Start by watching out for artificial prefixes...
 		NSArray *syllables = [aoristos greekSyllables];
@@ -521,20 +491,31 @@ NSString *firstPersonSingular(NSArray *endings) {
 	
 }
 
+- (NSArray*) transformToRelationName:(NSString*)aRelationName
+{
+	NSArray *tenseNames = [language tenseNames];
+	NSUInteger idx = [tenseNames indexOfObject:aRelationName];
+	if(idx != NSNotFound) {
+		return [self conjugateInTense:(Tense)idx];
+	} else {
+		return nil;
+	}
+}
+
 - (NSArray*) conjugateInTense:(Tense)tense
 {
 	// First check for an explicit card from the user.
-	NSArray *tenseNames = [m_lang tenseNames];
+	NSArray *tenseNames = [language tenseNames];
 	
-	if ([m_word hasRelatedText:[tenseNames objectAtIndex:tense]])
-		return OxArr([m_word relatedText:[tenseNames objectAtIndex:tense]]);
+	if ([card hasRelatedText:[tenseNames objectAtIndex:tense]])
+		return OxArr([card relatedText:[tenseNames objectAtIndex:tense]]);
 	
 	return [self programmaticallyConjugateInTense:tense];	
 }
 
 - (NSArray*) programmaticallyConjugateInTense:(Tense)tense
 {
-	NSString *string = [[m_word text] stringByPurgingParentheticalText];
+	NSString *string = [[card text] stringByPurgingParentheticalText];
 	NSString *presentStem = [self stem:string];
 	NSString *aoristStem = [self aoristStem:string];
 	NSString *whichStem = presentStem;
@@ -591,6 +572,12 @@ NSString *firstPersonSingular(NSArray *endings) {
 	
 @implementation GreekVerbActive
 
++ (NSSet*)applicableCardKinds
+{
+	NSArray *parts = OxArr(Gr("Ρήμα"), [self suffix]);
+	return OxSet([parts componentsJoinedByString:@"-"]);
+}
+
 - (NSArray*) presentTenseEndings
 {
 	return OxArr(GrArr("ω", "εις", "ει"), GrArr("ουμε", "ετε", "ουν"));
@@ -613,11 +600,6 @@ NSString *firstPersonSingular(NSArray *endings) {
 + (NSString*) suffix 
 {
 	return Gr("ω");
-}
-
-+ (NSString*) explicitTag
-{
-	return @"(ActA)";
 }
 
 - (NSString*) programmaticAoristStem:(NSString*)presentTense
@@ -669,7 +651,7 @@ NSString *firstPersonSingular(NSArray *endings) {
 
 - (NSArray*) programmaticallyConjugateInTense:(Tense)tense
 {
-	NSString *string = [[m_word text] stringByPurgingParentheticalText];
+	NSString *string = [[card text] stringByPurgingParentheticalText];
 	if (tense == PARATATIKOS) {
 		return OxArr(OxFmt(@"%@%@", [self stem:string], Gr("ούσα")));
 	} else {
@@ -698,11 +680,6 @@ NSString *firstPersonSingular(NSArray *endings) {
 	return Gr("άω");
 }
 
-+ (NSString*) explicitTag
-{
-	return @"(ActB1)";
-}
-
 @end
 
 @implementation GreekVerbActiveB2
@@ -712,13 +689,9 @@ NSString *firstPersonSingular(NSArray *endings) {
 	return Gr("ώ");
 }
 
-+ (NSString*) explicitTag
-{
-	return @"(ActB2)";
-}
-
 @end
 
+#if 0
 @interface Noun : WordCategory {} @end
 
 @interface NounMale : Noun {} @end
@@ -856,7 +829,7 @@ NSString *firstPersonSingular(NSArray *endings) {
 
 - (NSArray*) tenseNames 
 {
-	return [[[plist objectForKey:@"grammarRules"] _0] objectForKey:@"3 Tense"];
+	return [[[[plist objectForKey:@"grammarRules"] _0] objectForKey:@"3 Tense"] mapByPerformingSelector:@selector(decomposedStringWithCanonicalMapping)];
 }
 
 - (NSArray*) relationNamesForTense:(int)tense person:(int)person plural:(int)plural
@@ -864,34 +837,26 @@ NSString *firstPersonSingular(NSArray *endings) {
 	return OxArr([[self tenseNames] objectAtIndex:tense]);
 }
 
-#if 0
-- (NSArray*) conjugate:(Card*)word person:(int)person plural:(BOOL)plural
+- (NSString*)autoPropertyForCard:(Card*)aCard relationName:(NSString*)aRelationName
 {
-	GreekVerb *verb = [GreekVerb categorize:word language:self];
-	NSMutableArray *result = [NSMutableArray array];
-
-	if (verb != nil) {
-		for (int tense = 0; tense < MAX_TENSE; tense++) {
-			// Conjugate into first person, singular
-			NSArray *firstPerson = [verb conjugateInTense:tense];
-			if (firstPerson == nil) {
-				[result addObject:@"<nil>"];
-				continue;
-			}
-			
-			// Change from 1st person singular to the appropriate ending
-			NSArray *endings = [verb endingsForTense:tense];
-			NSString *firstPersonEnding = firstPersonSingular(endings);
-			NSString *newEnding = [[endings objectAtIndex:plural] objectAtIndex:person];
-			NSArray *correctPerson = changeEnding(firstPerson, firstPersonEnding, newEnding);
-
-			// Add to resulting array
-			[result addObject:[correctPerson componentsJoinedByString:@" "]];
+	Class transformers[] = {
+		[GreekVerbActiveA class],
+		[GreekVerbActiveB1 class],
+		[GreekVerbActiveB2 class],
+		nil
+	};
+	
+	NSString *cardKind = [aCard.cardKind decomposedStringWithCanonicalMapping]; // prob should not be needed
+	for(int i = 0; transformers[i]; i++) {
+		NSSet *applicableCardKinds = [transformers[i] applicableCardKinds];
+		if([applicableCardKinds containsObject:cardKind]) {
+			CardTransformer *transformer = [[[transformers[i] alloc] initWithLanguage:self Card:aCard] autorelease];
+			return [[transformer transformToRelationName:aRelationName] componentsJoinedByString:@" "];
 		}
 	}
-	return result;
+	
+	return [super autoPropertyForCard:aCard relationName:aRelationName];
 }
-#endif
 
 @end
 
