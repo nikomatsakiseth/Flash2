@@ -11,6 +11,7 @@
 #import "Config.h"
 #import "Model.h"
 #import "CardSetController.h"
+#import "OxCoreDataWindow.h"
 
 @implementation CardSet
 
@@ -34,13 +35,10 @@
 	return nil;
 }
 
-- (IBAction) openDebugWindow:(id)sender
-{
-}
-
 - (void)makeWindowControllers
 {
-	CardSetController *cont = [[CardSetController alloc] initWithManagedObjectContext:[self managedObjectContext]];
+	CardSetController *cont = [[CardSetController alloc] initWithManagedObjectContext:[self managedObjectContext]
+																   managedObjectModel:[self managedObjectModel]];
 	[self addWindowController:cont];
 	[cont release];
 }

@@ -829,7 +829,7 @@ NSString *firstPersonSingular(NSArray *endings) {
 
 - (NSArray*) tenseNames 
 {
-	return [[[[plist objectForKey:@"grammarRules"] _0] objectForKey:@"3 Tense"] mapByPerformingSelector:@selector(decomposedStringWithCanonicalMapping)];
+	return [[[[plist objectForKey:@"grammarRules"] _0] objectForKey:@"3 Tense"] mappedArrayUsingSelector:@selector(decomposedStringWithCanonicalMapping)];
 }
 
 - (NSArray*) relationNamesForTense:(int)tense person:(int)person plural:(int)plural
@@ -846,7 +846,7 @@ NSString *firstPersonSingular(NSArray *endings) {
 		nil
 	};
 	
-	NSString *cardKind = [aCard.cardKind decomposedStringWithCanonicalMapping]; // prob should not be needed
+	NSString *cardKind = [aCard.cardKind decomposedStringWithCanonicalMapping]; // prob not needed
 	for(int i = 0; transformers[i]; i++) {
 		NSSet *applicableCardKinds = [transformers[i] applicableCardKinds];
 		if([applicableCardKinds containsObject:cardKind]) {

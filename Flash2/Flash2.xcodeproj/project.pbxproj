@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2338E1E00F17595A00BEB645 /* Camera.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2338E1DF0F17595A00BEB645 /* Camera.icns */; };
+		234CB20B10DE21B5006EFD6A /* OxCoreDataWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 234CB20A10DE21B5006EFD6A /* OxCoreDataWindow.xib */; };
+		234CB20F10DE21D5006EFD6A /* OxCoreDataWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 234CB20E10DE21D5006EFD6A /* OxCoreDataWindow.m */; };
 		2361386710B7F1E900EED743 /* PropertyBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2361386610B7F1E900EED743 /* PropertyBuilder.m */; };
 		236139DF10B852C400EED743 /* WordPropertyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 236139DE10B852C400EED743 /* WordPropertyController.m */; };
 		2374F2BB10BC18E700C51C7A /* FlippedNSView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2374F2BA10BC18E700C51C7A /* FlippedNSView.m */; };
@@ -67,6 +69,9 @@
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		2338E1DF0F17595A00BEB645 /* Camera.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Camera.icns; sourceTree = "<group>"; };
+		234CB20A10DE21B5006EFD6A /* OxCoreDataWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OxCoreDataWindow.xib; sourceTree = "<group>"; };
+		234CB20D10DE21D5006EFD6A /* OxCoreDataWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OxCoreDataWindow.h; sourceTree = "<group>"; };
+		234CB20E10DE21D5006EFD6A /* OxCoreDataWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OxCoreDataWindow.m; sourceTree = "<group>"; };
 		2361386510B7F1E900EED743 /* PropertyBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyBuilder.h; sourceTree = "<group>"; };
 		2361386610B7F1E900EED743 /* PropertyBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyBuilder.m; sourceTree = "<group>"; };
 		236139DD10B852C400EED743 /* WordPropertyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordPropertyController.h; sourceTree = "<group>"; };
@@ -262,6 +267,9 @@
 			children = (
 				237CF20910B46D6F00C8334C /* OxCoreData.h */,
 				237CF20A10B46D6F00C8334C /* OxCoreData.m */,
+				234CB20A10DE21B5006EFD6A /* OxCoreDataWindow.xib */,
+				234CB20D10DE21D5006EFD6A /* OxCoreDataWindow.h */,
+				234CB20E10DE21D5006EFD6A /* OxCoreDataWindow.m */,
 			);
 			name = OxCoreData;
 			path = ../Oaxaca3/OxCoreData;
@@ -467,6 +475,7 @@
 				2393D6F50EF55EC000DDCF75 /* FrenchLanguage.plist in Resources */,
 				2338E1E00F17595A00BEB645 /* Camera.icns in Resources */,
 				23A2D41E10B6C1600024C95A /* LanguageTab.xib in Resources */,
+				234CB20B10DE21B5006EFD6A /* OxCoreDataWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -519,6 +528,7 @@
 				2361386710B7F1E900EED743 /* PropertyBuilder.m in Sources */,
 				236139DF10B852C400EED743 /* WordPropertyController.m in Sources */,
 				2374F2BB10BC18E700C51C7A /* FlippedNSView.m in Sources */,
+				234CB20F10DE21D5006EFD6A /* OxCoreDataWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

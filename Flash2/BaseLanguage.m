@@ -69,8 +69,8 @@
 		}
 		
 		// Create card kinds and grammar rules from plist:
-		[cardKinds addObjectsFromArray:[[[plist objectForKey:@"cardKinds"] expandLanguageDefn] mapByPerformingSelector:@selector(decomposedStringWithCanonicalMapping)]];
-		[grammarRules addObjectsFromArray:[[[plist objectForKey:@"grammarRules"] expandLanguageDefn] mapByPerformingSelector:@selector(decomposedStringWithCanonicalMapping)]];
+		[cardKinds addObjectsFromArray:[[[plist objectForKey:@"cardKinds"] expandLanguageDefn] mappedArrayUsingSelector:@selector(decomposedStringWithCanonicalMapping)]];
+		[grammarRules addObjectsFromArray:[[[plist objectForKey:@"grammarRules"] expandLanguageDefn] mappedArrayUsingSelector:@selector(decomposedStringWithCanonicalMapping)]];
 	}
 	return self;
 }

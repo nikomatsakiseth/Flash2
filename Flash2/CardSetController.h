@@ -12,11 +12,15 @@
 
 @interface CardSetController : NSWindowController {
 	NSManagedObjectContext *managedObjectContext;
+	NSManagedObjectModel *managedObjectModel;
 	NSTabView *tabView;
 	NSMutableArray *languageTabControllers;
 }
 @property(retain) IBOutlet NSTabView *tabView;
 
-- initWithManagedObjectContext:(NSManagedObjectContext*)aManagedObjectContext;
+- initWithManagedObjectContext:(NSManagedObjectContext*)aManagedObjectContext
+			managedObjectModel:(NSManagedObjectModel*)aManagedObjectModel;
+
+- (IBAction) openDebugWindow:(id)sender;
 
 @end

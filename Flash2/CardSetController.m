@@ -9,15 +9,18 @@
 #import "CardSetController.h"
 #import "Language.h"
 #import "LanguageTabController.h"
+#import "OxCoreDataWindow.h"
 
 @implementation CardSetController
 
 @synthesize tabView;
 
-- initWithManagedObjectContext:(NSManagedObjectContext*)aManagedObjectContext
+- initWithManagedObjectContext:(NSManagedObjectContext*)aManagedObjectContext 
+			managedObjectModel:(NSManagedObjectModel*)aManagedObjectModel
 {
 	if((self = [super initWithWindowNibName:@"CardSet"])) {
 		managedObjectContext = [aManagedObjectContext retain];
+		managedObjectModel = [aManagedObjectModel retain];
 	}
 	return self;
 }
@@ -25,7 +28,14 @@
 - (void)dealloc
 {
 	[managedObjectContext release];
+	[managedObjectModel release];
 	[super dealloc];
+}
+
+- (IBAction) openDebugWindow:(id)sender
+{
+	[OxCoreDataWindow openedCoreDataWindowWithManagedObjectContext:managedObjectContext
+												managedObjectModel:managedObjectModel];
 }
 
 - (void)awakeFromNib

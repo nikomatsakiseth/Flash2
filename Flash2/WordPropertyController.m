@@ -118,6 +118,7 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 
 			attribute.textTextField = [[[FlashTextField alloc] initWithFrame:frames[1]] autorelease];
 			[attribute.textTextField bind:@"value" toObject:attribute withKeyPath:@"text" options:OxDict(OxYES, NSContinuouslyUpdatesValueBindingOption)];
+			[attribute.textTextField bind:@"textColor" toObject:attribute withKeyPath:@"textColor" options:nil];
 			if(![language isCrossLanguageRelation:attribute.relationName]) {
 				[attribute.textTextField setKeyboardIdentifier:[language keyboardIdentifier]];
 			} else {
@@ -278,7 +279,7 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 	//    disappeared.
 	
 	// How many other attributes are there with this same relation name?
-	NSArray *otherAttributes = [attributes filterWithBlock:^ int (id obj) {
+	NSArray *otherAttributes = [attributes filteredArrayUsingBlock:^(id obj) {
 		return obj != attribute && [[obj relationName] isEqual:attribute.relationName];
 	}];
 	

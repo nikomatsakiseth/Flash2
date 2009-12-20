@@ -16,6 +16,4 @@
 
 - (id<Language>) languageForCard:(Card*)card;
 
-- (IBAction) openDebugWindow:(id)sender;
-
 @end
