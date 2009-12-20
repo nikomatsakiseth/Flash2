@@ -10,12 +10,11 @@
 #import "Card.h"
 #import "LanguageVersion.h"
 #import "History.h"
-#import "GrammarRuleHistory.h"
-#import "PropertyHistory.h"
 #import "UserProperty.h"
+#import "Quizzable.h"
 
 #define E_LANGUAGE_VERSION @"LanguageVersion"
-#define E_GRAMMAR_RULE_HISTORY @"GrammarRuleHistory"
+#define E_HISTORY @"History"
 #define E_CARD @"Card"
 #define E_USER_PROPERTY @"UserProperty"
 
@@ -28,12 +27,15 @@
 
 #pragma mark Queries
 
-- (LanguageVersion*) languageVersionForLanguage:(id<Language>)language;
+- (LanguageVersion*)languageVersionForLanguage:(id<Language>)language;
 
 #pragma mark New Objects
 
 - (Card*)newCardWithText:(NSString*)text kind:(NSString*)aKind language:(id<Language>)language;
 - (UserProperty*)newUserPropertyForCard:(Card*)aCard text:(NSString*)aText relationName:(NSString*)aRelationName;
+- (History*)newHistoryWithQuizzable:(Quizzable*)quizzable
+						   duration:(double)duration
+							correct:(double)correct;
 
 @end
 

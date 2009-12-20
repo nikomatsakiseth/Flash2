@@ -47,7 +47,6 @@
 	NSDictionary *plist;
 	NSMutableArray *cardKinds;
 	NSMutableArray *relations;
-	NSMutableArray *grammarRules;
 	int languageVersion;
 }
 

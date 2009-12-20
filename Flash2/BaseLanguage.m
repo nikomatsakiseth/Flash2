@@ -56,7 +56,6 @@
 		keyboardIdentifier = [[plist objectForKey:@"keyboardIdentifier"] copy];
 		relations = [[NSMutableArray alloc] init];
 		cardKinds = [[NSMutableArray alloc] init];
-		grammarRules = [[NSMutableArray alloc] init];
 		languageVersion = [[plist objectForKey:@"languageVersion"] intValue];
 		
 		// Expand relations and create Relation objects:
@@ -70,7 +69,6 @@
 		
 		// Create card kinds and grammar rules from plist:
 		[cardKinds addObjectsFromArray:[[[plist objectForKey:@"cardKinds"] expandLanguageDefn] mappedArrayUsingSelector:@selector(decomposedStringWithCanonicalMapping)]];
-		[grammarRules addObjectsFromArray:[[[plist objectForKey:@"grammarRules"] expandLanguageDefn] mappedArrayUsingSelector:@selector(decomposedStringWithCanonicalMapping)]];
 	}
 	return self;
 }
@@ -78,11 +76,6 @@
 - (NSArray*) conjugate:(Card*)word person:(int)person plural:(BOOL)plural
 {
 	return nil; // should be overridden most likely!
-}
-
-- (NSArray*)grammarRules
-{
-	return grammarRules;
 }
 
 - (Relation*)relationNamed:(NSString *)relationName

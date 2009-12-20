@@ -78,12 +78,6 @@ NSArray *allLanguages();
 // return YES.  This is used to guide the keyboard selection.
 - (BOOL)isCrossLanguageRelation:(NSString*)relationName;
 
-// Returns an array of NSString* representing the names of all
-// possible grammar rules.  When the user's data is loaded from
-// disk, the names of any expired grammar rules will be cross-checked
-// against this list.
-- (NSArray*)grammarRules;
-
 // Attempts to automatically derive a property for the given relation name
 // and the given card.  Returns nil if it was not able to for any reason, 
 // such as the relation name is not recognized.  

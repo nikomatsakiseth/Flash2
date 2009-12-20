@@ -2,14 +2,14 @@
 //  LanguageVersion.h
 //  Flash2
 //
-//  Created by Niko Matsakis on 11/20/09.
+//  Created by Niko Matsakis on 12/20/09.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
 #import <CoreData/CoreData.h>
 
 @class Card;
-@class GrammarRuleHistory;
+@class GrammarRule;
 
 @interface LanguageVersion :  NSManagedObject  
 {
@@ -17,17 +17,17 @@
 
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSNumber * version;
-@property (nonatomic, retain) NSSet* grammarRuleHistories;
+@property (nonatomic, retain) NSSet* grammarRules;
 @property (nonatomic, retain) NSSet* cards;
 
 @end
 
 
 @interface LanguageVersion (CoreDataGeneratedAccessors)
-- (void)addGrammarRuleHistoriesObject:(GrammarRuleHistory *)value;
-- (void)removeGrammarRuleHistoriesObject:(GrammarRuleHistory *)value;
-- (void)addGrammarRuleHistories:(NSSet *)value;
-- (void)removeGrammarRuleHistories:(NSSet *)value;
+- (void)addGrammarRulesObject:(GrammarRule *)value;
+- (void)removeGrammarRulesObject:(GrammarRule *)value;
+- (void)addGrammarRules:(NSSet *)value;
+- (void)removeGrammarRules:(NSSet *)value;
 
 - (void)addCardsObject:(Card *)value;
 - (void)removeCardsObject:(Card *)value;

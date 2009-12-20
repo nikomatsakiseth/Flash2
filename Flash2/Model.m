@@ -56,6 +56,19 @@
 	return userProperty;
 }
 
+- (History*)newHistoryWithQuizzable:(Quizzable*)quizzable 
+						   duration:(double)duration
+							correct:(double)correct
+{
+	History *history = [NSEntityDescription insertNewObjectForEntityForName:E_HISTORY
+													 inManagedObjectContext:self];
+	history.quizzable = quizzable;
+	history.duration = OxDouble(duration);
+	history.correct = OxDouble(correct);
+	history.total = OxDouble(1.0);
+	return history;
+}
+
 @end
 
 @implementation Card (Additions)
