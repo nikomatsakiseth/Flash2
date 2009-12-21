@@ -94,7 +94,7 @@
 - (NSArray*)relatedUserProperties:(NSString*)aRelationName
 {
 	return [[self.properties filteredSetUsingPredicate:[NSPredicate predicateWithBlock:^ BOOL(id object, NSDictionary *bindings) {
-		return [[object relationName] isEqualToString:aRelationName];
+		return [[object relationName] isEqualToString:aRelationName] && ![object isDeleted];
 	}]] allObjects];
 }
 

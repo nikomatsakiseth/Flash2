@@ -284,6 +284,8 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 	}];
 	
 	UserProperty *userProperty = [[attribute.property retain] autorelease];
+	[managedObjectContext deleteObject:userProperty];
+	
 	if([otherAttributes isEmpty]) {
 		// removing last user property switches it to automatic
 		NSString *autoPropertyText = [language autoPropertyForCard:self.card relationName:attribute.relationName];
@@ -299,7 +301,6 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 		[attributes removeObjectAtIndex:index];
 		[self shiftAttributesFromIndex:index direction:-1];
 	}	
-	[managedObjectContext deleteObject:userProperty];
 }
 
 - (void)selectFirstAttribute

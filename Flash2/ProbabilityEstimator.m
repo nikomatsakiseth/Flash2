@@ -69,8 +69,6 @@ typedef struct Ratio {
 	
 	const double threshold = 5.0;
 	
-	NSArray *allHistories = nil;
-	
 	if(quizzable.lastQuizzed != nil) {
 		NSTimeInterval sinceLastQuizzed = [quizzable.lastQuizzed timeIntervalSinceNow];
 		sinceLastQuizzed = [self approximateTimeInterval:sinceLastQuizzed];	
@@ -87,24 +85,15 @@ typedef struct Ratio {
 		}
 	
 		// Not enough word-specific data!  Gather up all histories.	
-		allHistories = [managedObjectContext allObjectsOfEntityType:E_HISTORY];	
-		for(double multiple = 1; multiple <= 4; multiple += 1.0) {
-			NSTimeInterval min = sinceLastQuizzed - range * multiple;
-			NSTimeInterval max = sinceLastQuizzed + range * multiple;
-			Ratio allInRange = [self totalHistories:allHistories fromTime:min untilTime:max];		
-			if(allInRange.total >= threshold) {
-				return allInRange.correct / allInRange.total;
-			} 
-		}
-	} else {
-		allHistories = [managedObjectContext allObjectsOfEntityType:E_HISTORY];	
-	}
+		NSArray *allHistories = [managedObjectContext allObjectsOfEntityType:E_HISTORY];	
+		NSTimeInterval min = sinceLastQuizzed - range;
+		NSTimeInterval max = sinceLastQuizzed + range;
+		Ratio allInRange = [self totalHistories:allHistories fromTime:min untilTime:max];		
+		if(allInRange.total >= threshold) {
+			return allInRange.correct / allInRange.total;
+		} 
+	} 
 	
-	// Consider with any duration.
-	Ratio all = [self totalHistories:allHistories fromTime:0 untilTime:INFINITY];
-	if(all.total > 0)
-		return all.correct / all.total;
-
 	// No relevant data at all.  Take a stab in the dark.
 	return 0.5;
 }
