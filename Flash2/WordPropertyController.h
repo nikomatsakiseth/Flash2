@@ -11,6 +11,7 @@
 #import "OxBinder.h"
 #import "Language.h"
 #import "FlashTextField.h"
+#import "OxCoreDataObserver.h"
 
 @class Attribute;
 
@@ -40,15 +41,23 @@
  * is not part of the Core Data database.  Rather
  * it was generated automatically.
  */
-@interface AutoProperty : NSObject {
+@interface AutoProperty : NSObject <OxCoreDataObserver> {
+	id<Language> language;
 	Card *card;
 	NSString *relationName;	
 	NSString *text;
 }
+@property(retain) id<Language> language;
 @property(retain) Card *card;
 @property(copy) NSString *relationName;
 @property(copy) NSString *text;
-+ propertyWithCard:(Card*)aCard relationName:(NSString*)aRelationName text:(NSString*)aText;
++ propertyWithLanguage:(id<Language>)aLanguage card:(Card*)aCard relationName:(NSString*)aRelationName;
+
+- (BOOL(^)(NSManagedObject *))observedObjectsOfInterest;
+- (void)didUpdate:(NSSet*)instances;
+- (void)didInsert:(NSSet*)instances;
+- (void)didDelete:(NSSet*)instances;
+
 @end
 
 /* 

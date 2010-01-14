@@ -15,6 +15,8 @@
 #import "OxKeyValue.h"
 #import "FlippedNSView.h"
 #import "Config.h"
+#import "OxCoreDataObserver.h"
+#import "Model.h"
 
 // These were determined experimentally / by playing with IB:
 static const CGFloat tfHeight = 22;     // height of a standard Text Field
@@ -56,10 +58,9 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 			[result addObject:attribute];
 		}
 	} else {
-		NSString *text = [language autoPropertyForCard:card relationName:relationName];
-		AutoProperty *autoProperty = [AutoProperty propertyWithCard:card
-													   relationName:relationName
-															   text:text];
+		AutoProperty *autoProperty = [AutoProperty propertyWithLanguage:language
+																   card:card
+														   relationName:relationName];
 		Attribute *attribute = [Attribute attributeWithAutoProperty:autoProperty
 											 wordPropertyController:self];
 		[result addObject:attribute];
@@ -288,10 +289,9 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 	
 	if([otherAttributes isEmpty]) {
 		// removing last user property switches it to automatic
-		NSString *autoPropertyText = [language autoPropertyForCard:self.card relationName:attribute.relationName];
-		[attribute setAutoProperty:[AutoProperty propertyWithCard:self.card 
-													 relationName:attribute.relationName 
-															 text:autoPropertyText]];		
+		[attribute setAutoProperty:[AutoProperty propertyWithLanguage:language
+																 card:self.card 
+														 relationName:attribute.relationName]];		
 	} else {
 		// otherwise, just remove the one they asked
 		for(NSView *component in [attribute components])
@@ -313,25 +313,88 @@ static const CGFloat vertSpacing = 10;  // vert spacing between rows
 }	
 
 @end
-										 
-@implementation AutoProperty
-@synthesize card, relationName, text;
 
-+ propertyWithCard:(Card*)aCard relationName:(NSString*)aRelationName text:(NSString*)aText
+@implementation AutoProperty
+@synthesize language, card, relationName, text;
+
+int AutoPropertyObserverContext;
+
+- (void)computeText
 {
-	AutoProperty *prop = [[[self alloc] init] autorelease];
-	prop.card = aCard;
-	prop.relationName = aRelationName;
-	prop.text = (aText ? aText : @"");
-	return prop;
+	NSString *aText = [language autoPropertyForCard:card relationName:relationName];
+	NSLog(@"Recomputed text of AutoProperty %@.%@: %@", card, relationName, aText);
+	self.text = (aText ? aText : @"");
+}
+	
+- initWithLanguage:(id<Language>)aLanguage card:(Card*)aCard relationName:(NSString*)aRelationName
+{
+	if((self = [super init])) {
+		self.language = aLanguage;
+		self.card = aCard;
+		self.relationName = aRelationName;
+		[self computeText];
+		
+		[aCard addObserver:self forKeyPath:@"text" options:0 context:&AutoPropertyObserverContext];
+		[[aCard managedObjectContext] addOxCoreDataObserver:self];
+	}
+	return self;
 }
 
 - (void)dealloc
 {
+	[card removeObserver:self forKeyPath:@"text"];
+	[[card managedObjectContext] removeOxCoreDataObserver:self];
+
+	self.language = nil;
 	self.card = nil;
 	self.relationName = nil;
 	self.text = nil;
 	[super dealloc];
+}
+
++ propertyWithLanguage:(id<Language>)aLanguage card:(Card*)aCard relationName:(NSString*)aRelationName
+{
+	return [[[self alloc] initWithLanguage:aLanguage card:aCard relationName:aRelationName] autorelease];
+}
+
+// Observe for changes to user properties of this card:
+//   Note that key value observing doesn't work for
+//   to many properties.  Lame.
+
+- (BOOL(^)(NSManagedObject *))observedObjectsOfInterest
+{
+	return [[^BOOL (NSManagedObject *object) {
+		if([[[object entity] name] isEqual:E_USER_PROPERTY]) {
+			UserProperty *property = (UserProperty*) object;
+			return property.card == card;
+		}
+		return NO;
+	} copy] autorelease];
+}
+
+- (void)didUpdate:(NSSet*)instances
+{
+	[self computeText];
+}	
+
+- (void)didInsert:(NSSet*)instances
+{
+	[self computeText];
+}	
+
+- (void)didDelete:(NSSet*)instances
+{
+	[self computeText];
+}	
+
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == &AutoPropertyObserverContext) {
+		[self computeText];
+	}
+	else {
+		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	}
 }
 
 @end
