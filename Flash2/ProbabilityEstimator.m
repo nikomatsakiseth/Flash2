@@ -9,6 +9,8 @@
 #import "ProbabilityEstimator.h"
 #import "OxCoreData.h"
 #import "OxNSNumber.h"
+#import "OxNSArray.h"
+#import "Ox.h"
 
 #define TI_SECOND 1.0
 #define TI_MINUTE (TI_SECOND * 60.0)
@@ -21,6 +23,34 @@ typedef struct Ratio {
 	double total;
 	double correct;
 } Ratio;
+
+@implementation QuizzableAndProbability
+
+@synthesize quizzable, inverse, probabilityOfBeingCorrect;
+
+- initWithQuizzable:(Quizzable*)aQuizzable probabilityOfBeingCorrect:(double)aProbability inverse:(BOOL)anInverse
+{
+	if((self = [super init])) {
+		quizzable = [aQuizzable retain];
+		inverse = anInverse;
+		probabilityOfBeingCorrect = aProbability;
+	}
+	return self;
+}
+
++ quizzable:(Quizzable*)aQuizzable probabilityOfBeingCorrect:(double)aProbability inverse:(BOOL)anInverse
+{
+	return [[[self alloc] initWithQuizzable:aQuizzable probabilityOfBeingCorrect:aProbability inverse:anInverse] autorelease];
+}
+
+- (void)dealloc
+{
+	[quizzable release];
+	[super dealloc];
+}
+
+@end
+
 
 @implementation ProbabilityEstimator
 
@@ -47,20 +77,24 @@ typedef struct Ratio {
 	return round(timeInterval / TI_HALF_DAY) * TI_HALF_DAY;
 }
 
-- (Ratio)totalHistories:(id)histories fromTime:(NSTimeInterval)min untilTime:(NSTimeInterval)max
+- (Ratio)totalHistories:(id)histories 
+		  inverseObject:(NSNumber*)inverseObject 
+			   fromTime:(NSTimeInterval)min untilTime:(NSTimeInterval)max
 {
 	Ratio r = { 0.0, 0.0 };
 	for(History *history in histories) {
-		double duration = [history.duration doubleValue];			   
-		if(duration >= min && duration <= max) {
-			r.total += [history.total doubleValue];
-			r.correct += [history.correct doubleValue]; 
-		}
+		double duration = [history.duration doubleValue];		   
+		if(inverseObject && history.inverse != [inverseObject boolValue])
+			continue;
+		if(duration < min || duration > max)
+			continue;
+		r.total += [history.total doubleValue];
+		r.correct += [history.correct doubleValue]; 
 	}
 	return r;
 }
 
-- (double)probablyOfCorrectlyAnswering:(Quizzable*)quizzable
+- (QuizzableAndProbability*)probabilityOfCorrectlyAnswering:(Quizzable*)quizzable inverse:(BOOL)inverse
 {
 	/*
 	 Try to estimate chance of correctly answering a given
@@ -75,12 +109,17 @@ typedef struct Ratio {
 		NSTimeInterval range = fmin(sinceLastQuizzed * (2 * TI_DAY / TI_WEEK), TI_DAY);
 
 		// Check the history of this word, trying to gather up some data:
+		NSNumber *inverseObject = OxBool(inverse);
 		for(double multiple = 1; multiple <= 4; multiple += 1.0) {
 			NSTimeInterval min = sinceLastQuizzed - range * multiple;
 			NSTimeInterval max = sinceLastQuizzed + range * multiple;
-			Ratio quizzableRatio = [self totalHistories:quizzable.histories fromTime:min untilTime:max];	
+			Ratio quizzableRatio = [self totalHistories:quizzable.histories 
+										  inverseObject:inverseObject 
+											   fromTime:min untilTime:max];	
 			if(quizzableRatio.total >= threshold) {
-				return quizzableRatio.correct / quizzableRatio.total;
+				return [QuizzableAndProbability quizzable:quizzable
+								probabilityOfBeingCorrect:quizzableRatio.correct / quizzableRatio.total
+												  inverse:inverse];
 			}
 		}
 	
@@ -88,17 +127,34 @@ typedef struct Ratio {
 		NSArray *allHistories = [managedObjectContext allObjectsOfEntityType:E_HISTORY];	
 		NSTimeInterval min = sinceLastQuizzed - range;
 		NSTimeInterval max = sinceLastQuizzed + range;
-		Ratio allInRange = [self totalHistories:allHistories fromTime:min untilTime:max];		
+		Ratio allInRange = [self totalHistories:allHistories 
+								  inverseObject:nil 
+									   fromTime:min untilTime:max];		
 		if(allInRange.total >= threshold) {
-			return allInRange.correct / allInRange.total;
+			return [QuizzableAndProbability quizzable:quizzable
+							probabilityOfBeingCorrect:allInRange.correct / allInRange.total
+											  inverse:inverse];
 		} 
-	} 
+	}
 	
 	// No relevant data at all.  Take a stab in the dark.
-	return 0.5;
+	return [QuizzableAndProbability quizzable:quizzable
+					probabilityOfBeingCorrect:0.5
+									  inverse:inverse];
 }
 
-- (void)updateQuizzable:(Quizzable*)quizzable correct:(double)correct
+- (NSArray*)computeProbabilities:(NSArray*)aQuizzableArray
+{
+	NSArray *forwardProbabilities = [aQuizzableArray parMappedArrayUsingBlock:^(id obj) {
+		return [self probabilityOfCorrectlyAnswering:obj inverse:NO];
+	}];
+	NSArray *inverseProbabilities = [aQuizzableArray parMappedArrayUsingBlock:^(id obj) {
+		return [self probabilityOfCorrectlyAnswering:obj inverse:YES];
+	}];
+	return [[forwardProbabilities arrayByAddingObjectsFromArray:inverseProbabilities] sortedArrayUsingKey:@"probabilityOfBeingCorrect"];
+}
+
+- (void)updateQuizzable:(Quizzable*)quizzable inverse:(BOOL)inverse correct:(double)correct
 {
 	NSDate *lastQuizzed = quizzable.lastQuizzed;
 	NSDate *now = [NSDate date];
@@ -117,7 +173,7 @@ typedef struct Ratio {
 	// by looking for one within a minute.
 	for(History *history in quizzable.histories) {
 		double historyDuration = [history.duration doubleValue];
-		if(fabs(duration - historyDuration) < TI_MINUTE) { 
+		if(history.inverse == inverse && fabs(duration - historyDuration) < TI_MINUTE) { 
 			history.total = [history.total numberByAddingDouble:1.0];
 			history.correct = [history.correct numberByAddingDouble:correct];
 			return;
@@ -125,6 +181,7 @@ typedef struct Ratio {
 	}
 	
 	[managedObjectContext newHistoryWithQuizzable:quizzable
+										  inverse:inverse
 										 duration:duration
 										  correct:correct];
 }

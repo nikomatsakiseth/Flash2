@@ -8,13 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		2338E1E00F17595A00BEB645 /* Camera.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2338E1DF0F17595A00BEB645 /* Camera.icns */; };
+		23439A91112D315F00AA59B2 /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 23439A90112D315F00AA59B2 /* History.m */; };
+		23439AAA112D375D00AA59B2 /* QuestionChooser.m in Sources */ = {isa = PBXBuildFile; fileRef = 23439AA9112D375D00AA59B2 /* QuestionChooser.m */; };
+		23439AAD112D3A5600AA59B2 /* QuizQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 23439AAC112D3A5600AA59B2 /* QuizQuestion.m */; };
 		234CB20B10DE21B5006EFD6A /* OxCoreDataWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 234CB20A10DE21B5006EFD6A /* OxCoreDataWindow.xib */; };
 		234CB20F10DE21D5006EFD6A /* OxCoreDataWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 234CB20E10DE21D5006EFD6A /* OxCoreDataWindow.m */; };
 		234CB32410DE61EE006EFD6A /* ProbabilityEstimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 234CB32310DE61EE006EFD6A /* ProbabilityEstimator.m */; };
 		234CB33210DE638F006EFD6A /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 234CB32710DE638F006EFD6A /* Card.m */; };
 		234CB33310DE638F006EFD6A /* LanguageVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 234CB32910DE638F006EFD6A /* LanguageVersion.m */; };
 		234CB33410DE638F006EFD6A /* UserProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 234CB32B10DE638F006EFD6A /* UserProperty.m */; };
-		234CB33510DE638F006EFD6A /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 234CB32D10DE638F006EFD6A /* History.m */; };
 		234CB33610DE638F006EFD6A /* GrammarRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 234CB32F10DE638F006EFD6A /* GrammarRule.m */; };
 		234CB33710DE638F006EFD6A /* Quizzable.m in Sources */ = {isa = PBXBuildFile; fileRef = 234CB33110DE638F006EFD6A /* Quizzable.m */; };
 		234CB39F10DED472006EFD6A /* OxNSNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 234CB39E10DED472006EFD6A /* OxNSNumber.m */; };
@@ -72,6 +74,12 @@
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		2338E1DF0F17595A00BEB645 /* Camera.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Camera.icns; sourceTree = "<group>"; };
+		23439A8F112D315F00AA59B2 /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
+		23439A90112D315F00AA59B2 /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
+		23439AA8112D375D00AA59B2 /* QuestionChooser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionChooser.h; sourceTree = "<group>"; };
+		23439AA9112D375D00AA59B2 /* QuestionChooser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionChooser.m; sourceTree = "<group>"; };
+		23439AAB112D3A5600AA59B2 /* QuizQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizQuestion.h; sourceTree = "<group>"; };
+		23439AAC112D3A5600AA59B2 /* QuizQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizQuestion.m; sourceTree = "<group>"; };
 		234CB20A10DE21B5006EFD6A /* OxCoreDataWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OxCoreDataWindow.xib; sourceTree = "<group>"; };
 		234CB20D10DE21D5006EFD6A /* OxCoreDataWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OxCoreDataWindow.h; sourceTree = "<group>"; };
 		234CB20E10DE21D5006EFD6A /* OxCoreDataWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OxCoreDataWindow.m; sourceTree = "<group>"; };
@@ -83,8 +91,6 @@
 		234CB32910DE638F006EFD6A /* LanguageVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageVersion.m; sourceTree = "<group>"; };
 		234CB32A10DE638F006EFD6A /* UserProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProperty.h; sourceTree = "<group>"; };
 		234CB32B10DE638F006EFD6A /* UserProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProperty.m; sourceTree = "<group>"; };
-		234CB32C10DE638F006EFD6A /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
-		234CB32D10DE638F006EFD6A /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
 		234CB32E10DE638F006EFD6A /* GrammarRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrammarRule.h; sourceTree = "<group>"; };
 		234CB32F10DE638F006EFD6A /* GrammarRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrammarRule.m; sourceTree = "<group>"; };
 		234CB33010DE638F006EFD6A /* Quizzable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quizzable.h; sourceTree = "<group>"; };
@@ -227,6 +233,10 @@
 			children = (
 				234CB32210DE61EE006EFD6A /* ProbabilityEstimator.h */,
 				234CB32310DE61EE006EFD6A /* ProbabilityEstimator.m */,
+				23439AA8112D375D00AA59B2 /* QuestionChooser.h */,
+				23439AA9112D375D00AA59B2 /* QuestionChooser.m */,
+				23439AAB112D3A5600AA59B2 /* QuizQuestion.h */,
+				23439AAC112D3A5600AA59B2 /* QuizQuestion.m */,
 			);
 			name = Quiz;
 			sourceTree = "<group>";
@@ -435,8 +445,8 @@
 				234CB32910DE638F006EFD6A /* LanguageVersion.m */,
 				234CB32A10DE638F006EFD6A /* UserProperty.h */,
 				234CB32B10DE638F006EFD6A /* UserProperty.m */,
-				234CB32C10DE638F006EFD6A /* History.h */,
-				234CB32D10DE638F006EFD6A /* History.m */,
+				23439A8F112D315F00AA59B2 /* History.h */,
+				23439A90112D315F00AA59B2 /* History.m */,
 				234CB32E10DE638F006EFD6A /* GrammarRule.h */,
 				234CB32F10DE638F006EFD6A /* GrammarRule.m */,
 				234CB33010DE638F006EFD6A /* Quizzable.h */,
@@ -550,11 +560,13 @@
 				234CB33210DE638F006EFD6A /* Card.m in Sources */,
 				234CB33310DE638F006EFD6A /* LanguageVersion.m in Sources */,
 				234CB33410DE638F006EFD6A /* UserProperty.m in Sources */,
-				234CB33510DE638F006EFD6A /* History.m in Sources */,
 				234CB33610DE638F006EFD6A /* GrammarRule.m in Sources */,
 				234CB33710DE638F006EFD6A /* Quizzable.m in Sources */,
 				234CB39F10DED472006EFD6A /* OxNSNumber.m in Sources */,
 				23F301B210FF287800EA5FA5 /* OxCoreDataObserver.m in Sources */,
+				23439A91112D315F00AA59B2 /* History.m in Sources */,
+				23439AAA112D375D00AA59B2 /* QuestionChooser.m in Sources */,
+				23439AAD112D3A5600AA59B2 /* QuizQuestion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

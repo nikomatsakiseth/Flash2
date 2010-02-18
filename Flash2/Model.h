@@ -34,6 +34,7 @@
 - (Card*)newCardWithText:(NSString*)text kind:(NSString*)aKind language:(id<Language>)language;
 - (UserProperty*)newUserPropertyForCard:(Card*)aCard text:(NSString*)aText relationName:(NSString*)aRelationName;
 - (History*)newHistoryWithQuizzable:(Quizzable*)quizzable
+							inverse:(BOOL)inverse
 						   duration:(double)duration
 							correct:(double)correct;
 
@@ -46,5 +47,11 @@
 - (NSArray*)relatedTexts:(NSString*)aRelationName;
 - (NSString*)relatedText:(NSString*)aRelationName ifNone:(NSString*)dflt;
 - (NSArray*)relatedUserProperties:(NSString*)aRelationName;
+
+@end
+
+@interface History (Additions)
+
+@property(assign) BOOL inverse;
 
 @end

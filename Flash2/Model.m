@@ -57,6 +57,7 @@
 }
 
 - (History*)newHistoryWithQuizzable:(Quizzable*)quizzable 
+							inverse:(BOOL)inverse
 						   duration:(double)duration
 							correct:(double)correct
 {
@@ -64,6 +65,7 @@
 													 inManagedObjectContext:self];
 	history.quizzable = quizzable;
 	history.duration = OxDouble(duration);
+	history.inverse = inverse;
 	history.correct = OxDouble(correct);
 	history.total = OxDouble(1.0);
 	return history;
@@ -122,6 +124,25 @@
 	if(relatedText == nil)
 		return dflt;
 	return relatedText;	   
+}
+
+@end
+
+@implementation History (Additions)
+
++ (NSSet *) keyPathsForValuesAffectingInverse
+{
+	return OxSet(@"inverseObject");
+}
+
+- (BOOL) inverse
+{
+	return [self.inverseObject boolValue];
+}
+
+- (void) setInverse:(BOOL)val
+{
+	self.inverseObject = [NSNumber numberWithBool:val];
 }
 
 @end
