@@ -54,6 +54,8 @@
 		23A536EF0EA9E1B10008153E /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A536EC0EA9E1B10008153E /* Language.m */; };
 		23A538960EAA27FB0008153E /* UpdateCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23A538950EAA27FB0008153E /* UpdateCard.xib */; };
 		23A538C80EAB533E0008153E /* BaseLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A538C70EAB533E0008153E /* BaseLanguage.m */; };
+		23D0361A113142A200787AE4 /* TableLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D03619113142A200787AE4 /* TableLayout.m */; };
+		23D0361E1131436000787AE4 /* RowColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D0361D1131436000787AE4 /* RowColumn.m */; };
 		23D1C9120EF80FB500CF903F /* FlashTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1C9100EF80FB500CF903F /* FlashTextView.m */; };
 		23E77DB60EBDEF2D00C2546E /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 23E77DB50EBDEF2D00C2546E /* Config.m */; };
 		23E77DBF0EBDF0F900C2546E /* KeyboardSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 23E77DBE0EBDF0F900C2546E /* KeyboardSelector.m */; };
@@ -163,6 +165,10 @@
 		23A538950EAA27FB0008153E /* UpdateCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateCard.xib; sourceTree = "<group>"; };
 		23A538C60EAB533E0008153E /* BaseLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseLanguage.h; sourceTree = "<group>"; };
 		23A538C70EAB533E0008153E /* BaseLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseLanguage.m; sourceTree = "<group>"; };
+		23D03618113142A200787AE4 /* TableLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableLayout.h; sourceTree = "<group>"; };
+		23D03619113142A200787AE4 /* TableLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableLayout.m; sourceTree = "<group>"; };
+		23D0361C1131436000787AE4 /* RowColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RowColumn.h; sourceTree = "<group>"; };
+		23D0361D1131436000787AE4 /* RowColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RowColumn.m; sourceTree = "<group>"; };
 		23D1C90F0EF80FB500CF903F /* FlashTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashTextView.h; sourceTree = "<group>"; };
 		23D1C9100EF80FB500CF903F /* FlashTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlashTextView.m; sourceTree = "<group>"; };
 		23E77DB40EBDEF2D00C2546E /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
@@ -237,6 +243,10 @@
 				23439AA9112D375D00AA59B2 /* QuestionChooser.m */,
 				23439AAB112D3A5600AA59B2 /* QuizQuestion.h */,
 				23439AAC112D3A5600AA59B2 /* QuizQuestion.m */,
+				23D03618113142A200787AE4 /* TableLayout.h */,
+				23D03619113142A200787AE4 /* TableLayout.m */,
+				23D0361C1131436000787AE4 /* RowColumn.h */,
+				23D0361D1131436000787AE4 /* RowColumn.m */,
 			);
 			name = Quiz;
 			sourceTree = "<group>";
@@ -567,6 +577,8 @@
 				23439A91112D315F00AA59B2 /* History.m in Sources */,
 				23439AAA112D375D00AA59B2 /* QuestionChooser.m in Sources */,
 				23439AAD112D3A5600AA59B2 /* QuizQuestion.m in Sources */,
+				23D0361A113142A200787AE4 /* TableLayout.m in Sources */,
+				23D0361E1131436000787AE4 /* RowColumn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
